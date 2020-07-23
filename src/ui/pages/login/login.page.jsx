@@ -1,10 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import './login.style.scss'
 
 const Login = () => {
-  return <div className="login-container"> xaxaxaxa </div>
+  return <div className="login-container"> LOGIN AAAAA </div>
 }
-
-Login.propTypes = {}
 
 export { Login }

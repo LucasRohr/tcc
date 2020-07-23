@@ -1,11 +1,12 @@
 import React from 'react'
-import { Login } from 'app-pages'
+import { AppProvider } from 'app-providers'
+import { Routes } from 'app-router'
 
 function App() {
   return (
-    <div>
-      <Login />
-    </div>
+    <AppProvider>
+      <Routes />
+    </AppProvider>
   )
 }
 

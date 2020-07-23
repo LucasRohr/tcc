@@ -13,7 +13,7 @@
       "app-models": ["models/index.js"],
       "app-providers": ["providers/index.js"],
       "app-helpers": ["helpers/index.js"],
-      "app-styles/tools": ["ui/styles/main.scss"],
+      "app-styles": ["ui/styles"],
       "app-icons": ["ui/icons/index.js"],
       "app-formatters": ["formatters/index.js"],
       "app-validators": ["validators/index.js"]
