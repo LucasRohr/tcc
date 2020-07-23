@@ -30,7 +30,6 @@ const routes = [
   },
 
   // Home
-
   {
     path: paths.homeOwner(),
     component: HomeOwner,

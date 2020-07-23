@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { Route } from 'react-router-dom'
 import { useLoggedUser, useRoute, usePermission } from 'app-hooks'
 import { Header, Container } from 'app-components'
@@ -10,13 +10,13 @@ const Page = ({ component: Component, role, permissions, ...props }) => {
   const { goToLogin, goToBegin, setShouldRedirectToOriginalRoute } = useRoute()
   const { hasRole, hasPermission } = usePermission()
 
-  if (loggedUser === null) {
-    goToLogin({ redirectedFrom: props.location, internalRedirect: true })
+  useEffect(() => {
+    if (loggedUser === null) {
+      goToLogin({ redirectedFrom: props.location, internalRedirect: true })
+    }
+  }, [loggedUser, goToLogin, props.location])
 
-    return null
-  }
-
-  if (!loggedUser) return null
+  if (loggedUser === null || !loggedUser) return null
 
   const invalidRole = role && !hasRole(role)
   const invalidPermissions = !permissions.every(permission => hasPermission(permission))
@@ -32,16 +32,27 @@ const Page = ({ component: Component, role, permissions, ...props }) => {
 
   setShouldRedirectToOriginalRoute(false)
 
-  return (
-    <Fragment>
-      <Header />
-      <PrivatePage {...props}>
-        <Container>
-          <Component {...props} />
-        </Container>
-      </PrivatePage>
-    </Fragment>
-  )
+  const checkRender = () => {
+    const hasNoLoggedUser = loggedUser === null || !loggedUser
+    const hasInvalidRoleOrPermissions = invalidRole || invalidPermissions
+
+    if (hasNoLoggedUser || hasInvalidRoleOrPermissions) {
+      return null
+    }
+
+    return (
+      <Fragment>
+        <Header />
+        <PrivatePage {...props}>
+          <Container>
+            <Component {...props} />
+          </Container>
+        </PrivatePage>
+      </Fragment>
+    )
+  }
+
+  return checkRender()
 }
 
 Page.defaultProps = {
