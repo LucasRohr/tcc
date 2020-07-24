@@ -1,0 +1,64 @@
+@mixin toast-pseudo-defaults {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 21px;
+  height: 2px;
+  background-color: currentColor;
+}
+
+.toast-container {
+  width: 100%;
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 24px;
+  background-color: gray;
+  position: fixed;
+  left: 0;
+  z-index: 4;
+  top: 80px;
+
+  &.success {
+    background-color: rgb(38, 182, 38);
+  }
+
+  &.error {
+    background-color: rgb(219, 62, 62);
+  }
+}
+
+.toast-icon {
+  margin-right: 15px;
+}
+
+.toast-message {
+  width: 100%;
+  color: #ffffff;
+  font-size: 20px;
+}
+
+.toast-close-button {
+  color: #ffffff;
+  position: relative;
+  width: 21px;
+  height: 21px;
+  background: none;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &::before {
+    @include toast-pseudo-defaults;
+    transform: rotate(-45deg);
+  }
+
+  &::after {
+    @include toast-pseudo-defaults;
+    transform: rotate(45deg);
+  }
+}

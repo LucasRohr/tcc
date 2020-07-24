@@ -33,9 +33,7 @@ const useLoading = () => {
       const result = await callback
       return result
     } finally {
-      setTimeout(() => {
-        hideLoading()
-      }, 3000)
+      hideLoading()
     }
   }
 

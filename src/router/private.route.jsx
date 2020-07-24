@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react'
 import { Route } from 'react-router-dom'
-import { useLoggedUser, useRoute, usePermission } from 'app-hooks'
-import { Header, Container } from 'app-components'
+import { useLoggedUser, useRoute, usePermission, useToastAlert } from 'app-hooks'
+import { Header, Container, Toast } from 'app-components'
 import { PrivatePage, UserNotConfirmed } from 'app-pages'
 import { USER_STATUS } from 'app-constants'
 
@@ -9,6 +9,7 @@ const Page = ({ component: Component, role, permissions, ...props }) => {
   const { loggedUser } = useLoggedUser()
   const { goToLogin, goToBegin, setShouldRedirectToOriginalRoute } = useRoute()
   const { hasRole, hasPermission } = usePermission()
+  const { showErrorToastAlert } = useToastAlert()
 
   useEffect(() => {
     if (loggedUser === null) {
@@ -22,6 +23,7 @@ const Page = ({ component: Component, role, permissions, ...props }) => {
   const invalidPermissions = !permissions.every(permission => hasPermission(permission))
 
   if (invalidRole || invalidPermissions) {
+    showErrorToastAlert('Você não tem permissão para acessar este recurso.')
     goToBegin()
     return null
   }
@@ -43,6 +45,7 @@ const Page = ({ component: Component, role, permissions, ...props }) => {
     return (
       <Fragment>
         <Header />
+        <Toast />
         <PrivatePage {...props}>
           <Container>
             <Component {...props} />
