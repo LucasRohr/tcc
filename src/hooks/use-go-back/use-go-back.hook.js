@@ -6,7 +6,6 @@ const useGoBack = () => {
   const [goBackIndexList, setGoBackIndexList] = useGlobalGoBack([])
 
   const decreaseCurrentIndex = () => {
-    console.log('entrou')
     setGoBackIndexList(list => {
       const [currentIndex, ...rest] = list
       return [(currentIndex || 0) - 1, ...rest]

@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import createGlobalState from 'react-create-global-state'
 import { useRequest, tokenHelper } from '../api'
 import { User } from 'app-models'
+import { useUser } from '../api'
 
 const [useGlobalLoggedUser, LoggedUserProvider] = createGlobalState()
 let isFirstLoad = true
@@ -17,6 +18,7 @@ const removeToken = () => {
 const useLoggedUser = () => {
   const { get, put } = useRequest('/user')
   const [globalLoggedUser, setGlobalLoggedUser] = useGlobalLoggedUser()
+  const { getPermissions } = useUser()
 
   const removeLoggedUser = () => {
     removeToken()
@@ -37,10 +39,7 @@ const useLoggedUser = () => {
         userType,
       })
 
-      //  TO DO: set user type permissions
-      //   if (userType === roles.ADOPS) {
-      //     userModel.adopsPermissions = await getPermissions()
-      //   }
+      userModel.permissions = await getPermissions(userModel.id)
 
       setGlobalLoggedUser(userModel)
 
@@ -60,7 +59,7 @@ const useLoggedUser = () => {
     if (!globalLoggedUser && isFirstLoad) {
       fetchUserInfo()
     }
-  })
+  }, [])
 
   const setCurrentAccount = account => {
     const loggedUser = { ...globalLoggedUser }

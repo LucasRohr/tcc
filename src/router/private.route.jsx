@@ -14,7 +14,7 @@ const Page = ({ component: Component, role, permissions, ...props }) => {
     if (loggedUser === null) {
       goToLogin({ redirectedFrom: props.location, internalRedirect: true })
     }
-  }, [loggedUser, goToLogin, props.location])
+  }, [loggedUser])
 
   if (loggedUser === null || !loggedUser) return null
 

@@ -1,15 +1,16 @@
 import { http } from './http'
 import { tokenHelper } from './token-helper'
+import { useLoading } from '../../use-loading/use-loading.hook'
 
 const instance = http
 
 const useRequest = path => {
-  const buildHeaders = reCaptchaToken => {
+  const { withLoading } = useLoading()
+
+  const buildHeaders = () => {
     const headers = {}
-    const RECAPTCHA_HEADER = 'X-Recaptcha'
     const AUTHORIZATION_HEADER = 'Authorization'
     headers[AUTHORIZATION_HEADER] = tokenHelper.get()
-    if (reCaptchaToken) headers[RECAPTCHA_HEADER] = reCaptchaToken
     return headers
   }
 
@@ -17,21 +18,12 @@ const useRequest = path => {
     return url ? `${path}/${url}` : path
   }
 
-  const callApi = async ({
-    useStateErrors = true,
-    useToast = true,
-    // TO DO: define app loader on request ans implement loader hook
-    useLoader = true,
-    reCaptchaToken,
-    url,
-    data,
-    ...config
-  }) => {
+  const callApi = async ({ useStateErrors = true, useToast = true, useLoader = true, url, data, ...config }) => {
     config.url = buildUrl(url)
-    config.headers = buildHeaders(reCaptchaToken)
+    config.headers = buildHeaders()
 
     try {
-      const result = await instance.request(config)
+      const result = useLoader ? await withLoading(instance.request(config)) : await instance.request(config)
       return result.data
     } catch (apiError) {
       console.log(apiError)
