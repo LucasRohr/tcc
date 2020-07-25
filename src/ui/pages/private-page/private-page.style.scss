@@ -1,0 +1,14 @@
+@import 'ui/styles/variables.scss';
+
+.privatePage {
+  display: flex;
+  flex-direction: column;
+  margin-top: $header-height;
+  overflow: auto;
+  height: calc(100vh - $header-height);
+  overflow-x: hidden;
+
+  & > div:first-child {
+    flex: 1;
+  }
+}
