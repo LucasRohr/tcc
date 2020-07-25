@@ -2,6 +2,7 @@ import { createBrowserHistory } from 'history'
 
 const basename = process.env.BASENAME
 let history
+// eslint-disable-next-line
 let currentPath = ''
 
 export const useHistory = () => {
