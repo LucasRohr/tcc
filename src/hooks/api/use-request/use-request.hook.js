@@ -21,9 +21,10 @@ const useRequest = path => {
   const [globalLoggedUser, setGlobalLoggedUser] = useGlobalLoggedUser()
 
   const buildHeaders = () => {
-    const headers = {}
+    const headers = { 'Access-Control-Allow-Origin': 'http://localhost:3000' }
     const AUTHORIZATION_HEADER = 'Authorization'
-    headers[AUTHORIZATION_HEADER] = tokenHelper.get()
+    headers[AUTHORIZATION_HEADER] =
+      'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJsdWNhc3JjMTdAbGl2ZS5jb20iLCJhdXRob3JpdGllcyI6W10sImlhdCI6MTU5NjQwNTA4NywiZXhwIjoxNTk2NDkxNDg3fQ.9ua_pJRL8ls5YF9sFfGTxlkiACve5GBqIVPo1_63qs92_rapSdW2HDU2QKC1zVF0QgDEbwvG2Kns2EDS23xwUw'
     return headers
   }
 
@@ -70,6 +71,8 @@ const useRequest = path => {
   const callApi = async ({ useStateErrors = true, useToast = true, useLoader = true, url, data, ...config }) => {
     config.url = buildUrl(url)
     config.headers = buildHeaders()
+
+    console.log(config)
 
     try {
       const result = useLoader ? await withLoading(instance.request(config)) : await instance.request(config)
