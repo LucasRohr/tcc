@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import './text.style.scss'
 
 const VARIANTS_CLASSES = {
-  'san-serif': 'san-serif-text',
+  'sans-serif': 'sans-serif-text',
   serif: 'serif-text',
 }
 
