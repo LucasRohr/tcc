@@ -25,9 +25,11 @@ const Login = () => {
         </div>
 
         <Text variant="serif">
-          Ainda não utiliza nosso serviço?
-          <br />
-          Cadastra-se agora!
+          <span>
+            Ainda não utiliza nosso serviço?
+            <br />
+            Cadastra-se agora!
+          </span>
         </Text>
 
         <Button onClick={sendLogin} variant="light">

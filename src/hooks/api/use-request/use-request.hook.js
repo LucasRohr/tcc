@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { http } from './http'
+import { https } from './https'
 import { tokenHelper } from './token-helper'
 import { useLoading } from '../../use-loading/use-loading.hook'
 import { useToastAlert } from '../../use-toast/use-toast.hook'
@@ -8,7 +8,7 @@ import { useGlobalLoggedUser, removeToken } from '../../use-logged-user/use-logg
 import { RequestError } from 'app-models'
 import { DEFAULT_EXCEPTION } from 'app-constants'
 
-const instance = http
+const instance = https
 
 const UNAUTHORIZED_STATUS = 401
 

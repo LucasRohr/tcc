@@ -141,23 +141,22 @@ const useInput = ({
   }
 
   const getInputComponent = key => (
-    <div key={key}>
-      <Input
-        {...props}
-        getRef={ref}
-        name={name}
-        onChange={handleChange}
-        type={type}
-        onBlur={handleBlur}
-        onFocus={handleFocus}
-        value={inputValue}
-        label={label}
-        error={error}
-        usePassword={usePassword}
-        disabled={isInputDisabled}
-        changeInputValue={changeInputValue}
-      />
-    </div>
+    <Input
+      {...props}
+      key={key}
+      getRef={ref}
+      name={name}
+      onChange={handleChange}
+      type={type}
+      onBlur={handleBlur}
+      onFocus={handleFocus}
+      value={inputValue}
+      label={label}
+      error={error}
+      usePassword={usePassword}
+      disabled={isInputDisabled}
+      changeInputValue={changeInputValue}
+    />
   )
 
   return {

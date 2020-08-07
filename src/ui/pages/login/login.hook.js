@@ -8,14 +8,14 @@ const useLogin = () => {
     name: 'email',
     type: 'email',
     label: 'Email',
-    variant: 'larger',
+    variant: 'full',
     validators: [value => emailValidator({ value })],
   })
 
   const password = useInput({
     name: 'password',
     type: 'password',
-    variant: 'larger',
+    variant: 'full',
     label: 'Digite sua senha',
     usePassword: true,
   })

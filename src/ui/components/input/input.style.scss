@@ -84,7 +84,7 @@
   height: 100%;
   position: relative;
   border: none;
-  color: $light-gray;
+  color: $gray;
   background-color: $white;
   caret-color: $primary;
   font-size: 20px;
@@ -118,10 +118,6 @@
   }
 
   &:focus + .input-label {
-    @include label-small();
-  }
-
-  &:valid + .input-label {
     @include label-small();
   }
 
