@@ -1,0 +1,149 @@
+@import 'ui/styles/variables.scss';
+
+@mixin input-and-label-mixin {
+  width: 100%;
+  position: relative;
+  display: inline-flex;
+  border-radius: $border-radius;
+  border: 1px solid $light-gray;
+  height: 64px;
+  align-items: flex-end;
+}
+
+@mixin label-small {
+  font-size: 14px;
+  line-height: 16px;
+  margin-top: -12px;
+  margin-bottom: 5px;
+  font-weight: normal;
+}
+
+.input-container-medium {
+  width: 100%;
+  max-width: 288px;
+  margin-bottom: 16px;
+}
+
+.input-container-larger {
+  width: 100%;
+  max-width: 496px;
+  margin-bottom: 16px;
+}
+
+.input-container-without-margins {
+  width: 100%;
+  max-width: 496px;
+  margin-bottom: 0px;
+}
+
+.input-container-full {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 16px;
+}
+
+.input-and-label {
+  @include input-and-label-mixin();
+}
+
+.input-label {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 24px;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 300;
+  transition-duration: 0.2s;
+  transition-property: color, font-size, margin-top;
+}
+
+.input-and-label-with-error {
+  @include input-and-label-mixin();
+  border-top-color: $red;
+
+  & > label {
+    color: $red;
+  }
+}
+
+.input-and-label-disabled {
+  @include input-and-label-mixin();
+
+  & .input {
+    background-color: $light-gray;
+  }
+
+  & .input-label {
+    color: $gray;
+  }
+}
+
+.input {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border: none;
+  color: $light-gray;
+  background-color: $white;
+  caret-color: $primary;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 300;
+  padding: 30px 64px 14px 24px;
+  border-radius: inherit;
+
+  &::placeholder {
+    font-size: 20px;
+    color: $light-gray;
+    transition-property: opacity;
+    transition-duration: 0s;
+    transition-delay: 0s;
+    opacity: 0;
+  }
+
+  &:focus::placeholder {
+    transition-property: opacity;
+    transition-duration: 0.3s;
+    transition-delay: 0.2s;
+    opacity: 1;
+  }
+
+  &:not(:placeholder-shown) + .input-label {
+    @include label-small();
+  }
+
+  &:not(:-ms-input-placeholder) + .input-label {
+    @include label-small();
+  }
+
+  &:focus + .input-label {
+    @include label-small();
+  }
+
+  &:valid + .input-label {
+    @include label-small();
+  }
+
+  &:-webkit-autofill {
+    transition: background-color 50000s ease-in-out 0s;
+  }
+
+  &[type='number']::-webkit-inner-spin-button,
+  &[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type='number'] {
+    -moz-appearance: textfield;
+  }
+}
+
+.input-calendar-icon {
+  & svg {
+    width: 24px;
+    height: 24px;
+    fill: $primary;
+  }
+}

@@ -1,0 +1,17 @@
+@import 'ui/styles/variables.scss';
+
+@mixin default-text {
+  color: $black;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.san-serif-text {
+  @include default-text();
+  font-family: 'Noto Sans';
+}
+
+.serif-text {
+  @include default-text();
+  font-family: 'Merryweather';
+}
