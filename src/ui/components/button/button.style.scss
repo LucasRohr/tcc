@@ -1,0 +1,58 @@
+@import 'ui/styles/variables.scss';
+
+@mixin common-button {
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: $border-radius;
+  line-height: 24px;
+  padding: 12px 24px;
+  border: none;
+  transition-duration: 0.2s;
+
+  &[disabled] {
+    opacity: 0.2;
+    cursor: default;
+  }
+}
+
+.light-button {
+  @include common-button();
+  color: $primary;
+  background-color: $white;
+  border: 1px solid $primary-light;
+
+  &:active {
+    background: $primary-light;
+    color: $white;
+  }
+}
+
+.primary-button {
+  @include common-button();
+  color: $white;
+  background-color: $primary;
+
+  &:hover,
+  &:focus {
+    background: $primary-light;
+  }
+
+  &:active {
+    background: $primary-dark;
+  }
+}
+
+.secondary-button {
+  @include common-button();
+  color: $white;
+  background-color: $red;
+
+  &:hover,
+  &:focus {
+    background: $red-light;
+  }
+
+  &:active {
+    background: $red-dark;
+  }
+}

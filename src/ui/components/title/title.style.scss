@@ -1,0 +1,18 @@
+@import 'ui/styles/variables.scss';
+
+@mixin default-title {
+  color: $black;
+  font-weight: bold;
+  font-size: 45px;
+  line-height: 57px;
+}
+
+.sans-serif-title {
+  @include default-title();
+  font-family: 'Noto Sans';
+}
+
+.serif-title {
+  @include default-title();
+  font-family: 'Merryweather';
+}

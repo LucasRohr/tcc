@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { http } from './http'
+import { https } from './https'
 import { tokenHelper } from './token-helper'
 import { useLoading } from '../../use-loading/use-loading.hook'
 import { useToastAlert } from '../../use-toast/use-toast.hook'
@@ -8,7 +8,7 @@ import { useGlobalLoggedUser, removeToken } from '../../use-logged-user/use-logg
 import { RequestError } from 'app-models'
 import { DEFAULT_EXCEPTION } from 'app-constants'
 
-const instance = http
+const instance = https
 
 const UNAUTHORIZED_STATUS = 401
 
@@ -25,6 +25,12 @@ const useRequest = path => {
     const AUTHORIZATION_HEADER = 'Authorization'
     headers[AUTHORIZATION_HEADER] = tokenHelper.get()
     return headers
+  }
+
+  const buildData = data => {
+    if (data) {
+      return data
+    }
   }
 
   const buildUrl = url => {
@@ -67,13 +73,22 @@ const useRequest = path => {
     }
   }
 
-  const callApi = async ({ useStateErrors = true, useToast = true, useLoader = true, url, data, ...config }) => {
+  const callApi = async ({
+    useStateErrors = true,
+    useToast = true,
+    useLoader = true,
+    url,
+    data,
+    returnHeader = false,
+    ...config
+  }) => {
     config.url = buildUrl(url)
+    config.data = buildData(data)
     config.headers = buildHeaders()
 
     try {
       const result = useLoader ? await withLoading(instance.request(config)) : await instance.request(config)
-      return result.data
+      return returnHeader ? { header: result.headers, data: result.data } : result.data
     } catch (apiError) {
       if (apiError.response) {
         handleErrorStatus(apiError.response && apiError.response.status)

@@ -1,0 +1,38 @@
+.login-confirmation-form-container {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  & > span {
+    font-size: 28px;
+    line-height: 32px;
+    margin-bottom: 20px;
+  }
+
+  & > form {
+    width: 100%;
+    align-items: flex-end;
+
+    & > div:first-child {
+      width: 100%;
+    }
+
+    & > div:last-child {
+      margin-top: 0;
+      justify-content: flex-end;
+
+      & > button {
+        padding: 12px 80px;
+        font-size: 22px;
+      }
+    }
+  }
+}
+
+.login-confirmation-buttons-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
