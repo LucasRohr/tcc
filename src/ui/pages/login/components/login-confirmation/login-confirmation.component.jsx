@@ -30,7 +30,7 @@ const LoginConfirmation = ({ goBack }) => {
 
   return (
     <div className="login-confirmation-form-container">
-      <Text variant="san-serif">Digite o código de login recebido</Text>
+      <Text variant="sans-serif">Digite o código de login recebido</Text>
       <Form onSubmit={sendLogin} buttons={renderFormButton} content={renderFields} isValid={isValid} />
     </div>
   )

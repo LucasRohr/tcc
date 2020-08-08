@@ -79,7 +79,7 @@ const Login = () => {
 
     return (
       <div className="login-form-container">
-        <Text variant="san-serif">Login</Text>
+        <Text variant="sans-serif">Login</Text>
         <Form onSubmit={sendLogin} buttons={renderFormButton} content={renderFields} isValid={isValid} />
       </div>
     )

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import './title.style.scss'
 
 const VARIANTS_CLASSES = {
-  'san-serif': 'san-serif-title',
+  'sans-serif': 'sans-serif-title',
   serif: 'serif-title',
 }
 
