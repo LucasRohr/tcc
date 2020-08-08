@@ -1,8 +1,9 @@
-import { useForm, useInput } from 'app-hooks'
+import { useForm, useInput, useLogin } from 'app-hooks'
 import { emailValidator } from 'app-validators'
 
-const useLogin = () => {
+const useLoginForm = () => {
   const { isValid, getForm } = useForm()
+  const { login } = useLogin()
 
   const email = useInput({
     name: 'email',
@@ -27,7 +28,9 @@ const useLogin = () => {
     password: password.value,
   })
 
-  const sendToApi = apiObject => apiObject
+  const sendToApi = async apiObject => {
+    return await login(apiObject)
+  }
 
   return {
     renderFields: () => getForm(fields),
@@ -37,4 +40,4 @@ const useLogin = () => {
   }
 }
 
-export { useLogin }
+export { useLoginForm }

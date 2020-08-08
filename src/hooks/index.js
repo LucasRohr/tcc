@@ -1,6 +1,6 @@
+export * from './api'
 export { useHistory } from './use-history/use-history.hook'
 export { usePermission } from './use-permission/use-permission.hook'
-export { useRequest, tokenHelper } from './api'
 export { GoBackProvider } from './use-go-back/use-go-back.hook'
 export { useRoute, OriginalRouteRedirectProvider } from './use-route/use-route.hook'
 export { useLoading, LoadingProvider } from './use-loading/use-loading.hook'

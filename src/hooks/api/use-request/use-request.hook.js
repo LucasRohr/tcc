@@ -27,6 +27,12 @@ const useRequest = path => {
     return headers
   }
 
+  const buildData = data => {
+    if (data) {
+      return data
+    }
+  }
+
   const buildUrl = url => {
     return url ? `${path}/${url}` : path
   }
@@ -67,13 +73,22 @@ const useRequest = path => {
     }
   }
 
-  const callApi = async ({ useStateErrors = true, useToast = true, useLoader = true, url, data, ...config }) => {
+  const callApi = async ({
+    useStateErrors = true,
+    useToast = true,
+    useLoader = true,
+    url,
+    data,
+    returnHeader = false,
+    ...config
+  }) => {
     config.url = buildUrl(url)
+    config.data = buildData(data)
     config.headers = buildHeaders()
 
     try {
       const result = useLoader ? await withLoading(instance.request(config)) : await instance.request(config)
-      return result.data
+      return returnHeader ? { header: result.headers, data: result.data } : result.data
     } catch (apiError) {
       if (apiError.response) {
         handleErrorStatus(apiError.response && apiError.response.status)

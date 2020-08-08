@@ -2,19 +2,21 @@ import React, { useState } from 'react'
 import './login.style.scss'
 import { LogoIcon } from 'app-icons'
 import { Button, Title, Text, Form } from 'app-components'
-import { useLogin } from './login.hook'
+import { useLoginForm } from './login.hook'
 import { LoginConfirmation } from './components/index'
+import { tokenHelper } from 'app-hooks'
 
 const Login = () => {
   const [hasToConfirmCode, setHasToConfirmCode] = useState('')
 
-  const { renderFields, buildApiObject, sendToApi, isValid } = useLogin()
+  const { renderFields, buildApiObject, sendToApi, isValid } = useLoginForm()
 
   const sendLogin = async () => {
     const loginObject = buildApiObject()
     const result = await sendToApi(loginObject)
 
-    if (result) {
+    if (result && result.header) {
+      tokenHelper.save(result.header.authorization)
       setHasToConfirmCode(true)
     }
   }
