@@ -15,7 +15,6 @@ const VARIANTS_CLASSES = {
 }
 
 const Input = ({
-  classes,
   variant,
   disabled,
   name,
