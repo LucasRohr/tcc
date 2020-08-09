@@ -39,6 +39,11 @@ const useRoute = () => {
     changeRoute(paths.login(), config)
   }
 
+  // Register
+  const goToRegister = config => {
+    changeRoute(paths.register(), config)
+  }
+
   // Begin
   const goToBegin = config => {
     changeRoute(paths.begin(), config)
@@ -75,6 +80,7 @@ const useRoute = () => {
     goTo,
     goBack,
     goToLogin,
+    goToRegister,
     goToHomeOwner,
     goToHomeHeir,
     goToBegin,

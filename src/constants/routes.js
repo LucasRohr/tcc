@@ -1,8 +1,11 @@
-import { Login, HomeHeir, Begin, HomeOwner } from 'app-pages'
+import { Login, HomeHeir, Begin, HomeOwner, Register } from 'app-pages'
 
 const paths = {
   // Login
   login: () => '/login',
+
+  //Register
+  register: () => '/registro',
 
   //Begin
   begin: () => '/',
@@ -20,6 +23,13 @@ const routes = [
   {
     path: paths.login(),
     component: Login,
+    isPublic: true,
+  },
+
+  //Register
+  {
+    path: paths.register(),
+    component: Register,
     isPublic: true,
   },
 
