@@ -1,0 +1,22 @@
+@import 'ui/styles/variables.scss';
+
+.register-final-step-container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  & > span {
+    text-align: right;
+    font-size: 36px;
+    line-height: 40px;
+    color: $primary;
+    margin-bottom: 38px;
+    max-width: 60%;
+  }
+
+  & > button {
+    margin-bottom: 120px;
+  }
+}

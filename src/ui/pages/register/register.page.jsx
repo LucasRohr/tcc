@@ -6,47 +6,65 @@ import { ROLES } from 'app-constants'
 import { UserTypeStep, MainFormStep, PasswordStep, AccountStep, FinalStep } from './components'
 
 import './register.style.scss'
+import { ProgressBar } from 'ui/components/progress-bar/progress-bar.component'
 
 const FIRST_STEP = 0
 
 const Register = () => {
   const [completedRegister, setCompletedRegister] = useState(false)
   const [currentStep, setCurrentStep] = useState(FIRST_STEP)
-  const [registerObject, setRegisterObject] = useState({ mainForm: {}, passwordForm: {}, accountForm: {} })
+  const [registerObject, setRegisterObject] = useState({ mainForm: {}, passwordForm: {}, account: '' })
 
   const isCreatingHeirAccount = window.location.pathname.includes('herdeiro')
+  const firstAccountType = isCreatingHeirAccount ? ROLES.HEIR : ROLES.OWNER
 
   const { goToLogin } = useRoute()
 
   const registerUserWithAccount = () => {
+    const apiObject = {
+      ...registerObject.mainForm,
+      password: registerObject.passwordForm.password,
+      account: registerObject.account,
+      firstAccountType,
+    }
+
     setCompletedRegister(true)
-    return registerObject
+    return apiObject
+  }
+
+  const increaseStep = () => {
+    setCurrentStep(prevCurrentStep => prevCurrentStep + 1)
+  }
+
+  const decreaseStep = () => {
+    setCurrentStep(prevCurrentStep => prevCurrentStep - 1)
   }
 
   const registerSteps = useMemo(
     () => [
       {
         component: UserTypeStep,
-        props: { firstAccountType: isCreatingHeirAccount ? ROLES.HEIR : ROLES.OWNER, setCurrentStep },
+        props: { firstAccountType, increaseStep },
       },
 
       {
         component: MainFormStep,
-        props: { mainFormObject: registerObject.mainForm, setRegisterObject, setCurrentStep },
+        props: { mainFormObject: registerObject.mainForm, setRegisterObject, increaseStep, decreaseStep },
       },
 
       {
         component: PasswordStep,
-        props: { passwordFormObject: registerObject.passwordForm, setRegisterObject, setCurrentStep },
+        props: { passwordFormObject: registerObject.passwordForm, setRegisterObject, increaseStep, decreaseStep },
       },
 
       {
         component: AccountStep,
         props: {
-          accountFormObject: registerObject.accountForm,
+          firstAccountType,
           setRegisterObject,
           onConfirm: registerUserWithAccount,
-          setCurrentStep,
+          increaseStep,
+          decreaseStep,
         },
       },
 
@@ -55,7 +73,7 @@ const Register = () => {
         props: {},
       },
     ],
-    []
+    [registerObject]
   )
 
   const renderLeftContent = () => {
@@ -115,7 +133,12 @@ const Register = () => {
   return (
     <div className="register-container">
       {renderLeftContent()}
-      <div className="register-right-content-wrapper">{checkStepRender()}</div>
+      <div className="register-right-content-wrapper">
+        {checkStepRender()}
+        <div className="register-right-content-bar-wraper">
+          <ProgressBar currentStep={currentStep} totalSteps={registerSteps.length - 1} />
+        </div>
+      </div>
     </div>
   )
 }

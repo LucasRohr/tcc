@@ -6,6 +6,7 @@ import './form.style.scss'
 const Form = ({ className, content, buttons, onSubmit, isValid }) => {
   const handleSubmit = async event => {
     event.preventDefault()
+
     if (await isValid()) {
       onSubmit()
     }

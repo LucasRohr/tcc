@@ -1,3 +1,5 @@
+@import 'ui/styles/variables.scss';
+
 @mixin toast-pseudo-defaults {
   content: '';
   position: absolute;
@@ -15,18 +17,18 @@
   align-items: center;
   justify-content: space-between;
   padding: 0px 24px;
-  background-color: gray;
+  background-color: $gray;
   position: fixed;
   left: 0;
   z-index: 4;
   top: 80px;
 
   &.success {
-    background-color: rgb(38, 182, 38);
+    background-color: $green;
   }
 
   &.error {
-    background-color: rgb(219, 62, 62);
+    background-color: $red;
   }
 }
 
@@ -36,12 +38,12 @@
 
 .toast-message {
   width: 100%;
-  color: #ffffff;
+  color: $white;
   font-size: 20px;
 }
 
 .toast-close-button {
-  color: #ffffff;
+  color: $white;
   position: relative;
   width: 21px;
   height: 21px;

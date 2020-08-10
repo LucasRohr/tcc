@@ -1,0 +1,50 @@
+@import 'ui/styles/variables.scss';
+
+@mixin flex-mixin {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.register-user-type-container {
+  width: 80%;
+  margin-bottom: 80px;
+  @include flex-mixin();
+}
+
+.register-user-type-title-container {
+  @include flex-mixin();
+
+  & > h1 {
+    margin-bottom: 15px;
+  }
+
+  & > span {
+    font-size: 25px;
+  }
+}
+
+.register-user-type-content {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 50px 0;
+
+  & > span {
+    font-size: 25px;
+    line-height: 28px;
+    max-width: 70%;
+    text-align: right;
+    margin-left: 60px;
+  }
+}
+
+.register-user-type-icon {
+  & svg {
+    width: 130px;
+    height: 130px;
+    fill: $primary;
+  }
+}

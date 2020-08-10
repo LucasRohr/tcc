@@ -8,7 +8,7 @@ const useLoginForm = () => {
   const email = useInput({
     name: 'email',
     type: 'email',
-    label: 'Email',
+    label: 'E-mail',
     variant: 'full',
     validators: [value => emailValidator({ value })],
   })
