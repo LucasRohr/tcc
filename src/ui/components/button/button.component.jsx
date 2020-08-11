@@ -9,7 +9,7 @@ const VARIANTS_CLASSES = {
   light: 'light-button',
 }
 
-const Button = ({ className, children, variant, onClick, type, disabled, dataSelector, tabIndex, ...props }) => {
+const Button = ({ className, children, variant, onClick, type, disabled, ...props }) => {
   return (
     <button
       type={type}
@@ -17,7 +17,6 @@ const Button = ({ className, children, variant, onClick, type, disabled, dataSel
       onClick={onClick}
       disabled={disabled}
       children={children}
-      tabIndex={tabIndex}
       {...props}
     />
   )

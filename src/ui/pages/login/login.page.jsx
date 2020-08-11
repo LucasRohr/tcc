@@ -10,7 +10,7 @@ const Login = () => {
   const [hasToConfirmCode, setHasToConfirmCode] = useState('')
 
   const { renderFields, buildApiObject, sendToApi, isValid } = useLoginForm()
-  const { goToRegister } = useRoute()
+  const { goToRegister, goToHome } = useRoute()
 
   const sendLogin = async () => {
     const loginObject = buildApiObject()
@@ -83,7 +83,7 @@ const Login = () => {
     return (
       <div className="login-form-container">
         <Text variant="sans-serif">Login</Text>
-        <Form onSubmit={sendLogin} buttons={renderFormButton} content={renderFields} isValid={isValid} />
+        <Form onSubmit={goToHome} buttons={renderFormButton} content={renderFields} isValid={isValid} />
       </div>
     )
   }

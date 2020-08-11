@@ -1,0 +1,58 @@
+@import 'ui/styles/variables.scss';
+
+@mixin common-circle-button {
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  transition-duration: 0.2s;
+  padding: 12px;
+
+  &[disabled] {
+    opacity: 0.2;
+    cursor: default;
+  }
+}
+
+.primary-circle-button {
+  @include common-circle-button();
+  background-color: $primary;
+
+  & svg {
+    width: 28px;
+    height: 28px;
+    fill: $white;
+  }
+
+  &:hover,
+  &:focus {
+    background: $primary-light;
+  }
+
+  &:active {
+    background: $primary-dark;
+  }
+}
+
+.secondary-circle-button {
+  @include common-circle-button();
+  background-color: $white;
+  border: 1px solid $primary-light;
+
+  & svg {
+    width: 28px;
+    height: 28px;
+    fill: $primary;
+  }
+
+  &:active {
+    background: $primary-light;
+
+    & svg {
+      color: $white;
+    }
+  }
+}
