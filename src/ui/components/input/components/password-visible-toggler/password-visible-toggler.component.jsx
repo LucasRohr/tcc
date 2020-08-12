@@ -4,7 +4,8 @@ import { EyeIcon } from 'app-icons'
 import './password-visible-toggler.style.scss'
 
 const PasswordVisibleToggler = ({ isVisible, onClick }) => {
-  const handleClick = e => {
+  const handleClick = event => {
+    event.preventDefault()
     onClick(!isVisible)
   }
 

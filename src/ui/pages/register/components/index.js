@@ -1,0 +1,5 @@
+export { UserTypeStep } from './user-type-step/user-type-step.component'
+export { MainFormStep } from './main-form-step/main-form-step.component'
+export { PasswordStep } from './password-step/password-step.component'
+export { AccountStep } from './account-step/account-step.component'
+export { FinalStep } from './final-step/final-step.component'

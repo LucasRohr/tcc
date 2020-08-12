@@ -13,7 +13,6 @@ Error.defaultProps = {
 
 Error.propTypes = {
   error: PropTypes.string.isRequired,
-  dataSelector: PropTypes.string.isRequired,
   padLeft: PropTypes.bool,
 }
 

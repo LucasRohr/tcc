@@ -4,12 +4,13 @@ import { LogoIcon } from 'app-icons'
 import { Button, Title, Text, Form } from 'app-components'
 import { useLoginForm } from './login.hook'
 import { LoginConfirmation } from './components/index'
-import { tokenHelper } from 'app-hooks'
+import { tokenHelper, useRoute } from 'app-hooks'
 
 const Login = () => {
   const [hasToConfirmCode, setHasToConfirmCode] = useState('')
 
   const { renderFields, buildApiObject, sendToApi, isValid } = useLoginForm()
+  const { goToRegister } = useRoute()
 
   const sendLogin = async () => {
     const loginObject = buildApiObject()
@@ -47,7 +48,7 @@ const Login = () => {
             </span>
           </Text>
 
-          <Button onClick={sendLogin} variant="light">
+          <Button onClick={goToRegister} variant="light">
             Cadastrar
           </Button>
         </>
