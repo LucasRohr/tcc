@@ -1,8 +1,7 @@
 import createGlobalState from 'react-create-global-state'
 import { useHistory } from '../use-history/use-history.hook'
 import { useGoBack } from '../use-go-back/use-go-back.hook'
-import { paths, ROLES } from 'app-constants'
-import { useLoggedUser } from '../use-logged-user/use-logged-user.hook'
+import { paths } from 'app-constants'
 
 const [useGlobalOriginalRouteRedirect, OriginalRouteRedirectProvider] = createGlobalState(true)
 
@@ -14,7 +13,6 @@ const useRoute = () => {
   const [shouldRedirectToOriginalRoute, setShouldRedirectToOriginalRoute] = useGlobalOriginalRouteRedirect(true)
   const { history } = useHistory()
   const { startNewIndex, decreaseCurrentIndex, getGoBackIndex } = useGoBack()
-  const { loggedUser } = useLoggedUser()
 
   const handlePath = (path, cleanConfig) => {
     if (window.location.pathname === path) {
@@ -51,18 +49,9 @@ const useRoute = () => {
     changeRoute(paths.begin(), config)
   }
 
-  // Homes
+  // Home
   const goToHome = config => {
-    const homePath = loggedUser && loggedUser.currentAccount.type === ROLES.OWNER ? paths.homeOwner() : paths.homeHeir()
-    changeRoute(homePath, config)
-  }
-
-  const goToHomeOwner = config => {
-    changeRoute(paths.homeOwner(), config)
-  }
-
-  const goToHomeHeir = config => {
-    changeRoute(paths.homeHeir(), config)
+    changeRoute(paths.home(), config)
   }
 
   //Generic
@@ -89,8 +78,6 @@ const useRoute = () => {
     goToLogin,
     goToRegister,
     goToHome,
-    goToHomeOwner,
-    goToHomeHeir,
     goToBegin,
     setShouldRedirectToOriginalRoute,
   }

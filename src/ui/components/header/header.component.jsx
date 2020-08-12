@@ -1,21 +1,24 @@
 import React, { useState } from 'react'
-import './header.style.scss'
-import { LogoIcon, AccountsIcon, UserIcon } from 'app-icons'
+import { LogoIcon, AccountsIcon } from 'app-icons'
 import { Text } from '../text/text.component'
-import { NotificationsTab } from './components'
-import { CircleButton } from '../circle-button/circle-button.component'
 import { noopFunction } from 'app-helpers'
-import { useLoggedUser } from 'app-hooks'
+import { NotificationsTab, ProfileTab } from './components'
+import { CircleButton } from '../circle-button/circle-button.component'
+
+import './header.style.scss'
 
 const Header = () => {
   const [isNotificationsTabOpened, setIsNotificationsTabOpened] = useState(false)
   const [isProfileTabOpened, setIsProfileTabOpened] = useState(false)
 
-  const { loggedUser } = useLoggedUser()
-
   const onNotificationsClick = () => {
     setIsNotificationsTabOpened(!isNotificationsTabOpened)
     setIsProfileTabOpened(false)
+  }
+
+  const onProfileClick = () => {
+    setIsProfileTabOpened(!isProfileTabOpened)
+    setIsNotificationsTabOpened(false)
   }
 
   const renderHeaderActions = () => (
@@ -28,13 +31,7 @@ const Header = () => {
 
       <CircleButton onClick={noopFunction} variant="secondary" icon={<AccountsIcon />} />
 
-      <div className="header-user-menu-container">
-        <div>
-          <Text variant="sans-serif">{loggedUser.name}</Text>
-          <Text variant="sans-serif">{loggedUser.email}</Text>
-        </div>
-        <UserIcon className="header-user-icon" />
-      </div>
+      <ProfileTab onClick={onProfileClick} clicked={isProfileTabOpened} selected={isProfileTabOpened} />
     </div>
   )
 

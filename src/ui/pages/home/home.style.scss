@@ -1,0 +1,41 @@
+@import 'ui/styles/variables.scss';
+
+.home-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  & > h1 {
+    font-size: 30px;
+    color: $gray;
+    margin-bottom: 50px;
+  }
+}
+
+.home-services-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  & > div:first-child {
+    width: 100%;
+    padding: 20px 16px;
+    border-bottom: 1px solid $clear-gray;
+    margin-bottom: 90px;
+    font-size: 24px;
+    font-weight: 400;
+    color: $gray;
+  }
+}
+
+.home-services-cards-container {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}

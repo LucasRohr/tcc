@@ -1,11 +1,11 @@
 @import 'ui/styles/variables.scss';
 
-.privatePage {
+.private-page {
   display: flex;
   flex-direction: column;
-  margin-top: $header-height;
-  overflow: auto;
-  height: calc(100vh - $header-height);
+  padding: 40px;
+  overflow-y: auto;
+  height: calc(100vh - 80px);
   overflow-x: hidden;
 
   & > div:first-child {
