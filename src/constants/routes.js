@@ -1,4 +1,4 @@
-import { Login, HomeHeir, Begin, HomeOwner, Register } from 'app-pages'
+import { Login, Home, Begin, Register } from 'app-pages'
 
 const paths = {
   // Login
@@ -10,9 +10,8 @@ const paths = {
   //Begin
   begin: () => '/',
 
-  // Homes
-  homeOwner: () => '/proprietario',
-  homeHeir: () => '/herdeiro',
+  // Home
+  home: () => '/home',
 
   //Generic
   reload: () => '/reload',
@@ -41,13 +40,8 @@ const routes = [
 
   // Home
   {
-    path: paths.homeOwner(),
-    component: HomeOwner,
-  },
-
-  {
-    path: paths.homeHeir(),
-    component: HomeHeir,
+    path: paths.home(),
+    component: Home,
   },
 
   // Generic

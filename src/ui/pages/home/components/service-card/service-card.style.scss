@@ -1,0 +1,87 @@
+@import 'ui/styles/variables.scss';
+
+@mixin service-card-container-mixin {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 450px;
+  height: 210px;
+  padding: 30px 28px;
+  border: 2px solid $primary-light;
+  border-radius: $border-radius;
+  cursor: pointer;
+
+  & > span {
+    color: $primary;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 27px;
+    margin-bottom: 20px;
+  }
+}
+
+.service-card-container {
+  @include service-card-container-mixin();
+
+  &:hover {
+    transition: 0.3s;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
+
+    & .service-card-icon-container {
+      transition: 0.2s;
+      transform: scale(1.1);
+    }
+  }
+}
+
+.service-card-container-disabled {
+  @include service-card-container-mixin();
+  position: relative;
+  cursor: none;
+  pointer-events: none;
+  border: 2px solid $clear-gray;
+
+  &::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    border-radius: $border-radius;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.service-card-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  & > span {
+    color: $gray;
+    font-size: 22px;
+    line-height: 25px;
+    margin-right: 20px;
+  }
+}
+
+.service-card-icon-container {
+  min-width: 90px;
+  min-height: 90px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid $primary-light;
+  margin-bottom: 20px;
+
+  & svg {
+    width: 48px;
+    height: 48px;
+    fill: $primary;
+  }
+}

@@ -3,7 +3,7 @@ import './private-page.style.scss'
 
 const PrivatePage = ({ children }) => {
   return (
-    <div id="privatePage" className="privatePage" dataSelector="privatePage">
+    <div id="privatePage" className="private-page">
       {children}
     </div>
   )

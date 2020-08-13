@@ -1,0 +1,123 @@
+@import 'ui/styles/variables.scss';
+
+@mixin notification-unread-mixin {
+  display: flex;
+  align-items: center;
+}
+
+.notifications-dropbox-wrapper {
+  & > button:first-child {
+    width: fit-content;
+    height: fit-content;
+    margin-right: 25px;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}
+
+.notifications-scroll-area {
+  overflow-y: auto;
+  max-height: 469px;
+  min-width: 350px;
+}
+
+.notifications-empty-container {
+  width: 396px;
+  height: 203px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  & > span {
+    font-size: 18px;
+    line-height: 18px;
+    color: $light-gray;
+    margin-top: 16px;
+  }
+}
+
+.notifications-empty-icon {
+  & svg {
+    width: 80px;
+    height: 80px;
+    fill: $light-gray;
+  }
+}
+
+.notification-option {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 30px 50px 30px 24px;
+  line-height: initial;
+  font-weight: initial;
+  transition-duration: 0.2s;
+  background-color: $white;
+  box-shadow: 0px 9px 44px rgba(0, 0, 0, 0.071);
+
+  & > span {
+    font-size: 24px;
+    color: $gray;
+  }
+
+  &:hover {
+    background-color: $clear-gray;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.notification-option-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  padding: 10px;
+  background-color: $white;
+  border: 1px solid $primary;
+  margin-right: 16px;
+  border-radius: 50%;
+}
+
+.notification-option-icon {
+  & svg {
+    width: 24px;
+    height: 24px;
+    fill: $primary;
+  }
+}
+
+.notification-circle-button-wrapper {
+  position: relative;
+}
+
+.notifications-counter {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $white;
+  font-size: 12px;
+  width: 20px;
+  height: 20px;
+  margin-left: 16px;
+  margin-top: calc(100% - 54px);
+  background-color: $red;
+  border-radius: 50%;
+}
+
+.notification-unread {
+  @include notification-unread-mixin();
+}
+
+.notification-read {
+  @include notification-unread-mixin();
+  opacity: 0.5;
+}

@@ -29,21 +29,21 @@ const useLoggedUser = () => {
     isFirstLoad = false
 
     try {
-      const { user, accounts } = await get('me', { useToast: false, useStateErrors: false })
+      const { user = {}, accounts } = await get('me', { useToast: false, useStateErrors: false })
 
-      const userType = user.scope[0]
+      const currentAccount = user.accounts[0]
 
       const userModel = new User({
         ...user,
         accounts,
-        userType,
+        currentAccount,
       })
 
-      userModel.permissions = await getPermissions(userModel.id)
+      userModel.currentAccount.permissions = await getPermissions(currentAccount.id)
 
       setGlobalLoggedUser(userModel)
 
-      const currentAccountId = accounts[0] && accounts[0].account.id
+      const currentAccountId = accounts[0] && accounts[0].id
       updateLastAccess(currentAccountId)
     } catch (error) {
       removeLoggedUser()

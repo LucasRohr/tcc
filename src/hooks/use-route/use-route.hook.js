@@ -49,13 +49,9 @@ const useRoute = () => {
     changeRoute(paths.begin(), config)
   }
 
-  // Homes
-  const goToHomeOwner = config => {
-    changeRoute(paths.homeOwner(), config)
-  }
-
-  const goToHomeHeir = config => {
-    changeRoute(paths.homeHeir(), config)
+  // Home
+  const goToHome = config => {
+    changeRoute(paths.home(), config)
   }
 
   //Generic
@@ -81,8 +77,7 @@ const useRoute = () => {
     goBack,
     goToLogin,
     goToRegister,
-    goToHomeOwner,
-    goToHomeHeir,
+    goToHome,
     goToBegin,
     setShouldRedirectToOriginalRoute,
   }
