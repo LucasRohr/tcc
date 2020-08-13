@@ -54,6 +54,11 @@ const useRoute = () => {
     changeRoute(paths.home(), config)
   }
 
+  // Heirs
+  const goToHeirsManagement = config => {
+    changeRoute(paths.heirs(), config)
+  }
+
   //Generic
   const goTo = (path, config) => {
     if (config && config.redirectedFromLogin) {
@@ -78,6 +83,7 @@ const useRoute = () => {
     goToLogin,
     goToRegister,
     goToHome,
+    goToHeirsManagement,
     goToBegin,
     setShouldRedirectToOriginalRoute,
   }

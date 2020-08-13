@@ -8,6 +8,7 @@ export { useTimeout } from './use-timeout/use-timeout.hook'
 export { useToastAlert, ToastAlertProvider } from './use-toast/use-toast.hook'
 export { useInput } from './use-input/use-input.hook'
 export { useForm } from './use-form/use-form.hook'
+export { useModal, ModalProvider } from './use-modal/use-modal.hook'
 export {
   removeToken,
   useLoggedUser,

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import './home.style.scss'
 import { Title } from 'app-components'
-import { useLoggedUser } from 'app-hooks'
+import { useLoggedUser, useRoute } from 'app-hooks'
 import { noopFunction } from 'app-helpers'
 import { MediasIcon, CredentialsIcon, HeirsManagementIcon, AlertIcon } from 'ui/icons/shapes/index'
 import { ROLES } from 'app-constants'
@@ -9,6 +9,8 @@ import { ServiceCard } from './components/index'
 
 const Home = () => {
   const { loggedUser } = useLoggedUser()
+  const { goToHeirsManagement } = useRoute()
+
   const accountType = useMemo(() => loggedUser.currentAccount.type, [loggedUser.currentAccount])
 
   const defaultOptions = useMemo(() => [
@@ -42,7 +44,7 @@ const Home = () => {
       {
         title: 'Herdeiros',
         description: 'Faça a escolha e gerenciamento de herdeiros que receberão a sua herança digital',
-        onClick: noopFunction,
+        onClick: goToHeirsManagement,
         icon: <HeirsManagementIcon />,
       },
     ],

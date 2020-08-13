@@ -1,0 +1,87 @@
+@import 'ui/styles/variables.scss';
+
+.heir-row-container {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 12px;
+  background-color: $white;
+  border: 1px solid $primary-light;
+  border-radius: $border-radius;
+  margin-top: 14px;
+
+  & > div {
+    display: inline-block;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 22px;
+    line-height: 24px;
+    text-transform: capitalize;
+    padding: 0 12px;
+    border-right: 1px solid $white;
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &:first-child {
+      flex-grow: 0;
+      flex-basis: 60px;
+
+      & svg {
+        height: 45px;
+        width: 45px;
+        fill: $primary;
+      }
+    }
+
+    &:nth-child(2) {
+      flex-grow: 0;
+      flex-basis: 200px;
+      color: $black;
+    }
+
+    &:nth-child(3) {
+      flex-grow: 0;
+      flex-basis: 300px;
+      color: $black;
+    }
+
+    &:nth-child(4) {
+      flex-grow: 0;
+      flex-basis: 85px;
+      color: $primary;
+      font-weight: bold;
+      cursor: pointer;
+
+      &:hover {
+        transition: 0.3s;
+        font-size: 26px;
+      }
+    }
+
+    &:nth-child(5) {
+      flex-grow: 0;
+      flex-basis: 150px;
+    }
+
+    &:last-child {
+      flex-grow: 0;
+      flex-basis: 60px;
+
+      & svg {
+        height: 35px;
+        width: 35px;
+        fill: $red;
+        cursor: pointer;
+      }
+
+      &:hover {
+        transition: 0.3s;
+        transform: scale(1.1);
+      }
+    }
+  }
+}
