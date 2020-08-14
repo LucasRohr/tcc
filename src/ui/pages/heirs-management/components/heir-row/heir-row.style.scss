@@ -45,26 +45,27 @@
 
     &:nth-child(3) {
       flex-grow: 0;
-      flex-basis: 300px;
+      flex-basis: 220px;
       color: $black;
     }
 
     &:nth-child(4) {
       flex-grow: 0;
-      flex-basis: 85px;
+      flex-basis: 250px;
+    }
+
+    &:nth-child(5) {
+      flex-grow: 0;
+      flex-basis: 80px;
       color: $primary;
       font-weight: bold;
+
       cursor: pointer;
 
       &:hover {
         transition: 0.3s;
         font-size: 26px;
       }
-    }
-
-    &:nth-child(5) {
-      flex-grow: 0;
-      flex-basis: 150px;
     }
 
     &:last-child {

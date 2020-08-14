@@ -5,13 +5,13 @@ import { HeirRow } from '../heir-row/heir-row.component'
 import './heirs-list.style.scss'
 
 const HeirsList = ({ heirs }) => {
-  const rowElements = ['', 'nome', 'e-mail', 'heranças', 'status', '']
+  const rowElements = ['', 'nome', 'conta', 'e-mail', 'heranças', '']
 
   const renderHeader = () => rowElements.map(element => <div className="heirs-list-header-element">{element}</div>)
 
   const renderListContent = () =>
-    heirs.map(({ id, name, email, heritageItems, status }) => (
-      <HeirRow id={id} name={name} email={email} heritageItems={heritageItems} status={status} />
+    heirs.map(({ id, name, account, email, heritageItems }) => (
+      <HeirRow id={id} name={name} email={email} heritageItems={heritageItems} account={account} />
     ))
 
   return (

@@ -1,11 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { UserIcon, DeleteIcon } from 'app-icons'
-import { HEIR_STATUS } from 'app-constants'
+import { useModal } from 'app-hooks'
 
 import './heir-row.style.scss'
+import { RemoveHeirModalContent } from '../remove-heir-modal-content/remove-heir-modal-content.component'
+import { HeritagesManagementModalContent } from '../heritages-management-modal-content/heritages-management-modal-content.component'
 
-const HeirRow = ({ id, name, email, heritageItems, status }) => {
+const HeirRow = ({ id, name, account, email, heritageItems }) => {
+  const { showModal } = useModal()
+
+  const renderRemoveHeirModal = () => {
+    showModal({
+      content: <RemoveHeirModalContent heirId={id} />,
+    })
+  }
+
+  const showHeritagesManagementModal = () => {
+    showModal({
+      content: <HeritagesManagementModalContent heirId={id} />,
+    })
+  }
+
   return (
     <div className="heir-row-container">
       <div>
@@ -14,13 +30,13 @@ const HeirRow = ({ id, name, email, heritageItems, status }) => {
 
       <div>{name}</div>
 
+      <div>{account}</div>
+
       <div>{email}</div>
 
-      <div>{heritageItems.length}</div>
+      <div onClick={showHeritagesManagementModal}>{heritageItems.length}</div>
 
-      <div>{HEIR_STATUS[status]}</div>
-
-      <div>
+      <div onClick={renderRemoveHeirModal}>
         <DeleteIcon />
       </div>
     </div>
@@ -30,9 +46,9 @@ const HeirRow = ({ id, name, email, heritageItems, status }) => {
 HeirRow.propTypes = {
   id: PropTypes.number,
   name: PropTypes.string,
+  account: PropTypes.string,
   email: PropTypes.string,
   heritageItems: PropTypes.arrayOf(PropTypes.object),
-  status: PropTypes.string,
 }
 
 export { HeirRow }

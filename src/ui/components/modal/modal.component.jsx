@@ -17,7 +17,7 @@ const Modal = () => {
       return
     }
 
-    hideModal()
+    closeModal()
   }
 
   useEffect(() => {

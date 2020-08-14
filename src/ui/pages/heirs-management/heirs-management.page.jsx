@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { PageTitle, Button, Text, Pagination } from 'app-components'
 import { PlusIcon } from 'app-icons'
-import { HeirsList } from './components'
+import { HeirsList, AddHeirModalContent } from './components'
 import { useModal } from 'app-hooks'
 
 import './heirs-management.style.scss'
@@ -22,6 +22,7 @@ const HeirsManagement = () => {
       {
         id: 1,
         name: 'Fulaninho de Tal',
+        account: 'conta herdeira 1',
         email: 'cleitinho@gmail.com',
         heritageItems: [
           {
@@ -42,13 +43,13 @@ const HeirsManagement = () => {
             type: 'DOCUMENT',
           },
         ],
-        status: 'ACCEPTED',
       },
 
       {
         id: 1,
         name: 'Cirilo brabo',
         email: 'cirila1@gmail.com',
+        account: 'conta herdeira 2',
         heritageItems: [
           {
             id: 1,
@@ -68,7 +69,6 @@ const HeirsManagement = () => {
             type: 'DOCUMENT',
           },
         ],
-        status: 'PENDING',
       },
     ])
 
@@ -87,7 +87,7 @@ const HeirsManagement = () => {
 
   const showAddHeirModal = () => {
     showModal({
-      content: <div className="">fdsfdfdslkfdlkf</div>,
+      content: <AddHeirModalContent />,
     })
   }
 
