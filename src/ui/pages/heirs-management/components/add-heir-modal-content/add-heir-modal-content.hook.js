@@ -1,6 +1,7 @@
 import { useForm, useInput } from 'app-hooks'
 import { emailValidator } from 'app-validators'
 import { useOwner } from 'app-hooks'
+import { useEffect } from 'react'
 
 const useAddHeirModalContent = () => {
   const { isValid, getForm } = useForm()
@@ -19,8 +20,17 @@ const useAddHeirModalContent = () => {
     type: 'number',
     variant: 'full',
     label: 'Telefone do herdeiro',
-    maxLength: 11,
+    maxLength: '11',
   })
+
+  const setInputsRequiredRule = () => {
+    email.setRequired(!phone.value)
+    phone.setRequired(!email.value)
+  }
+
+  useEffect(() => {
+    setInputsRequiredRule()
+  }, [email.value, phone.value])
 
   const fields = [email, phone]
 

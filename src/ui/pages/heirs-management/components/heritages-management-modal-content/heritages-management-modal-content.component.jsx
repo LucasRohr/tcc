@@ -1,42 +1,41 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import { Title, Button, CheckboxItem } from 'app-components'
+import { useInput, useModal, useHeir } from 'app-hooks'
+import { HERITAGES_ICONS } from 'app-constants'
 
 import './heritages-management-modal-content.style.scss'
-import { useHeir } from 'hooks/api/index'
-import { Title, Button, CheckboxItem } from 'app-components'
-import { useInput, useModal } from 'app-hooks'
-import { ArrayUtils } from 'app-helpers'
 
 const HeritagesManagementModalContent = ({ heirId }) => {
   const [heritages, setHeritages] = useState([])
+  const [baseHeritages, setBaseHeritages] = useState([])
 
   const { getHeritages } = useHeir()
   const { hideModal } = useModal()
 
+  const mapHeritages = heritages => heritages.map(heritage => ({ heritage, heirHasItem: true }))
+
   const filterHeritages = searchText => {
-    const filteredHeritage = ArrayUtils.searchByText(heritages, searchText)
+    const filteredHeritage = baseHeritages.filter(({ heritage }) => heritage.name.includes(searchText))
     setHeritages(filteredHeritage)
   }
 
   const searchInput = useInput({
-    name: 'search',
-    type: 'search',
+    id: 'heritages_search',
+    name: 'heritages_search',
     label: 'Pesquise pelo item',
     variant: 'full',
     onChange: filterHeritages,
     required: false,
   })
 
-  const mapHeritages = heritages => heritages.map(heritage => ({ heritage, heirHasItem: true }))
-
   const getHeirHeritages = async () => {
-    // const result = await getHeritages(heirId)
-    const result = {}
-    result.heritages = [{ name: 'klfsmfslkdflksd' }, { name: 'aaaaaaaaaaa' }]
+    const result = await getHeritages(heirId)
 
     if (result && result.heritages.length) {
       const mappedHeritages = mapHeritages(result.heritages)
       setHeritages(mappedHeritages)
+      setBaseHeritages(mappedHeritages)
     }
   }
 
@@ -55,7 +54,7 @@ const HeritagesManagementModalContent = ({ heirId }) => {
     </div>
   )
 
-  const changeHeritagesOnCheck = ({ heritageItem, heirHasItem }) => {
+  const changeHeritagesOnCheck = (heritageItem, heirHasItem) => {
     const newHeritagesList = heritages.map(item => {
       if (item.heritage.id === heritageItem.id) {
         item.heirHasItem = heirHasItem
@@ -68,8 +67,15 @@ const HeritagesManagementModalContent = ({ heirId }) => {
   }
 
   const renderHeritages = () =>
-    heritages.map(({ heritage, heirHasItem }) => (
-      <CheckboxItem item={heritage} title={heritage.name} onChange={changeHeritagesOnCheck} />
+    heritages.map(({ heritage, heirHasItem }, index) => (
+      <CheckboxItem
+        item={heritage}
+        icon={HERITAGES_ICONS[heritage.type]}
+        initialIsChecked={heirHasItem}
+        title={heritage.name}
+        onChange={changeHeritagesOnCheck}
+        index={index}
+      />
     ))
 
   return (

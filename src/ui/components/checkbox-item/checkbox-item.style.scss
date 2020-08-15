@@ -1,0 +1,62 @@
+@import 'ui/styles/variables.scss';
+
+.checkbox-item-checkbox {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  border: 1px solid $primary;
+  border-radius: $border-radius;
+  margin-bottom: 12px;
+  cursor: pointer;
+
+  & span {
+    margin-left: 20px;
+  }
+
+  & label {
+    width: 100%;
+    height: 100%;
+    padding: 25px 5px 25px 30px;
+    cursor: pointer;
+    font-size: 20px;
+
+    & .checkbox-icon {
+      top: 34px;
+      height: 18px;
+      width: 18px;
+      margin-left: 10px;
+    }
+
+    &:after {
+      top: 34px;
+      left: 12px;
+      height: 25px;
+      width: 25px;
+      margin-left: 10px;
+    }
+
+    & > div {
+      left: 16px;
+    }
+  }
+}
+
+.checkbox-item-label-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 20px;
+
+  & > span {
+    margin-left: 35px;
+  }
+}
+
+.checkbox-item-icon {
+  & svg {
+    width: 44px;
+    height: 44px;
+    fill: $primary;
+  }
+}

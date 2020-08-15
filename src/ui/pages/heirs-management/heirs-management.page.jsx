@@ -18,60 +18,6 @@ const HeirsManagement = () => {
   const { showModal } = useModal()
 
   const getHeirs = () => {
-    setHeirs([
-      {
-        id: 1,
-        name: 'Fulaninho de Tal',
-        account: 'conta herdeira 1',
-        email: 'cleitinho@gmail.com',
-        heritageItems: [
-          {
-            id: 1,
-            name: 'imagem massa',
-            type: 'IMAGE',
-          },
-
-          {
-            id: 2,
-            name: 'video massa',
-            type: 'VIDEO',
-          },
-
-          {
-            id: 3,
-            name: 'documento massa',
-            type: 'DOCUMENT',
-          },
-        ],
-      },
-
-      {
-        id: 1,
-        name: 'Cirilo brabo',
-        email: 'cirila1@gmail.com',
-        account: 'conta herdeira 2',
-        heritageItems: [
-          {
-            id: 1,
-            name: 'imagem massa',
-            type: 'IMAGE',
-          },
-
-          {
-            id: 2,
-            name: 'video massa',
-            type: 'VIDEO',
-          },
-
-          {
-            id: 3,
-            name: 'documento massa',
-            type: 'DOCUMENT',
-          },
-        ],
-      },
-    ])
-
     const resultPaginationConfig = {
       total: 10,
       currentPage: 1,
@@ -79,6 +25,7 @@ const HeirsManagement = () => {
       isLastPage: false,
     }
     setPaginationConfig(resultPaginationConfig)
+    setHeirs([])
   }
 
   useEffect(() => {
