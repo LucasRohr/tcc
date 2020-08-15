@@ -9,7 +9,7 @@ import { ServiceCard } from './components/index'
 
 const Home = () => {
   const { loggedUser } = useLoggedUser()
-  const { goToHeirsManagement } = useRoute()
+  const { goToHeirsManagement, goToMediasManagement } = useRoute()
 
   const accountType = useMemo(() => loggedUser.currentAccount.type, [loggedUser.currentAccount])
 
@@ -20,7 +20,7 @@ const Home = () => {
         accountType === ROLES.OWNER
           ? 'Gerencie e adicione mídias da sua herança digital, como imagens e documentos'
           : 'Gerencie as mídias passadas para você por esta conta',
-      onClick: noopFunction,
+      onClick: goToMediasManagement,
       icon: <MediasIcon />,
       disabled: accountType === ROLES.HEIR,
     },

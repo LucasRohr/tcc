@@ -1,7 +1,7 @@
 import { useRequest } from '../use-request/use-request.hook'
 
 const useOwner = () => {
-  const { post } = useRequest('/owner')
+  const { get, post, put } = useRequest('/owner')
 
   const inviteHeir = async inviteObject => {
     const result = await post('heir-invite', inviteObject)
@@ -9,13 +9,18 @@ const useOwner = () => {
   }
 
   const removeHeir = async removeObject => {
-    const result = await post('heir-remove', removeObject)
+    const result = await put('heir-remove', removeObject)
     return result !== undefined
+  }
+
+  const getHeritageMedias = async ownerId => {
+    return await get(`${ownerId}/medias`)
   }
 
   return {
     inviteHeir,
     removeHeir,
+    getHeritageMedias,
   }
 }
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Title, Button, CheckboxItem } from 'app-components'
 import { useInput, useModal, useHeir } from 'app-hooks'
-import { HERITAGES_ICONS } from 'app-constants'
+import { HERITAGE_TYPES } from 'app-constants'
 
 import './heritages-management-modal-content.style.scss'
 
@@ -70,7 +70,7 @@ const HeritagesManagementModalContent = ({ heirId }) => {
     heritages.map(({ heritage, heirHasItem }, index) => (
       <CheckboxItem
         item={heritage}
-        icon={HERITAGES_ICONS[heritage.type]}
+        icon={HERITAGE_TYPES[heritage.type].icon}
         initialIsChecked={heirHasItem}
         title={heritage.name}
         onChange={changeHeritagesOnCheck}

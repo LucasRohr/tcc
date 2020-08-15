@@ -7,8 +7,13 @@ const useHeir = () => {
     return await get(`${heirId}/heir-heritages`)
   }
 
+  const getReceivedMedias = async heirId => {
+    return await get(`${heirId}/medias`)
+  }
+
   return {
     getHeritages,
+    getReceivedMedias,
   }
 }
 
