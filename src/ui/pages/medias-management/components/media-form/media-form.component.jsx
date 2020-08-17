@@ -1,13 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useMediaForm } from './media-form.hook'
 
-const MediaForm = ({ selectedMedia, changeGroupContent }) => {
-  return <div></div>
+const MediaForm = ({ selectedMedia, onFormButtonClick }) => {
+  const { isValid, renderMediaFields, buildApiObject, sendToApi } = useMediaForm({ initialData: selectedMedia })
+
+  return <div> {renderMediaFields()} </div>
 }
 
 MediaForm.propTypes = {
   selectedMedia: PropTypes.object,
-  changeGroupContent: PropTypes.func,
+  onFormButtonClick: PropTypes.func,
 }
 
 export { MediaForm }

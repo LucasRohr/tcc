@@ -30,6 +30,7 @@ const Input = ({
   showCounter,
   maxLength,
   usePassword,
+  inputArea,
   canShowDatepickerIcon,
   changeInputValue,
   ...props
@@ -47,6 +48,18 @@ const Input = ({
     }
 
     return 'input-and-label'
+  }
+
+  const mountTextAreaGroupClass = () => {
+    if (disabled) {
+      return 'text-area-and-label-disabled'
+    }
+
+    if (error) {
+      return 'text-area-and-label-with-error'
+    }
+
+    return 'text-area-and-label'
   }
 
   const renderDatepickerIcon = () => (canShowDatepickerIcon ? <CalendarIcon className="input-calendar-icon" /> : null)
@@ -73,8 +86,33 @@ const Input = ({
     }
   }, [isPasswordVisible])
 
-  return (
-    <div className={VARIANTS_CLASSES[variant]}>
+  const renderInput = () => {
+    if (inputArea) {
+      return (
+        <div className={mountTextAreaGroupClass()}>
+          <textarea
+            {...props}
+            className="text-area"
+            disabled={disabled}
+            id={name}
+            name={name}
+            type={currentType}
+            value={value || ''}
+            placeholder={placeholder}
+            ref={getRef}
+            onChange={onChange}
+            onBlur={onBlur}
+            onFocus={onFocus}
+            maxLength={maxLength}
+          />
+          <label className="text-area-label" htmlFor={name}>
+            {label}
+          </label>
+        </div>
+      )
+    }
+
+    return (
       <div className={mountInputGroupClass()}>
         <input
           {...props}
@@ -97,6 +135,12 @@ const Input = ({
         {renderDatepickerIcon()}
         {renderPasswordIcon()}
       </div>
+    )
+  }
+
+  return (
+    <div className={VARIANTS_CLASSES[variant]}>
+      {renderInput()}
       {renderError()}
       {renderCounter()}
     </div>
@@ -117,6 +161,7 @@ Input.propTypes = {
   label: PropTypes.string,
   showCounter: PropTypes.bool,
   usePassword: PropTypes.bool,
+  inputArea: PropTypes.bool,
 }
 
 Input.defaultProps = {

@@ -17,27 +17,48 @@ const MediasManagement = () => {
 
   const currentAccountType = loggedUser.currentAccount.type
 
-  const getOwnerMedias = async () => {
-    const result = await getHeritageMedias(loggedUser.currentAccount.id)
-
-    if (result && result.length) {
-      setMedias(result)
-    }
-  }
-
-  const getHeirMedias = async () => {
-    const result = await getReceivedMedias(loggedUser.currentAccount.id)
-
-    if (result && result.length) {
-      setMedias(result)
-    }
-  }
-
   const getMedias = async () => {
-    if (currentAccountType === ROLES.OWNER) {
-      await getOwnerMedias()
-    } else {
-      await getHeirMedias()
+    const isOwner = currentAccountType === ROLES.OWNER
+    const accountId = loggedUser.currentAccount.id
+
+    // const result = isOwner ? await getHeritageMedias(accountId) : await getReceivedMedias(accountId)
+
+    const result = [
+      {
+        id: 1,
+        type: 'IMAGE',
+        file:
+          'https://cdn-ofuxico.akamaized.net/img/upload/noticias/2019/04/30/faustao_reproducao_tv_globo_348281_36.jpg',
+        name: 'big fausto orozco bixo muito importante',
+      },
+
+      {
+        id: 2,
+        type: 'IMAGE',
+        file:
+          'https://cdn-ofuxico.akamaized.net/img/upload/noticias/2019/04/30/faustao_reproducao_tv_globo_348281_36.jpg',
+        name: 'big fausto DE NOVVO OVBDBBGFGDFGDGFDG',
+      },
+
+      {
+        id: 3,
+        type: 'VIDEO',
+        file:
+          'https://cdn-ofuxico.akamaized.net/img/upload/noticias/2019/04/30/faustao_reproducao_tv_globo_348281_36.jpg',
+        name: 'video importante de eu tomando a ruim',
+      },
+
+      {
+        id: 4,
+        type: 'DOCUMENT',
+        file:
+          'https://cdn-ofuxico.akamaized.net/img/upload/noticias/2019/04/30/faustao_reproducao_tv_globo_348281_36.jpg',
+        name: 'documento muito secreto ainda bem que o sistema é seguro 🤠',
+      },
+    ]
+
+    if (result && result.length) {
+      setMedias(result)
     }
   }
 

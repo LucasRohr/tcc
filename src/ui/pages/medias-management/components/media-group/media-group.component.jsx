@@ -9,29 +9,41 @@ import { MediaForm } from '../media-form/media-form.component'
 
 import './media-group.style.scss'
 
-const DEFAULT_GROUP_CONTENT = 'MEDIAS'
+const CONTENTS = {
+  MEDIAS: 'MEDIAS',
+  MEDIA_FORM: 'MEDIA_FORM',
+}
 
 const MediaGroup = ({ mediaType, mediasList }) => {
   const [selectedMedia, setSelectedMedia] = useState(null)
   const [isClosed, setIsClosed] = useState(false)
-  const [currentGroupContent, setCurrentGroupContent] = useState(DEFAULT_GROUP_CONTENT)
+  const [currentGroupContent, setCurrentGroupContent] = useState(CONTENTS.MEDIAS)
+
+  const selectMedia = media => {
+    setSelectedMedia(media)
+    setCurrentGroupContent(CONTENTS.MEDIA_FORM)
+  }
+
+  const onFormButtonClick = () => {
+    setSelectedMedia(null)
+    setCurrentGroupContent(CONTENTS.MEDIAS)
+  }
 
   const GROUP_CONTENTS = useMemo(
     () => ({
       MEDIAS: {
         key: 'MEDIAS',
         component: MediasList,
-        props: { mediasList, setSelectedMedia, setCurrentGroupContent },
+        props: { medias: mediasList, mediaType, selectMedia },
       },
 
       MEDIA_FORM: {
         key: 'MEDIA_FORM',
         component: MediaForm,
-        props: { selectedMedia, setSelectedMedia, setCurrentGroupContent },
+        props: { selectedMedia, onFormButtonClick },
       },
     }),
-
-    []
+    [mediasList]
   )
 
   const applyConditionalClass = (positive, negative) => (isClosed ? negative : positive)

@@ -1,0 +1,25 @@
+@import 'ui/styles/variables.scss';
+
+.media-actions-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & button {
+    margin-right: 22px;
+  }
+}
+
+.media-actions-remove-icon {
+  & svg {
+    height: 50px;
+    width: 50px;
+    fill: $red;
+    cursor: pointer;
+  }
+
+  &:hover {
+    transition: 0.3s;
+    transform: scale(1.1);
+  }
+}

@@ -2,9 +2,11 @@
 
 @mixin content-mixin {
   width: 100%;
+  display: flex;
+  justify-content: center;
   transform-origin: top;
   transform: scaleY(0);
-  padding: 24px 24px 15px 24px;
+  padding: 24px 0 15px 0;
   position: relative;
 }
 
@@ -79,6 +81,7 @@
 
 .media-row-content-collapsed {
   @include content-mixin();
+  height: 0;
   padding: 0;
 }
 
