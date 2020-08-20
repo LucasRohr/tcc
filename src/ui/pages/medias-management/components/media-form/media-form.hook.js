@@ -1,8 +1,9 @@
 import { useEffect } from 'react'
-import { useForm, useInput } from 'app-hooks'
+import { useForm, useInput, useInputFile } from 'app-hooks'
 import { minLengthValidator } from 'app-validators'
+import { HERITAGE_TYPES } from 'app-constants'
 
-const useMediaForm = ({ initialData }) => {
+const useMediaForm = ({ initialData, mediaType }) => {
   const { isValid, getForm, fillFields } = useForm()
 
   const name = useInput({
@@ -10,6 +11,7 @@ const useMediaForm = ({ initialData }) => {
     label: 'Nome',
     variant: 'full',
     validators: [value => minLengthValidator({ value, minLength: 2 })],
+    required: false,
   })
 
   const description = useInput({
@@ -18,9 +20,18 @@ const useMediaForm = ({ initialData }) => {
     variant: 'full',
     inputArea: true,
     validators: [value => minLengthValidator({ value, minLength: 2 })],
+    required: false,
   })
 
-  const fields = [name, description]
+  const media = useInputFile({
+    name: 'media',
+    label: 'Mídia',
+    accept: HERITAGE_TYPES[mediaType].extensions,
+    mediaType: HERITAGE_TYPES[mediaType].key,
+    defaultValue: initialData ? initialData.media : null,
+  })
+
+  const fields = [name, description, media]
 
   useEffect(() => {
     if (initialData) {

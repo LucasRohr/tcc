@@ -1,0 +1,27 @@
+@import 'ui/styles/variables.scss';
+
+.file-description {
+  margin: 0 15px;
+  position: relative;
+}
+
+.file-highlight {
+  text-decoration: underline;
+  color: $primary;
+}
+
+.remove-file-icon {
+  z-index: 3;
+  cursor: pointer;
+
+  & svg {
+    width: 40px;
+    height: 40px;
+    fill: $red;
+  }
+
+  &:hover {
+    transition: 0.2s;
+    transform: scale(1.1);
+  }
+}

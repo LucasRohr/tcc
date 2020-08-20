@@ -5,18 +5,21 @@ const HERITAGE_TYPES = {
     key: 'IMAGE',
     label: 'Imagens',
     icon: ImageAssetIcon,
+    extensions: '.jpg, .png, .jpeg',
   },
 
   VIDEO: {
     key: 'VIDEO',
     label: 'Vídeos',
     icon: VideoAssetIcon,
+    extensions: '.mp4',
   },
 
   DOCUMENT: {
     key: 'DOCUMENT',
     label: 'Documentos',
     icon: DocumentAssetIcon,
+    extensions: '.pdf .txt. .xls .docx .pptx .csv',
   },
 
   CREDENTIAL: {

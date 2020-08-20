@@ -6,7 +6,7 @@ export { useRoute, OriginalRouteRedirectProvider } from './use-route/use-route.h
 export { useLoading, LoadingProvider } from './use-loading/use-loading.hook'
 export { useTimeout } from './use-timeout/use-timeout.hook'
 export { useToastAlert, ToastAlertProvider } from './use-toast/use-toast.hook'
-export { useInput, useForm, useInputCheckbox } from './input-hooks'
+export { useInput, useForm, useInputCheckbox, useInputFile } from './input-hooks'
 export { useModal, ModalProvider } from './use-modal/use-modal.hook'
 export {
   removeToken,

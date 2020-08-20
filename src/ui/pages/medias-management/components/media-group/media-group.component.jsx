@@ -40,7 +40,7 @@ const MediaGroup = ({ mediaType, mediasList }) => {
       MEDIA_FORM: {
         key: 'MEDIA_FORM',
         component: MediaForm,
-        props: { selectedMedia, onFormButtonClick },
+        props: { selectedMedia, onFormButtonClick, mediaType },
       },
     }),
     [mediasList]

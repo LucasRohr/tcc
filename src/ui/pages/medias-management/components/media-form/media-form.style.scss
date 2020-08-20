@@ -1,0 +1,20 @@
+@import 'ui/styles/variables.scss';
+
+.media-form-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: space-between;
+  border: 1px solid $primary-light;
+  border-radius: 0 0 $border-radius $border-radius;
+  padding: 22px;
+}
+
+.media-form-fields-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}

@@ -1,0 +1,11 @@
+@import 'ui/styles/variables.scss';
+
+.description {
+  margin: 0 15px;
+  position: relative;
+}
+
+.file-highlight {
+  text-decoration: underline;
+  color: $primary;
+}
