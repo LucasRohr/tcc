@@ -1,0 +1,28 @@
+@import 'ui/styles/variables.scss';
+
+.page-title-container {
+  width: fit-content;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & > h1 {
+    font-size: 34px;
+    font-weight: bold;
+    margin-left: 24px;
+  }
+}
+
+.page-title-arrow-back-icon {
+  & svg {
+    width: 35px;
+    height: 35px;
+    fill: $primary;
+    cursor: pointer;
+  }
+
+  &:hover {
+    transition: 0.2s;
+    transform: scale(1.1);
+  }
+}

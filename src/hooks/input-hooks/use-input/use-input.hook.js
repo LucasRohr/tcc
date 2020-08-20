@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react'
+import React, { useState, useRef, useEffect, useMemo } from 'react'
 import { Input } from 'app-components'
 import { requiredValidator } from 'app-validators'
-import { useTimeout } from '../use-timeout/use-timeout.hook'
+import { useTimeout } from '../../use-timeout/use-timeout.hook'
 
 const useInput = ({
   name,
@@ -72,7 +72,7 @@ const useInput = ({
     return formatters.reduce((acc, formatter) => formatter(acc), value)
   }
 
-  const handleChange = useCallback((event, incomingValue) => {
+  const handleChange = (event, incomingValue) => {
     if (event.preventDefault) {
       event.preventDefault()
     }
@@ -83,7 +83,7 @@ const useInput = ({
     setInputValue(formattedValue)
     setWasUpdated(true)
     onChange(formattedValue)
-  }, [])
+  }
 
   const setOnBlur = fn => {
     onBlur = fn

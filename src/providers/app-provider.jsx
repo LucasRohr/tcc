@@ -5,6 +5,7 @@ import {
   OriginalRouteRedirectProvider,
   LoadingProvider,
   ToastAlertProvider,
+  ModalProvider,
 } from 'app-hooks'
 
 const AppContext = React.createContext()
@@ -17,6 +18,7 @@ const AppProvider = ({ children }) =>
     OriginalRouteRedirectProvider,
     LoadingProvider,
     ToastAlertProvider,
+    ModalProvider,
     AppContext.Provider,
   ].reduce((acc, Provider) => <Provider>{acc}</Provider>, children)
 

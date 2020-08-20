@@ -27,6 +27,22 @@
   }
 }
 
+.alert-button {
+  @include common-button();
+  color: $white;
+  background-color: $red;
+
+  &:active {
+    background: $red-dark;
+    color: $white;
+  }
+
+  &:hover {
+    background: $red-light;
+    color: $white;
+  }
+}
+
 .primary-button {
   @include common-button();
   color: $white;

@@ -9,7 +9,7 @@ const usePermission = () => {
   const isOwnerRole = role => role && isSameRole(role, ROLES.OWNER)
 
   const withUserType = (Component, type) => {
-    return loggedUser && isSameRole(loggedUser.userType, type) ? Component : null
+    return loggedUser && isSameRole(loggedUser.currentAccount.type, type) ? Component : null
   }
 
   const withOwnerRole = Component => {
@@ -21,7 +21,7 @@ const usePermission = () => {
   }
 
   const hasRole = role => {
-    return loggedUser && isSameRole(loggedUser.userType, role)
+    return loggedUser && isSameRole(loggedUser.currentAccount.type, role)
   }
 
   const hasOwnerRole = () => {

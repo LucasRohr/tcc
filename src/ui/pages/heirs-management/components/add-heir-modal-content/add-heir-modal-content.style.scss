@@ -1,0 +1,33 @@
+.add-heir-modal-content {
+  width: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 12px 14px;
+
+  & form {
+    width: 100%;
+    padding: 0;
+  }
+
+  & > h1 {
+    font-size: 28px;
+    line-height: 30px;
+    font-weight: bold;
+    margin-bottom: 14px;
+  }
+
+  & > span {
+    font-size: 22px;
+    line-height: 24px;
+    margin-bottom: 14px;
+  }
+}
+
+.add-heir-modal-content-buttons-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

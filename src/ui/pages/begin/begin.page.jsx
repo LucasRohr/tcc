@@ -1,14 +1,12 @@
 import React from 'react'
-import { usePermission, useRoute } from 'app-hooks'
+import { useRoute } from 'app-hooks'
 
 const Begin = () => {
-  const { hasOwnerRole, hasHeirRole } = usePermission()
-  const { goToHomeHeir, goToHomeOwner } = useRoute()
+  const { goToHome } = useRoute()
 
   const checkPermissions = () => {
     const config = { internalRedirect: true }
-    hasHeirRole() && goToHomeHeir(config)
-    hasOwnerRole() && goToHomeOwner(config)
+    goToHome(config)
   }
   return <div>{checkPermissions()}</div>
 }

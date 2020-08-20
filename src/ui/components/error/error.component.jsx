@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import './error.style.scss'
 
 const Error = ({ error }) => {
-  return <div className="error">{error}</div>
+  return <div className="input-error">{error}</div>
 }
 
 Error.defaultProps = {

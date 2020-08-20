@@ -7,6 +7,7 @@ const VARIANTS_CLASSES = {
   primary: 'primary-button',
   secondary: 'secondary-button',
   light: 'light-button',
+  alert: 'alert-button',
 }
 
 const Button = ({ className, children, variant, onClick, type, disabled, ...props }) => {
@@ -23,7 +24,7 @@ const Button = ({ className, children, variant, onClick, type, disabled, ...prop
 }
 
 Button.propTypes = {
-  variant: PropTypes.oneOf(['primary', 'secondary', 'light']),
+  variant: PropTypes.oneOf(['primary', 'secondary', 'light', 'alert']),
   children: PropTypes.any.isRequired,
   onClick: PropTypes.func,
   type: PropTypes.oneOf(['button', 'submit', 'reset']),

@@ -1,0 +1,19 @@
+.heritages-management-modal-content {
+  width: 480px;
+
+  & h1 {
+    font-size: 25px;
+    margin-bottom: 12px;
+  }
+}
+
+.heritages-management-modal-contentent-list {
+  margin: 40px 0;
+}
+
+.heritages-management-modal-content-buttons-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

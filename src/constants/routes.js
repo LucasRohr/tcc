@@ -1,4 +1,4 @@
-import { Login, Home, Begin, Register } from 'app-pages'
+import { Login, Home, Begin, Register, HeirsManagement } from 'app-pages'
 
 const paths = {
   // Login
@@ -12,6 +12,9 @@ const paths = {
 
   // Home
   home: () => '/home',
+
+  //Heirs
+  heirs: () => '/herdeiros',
 
   //Generic
   reload: () => '/reload',
@@ -42,6 +45,12 @@ const routes = [
   {
     path: paths.home(),
     component: Home,
+  },
+
+  // Heirs
+  {
+    path: paths.heirs(),
+    component: HeirsManagement,
   },
 
   // Generic

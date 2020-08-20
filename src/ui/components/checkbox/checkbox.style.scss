@@ -1,0 +1,52 @@
+@import 'ui/styles/variables.scss';
+
+.checkbox-label {
+  display: inline-block;
+  line-height: 20px;
+  padding-left: 30px;
+  flex-grow: 1;
+  color: $light-gray;
+  font-size: 16px;
+  height: 20px;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    border: 2px solid $gray;
+  }
+}
+
+.checkbox-icon {
+  position: absolute;
+  left: 4px;
+  width: 13px;
+  transform: scale(0);
+  transition: transform 0.2s ease-out;
+  margin-top: 5px;
+}
+
+.checkbox-input {
+  display: none;
+
+  &:checked {
+    & + .checkbox-label {
+      color: $primary;
+
+      &::after {
+        border-color: $primary;
+      }
+
+      & .checkbox-icon {
+        fill: $primary;
+        transform: scale(1);
+      }
+    }
+  }
+}
