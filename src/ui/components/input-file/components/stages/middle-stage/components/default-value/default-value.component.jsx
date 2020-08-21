@@ -7,8 +7,8 @@ import './default-value.style.scss'
 const DefaultValue = ({ removeFile }) => (
   <Fragment>
     <div className="file-description">
-      Arrastar para substituir <br />
-      ou <span className="file-highlight">procurar arquivo</span>
+      Arrastar para substituir ou <br />
+      <span className="file-highlight">procurar arquivo</span>
     </div>
 
     <DeleteIcon className="remove-file-icon" onClick={removeFile} />

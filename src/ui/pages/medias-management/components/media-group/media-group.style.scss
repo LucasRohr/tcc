@@ -6,7 +6,7 @@
   justify-content: center;
   transform-origin: top;
   transform: scaleY(0);
-  padding: 24px 0 15px 0;
+  padding: 4px 0 15px 0;
   position: relative;
 }
 
@@ -79,23 +79,23 @@
   }
 }
 
-.media-row-content-collapsed {
+.media-group-content-collapsed {
   @include content-mixin();
   height: 0;
   padding: 0;
 }
 
-.media-row-content-expanded {
+.media-group-content-expanded {
   @include content-mixin();
   transition: transform 0.2s ease;
   transform: scaleY(1);
 }
 
-.media-row-arrow-down {
+.media-group-arrow-down {
   @include drop-arrow-mixin();
 }
 
-.media-row-arrow-up {
+.media-group-arrow-up {
   @include drop-arrow-mixin();
   transform: rotate(-180deg);
 }

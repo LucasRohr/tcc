@@ -18,6 +18,7 @@
 
 .header-app-name-container {
   @include flex-mixin();
+  cursor: pointer;
 
   & > span {
     font-size: 28px;

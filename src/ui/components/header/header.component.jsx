@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { LogoIcon, AccountsIcon } from 'app-icons'
 import { Text } from '../text/text.component'
 import { noopFunction } from 'app-helpers'
+import { useRoute } from 'app-hooks'
 import { NotificationsTab, ProfileTab } from './components'
 import { CircleButton } from '../circle-button/circle-button.component'
 
@@ -10,6 +11,8 @@ import './header.style.scss'
 const Header = () => {
   const [isNotificationsTabOpened, setIsNotificationsTabOpened] = useState(false)
   const [isProfileTabOpened, setIsProfileTabOpened] = useState(false)
+
+  const { goToHome } = useRoute()
 
   const onNotificationsClick = () => {
     setIsNotificationsTabOpened(!isNotificationsTabOpened)
@@ -37,7 +40,7 @@ const Header = () => {
 
   return (
     <div className="header-container">
-      <div className="header-app-name-container">
+      <div className="header-app-name-container" onClick={goToHome}>
         <LogoIcon className="header-logo-icon" />
         <Text variant="serif">Herança Digital Segura</Text>
       </div>

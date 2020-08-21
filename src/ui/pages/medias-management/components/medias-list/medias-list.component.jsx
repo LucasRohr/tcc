@@ -7,9 +7,10 @@ import { HERITAGE_TYPES } from 'app-constants'
 import './medias-list.style.scss'
 
 const MediasList = ({ medias, mediaType, selectMedia }) => {
+  const emptyListMainMessage = `Você ainda não possui cadastros de ${HERITAGE_TYPES[mediaType].label.toLowerCase()}.`
+
   const renderMediasList = () =>
     medias.map(media => <MediaRow media={media} mediaType={mediaType} selectMedia={selectMedia} />)
-  const emptyListMainMessage = `Você ainda não possui cadastros de ${HERITAGE_TYPES[mediaType].label.toLowerCase()}.`
 
   const renderContent = () => {
     if (medias && medias.length) {

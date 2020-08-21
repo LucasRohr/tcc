@@ -1,20 +1,72 @@
 @import 'ui/styles/variables.scss';
 
 .media-form-container {
-  width: 100%;
+  width: 90%;
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
   align-items: space-between;
   border: 1px solid $primary-light;
   border-radius: 0 0 $border-radius $border-radius;
-  padding: 22px;
+  padding: 32px 65px;
 }
 
 .media-form-fields-container {
-  width: 50%;
+  width: 46%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
+}
+
+.media-form-heirs-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & > span {
+    font-size: 20px;
+    font-weight: 500;
+  }
+}
+
+.media-form-heirs-icon {
+  margin-left: 14px;
+
+  & svg {
+    width: 28px;
+    height: 28px;
+    fill: $primary;
+  }
+}
+
+.media-form-buttons-container {
+  width: fit-content;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & button {
+    padding: 12px 45px;
+    font-size: 20px;
+
+    &:first-child {
+      margin-right: 45px;
+    }
+  }
+}
+
+.media-form-type-and-buttons-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.media-form-multiple-info {
+  font-size: 24px;
+  text-align: left;
+  line-height: 28px;
+  margin-bottom: 28px;
+  color: $gray;
 }

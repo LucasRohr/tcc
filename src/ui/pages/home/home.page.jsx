@@ -1,17 +1,23 @@
 import React, { useMemo } from 'react'
-import './home.style.scss'
 import { Title } from 'app-components'
 import { useLoggedUser, useRoute } from 'app-hooks'
 import { noopFunction } from 'app-helpers'
 import { MediasIcon, CredentialsIcon, HeirsManagementIcon, AlertIcon } from 'ui/icons/shapes/index'
-import { ROLES } from 'app-constants'
+import { ROLES, HEIR_STATUS } from 'app-constants'
 import { ServiceCard } from './components/index'
+
+import './home.style.scss'
 
 const Home = () => {
   const { loggedUser } = useLoggedUser()
   const { goToHeirsManagement, goToMediasManagement } = useRoute()
 
   const accountType = useMemo(() => loggedUser.currentAccount.type, [loggedUser.currentAccount])
+
+  const isInvalidHeir = useMemo(
+    () => accountType === ROLES.HEIR && loggedUser.currentAccount.status !== HEIR_STATUS.ACTIVE.key,
+    [loggedUser.currentAccount]
+  )
 
   const defaultOptions = useMemo(() => [
     {
@@ -22,7 +28,7 @@ const Home = () => {
           : 'Gerencie as mídias passadas para você por esta conta',
       onClick: goToMediasManagement,
       icon: <MediasIcon />,
-      disabled: accountType === ROLES.HEIR,
+      disabled: isInvalidHeir,
     },
 
     {
@@ -33,7 +39,7 @@ const Home = () => {
           : 'Tenha acesso às credenciais herdadas por você e atribuídas nesta conta',
       onClick: noopFunction,
       icon: <CredentialsIcon />,
-      disabled: accountType === ROLES.HEIR,
+      disabled: isInvalidHeir,
     },
   ])
 

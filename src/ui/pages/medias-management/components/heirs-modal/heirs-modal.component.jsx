@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useOwner, useLoggedUser, useModal } from 'app-hooks'
 import { SelectItemsModalContent } from 'app-components'
 import { UserIcon } from 'app-icons'
 
-const HeirsModal = ({ heirs, setHeirs, baseHeirs, mediaId }) => {
+const HeirsModal = ({ mediaId }) => {
+  const [heirs, setHeirs] = useState([])
+  const [baseHeirs, setBaseHeirs] = useState([])
+
   const { getOwnerHeirsForMedia } = useOwner()
   const { loggedUser } = useLoggedUser()
   const { hideModal } = useModal()
@@ -12,11 +15,38 @@ const HeirsModal = ({ heirs, setHeirs, baseHeirs, mediaId }) => {
   const mapHeirs = heirsList => heirsList.map(heirItem => ({ item: heirItem, itemCheck: heirItem.hasMedia }))
 
   const getAllOwnerHeirs = async () => {
-    const result = await getOwnerHeirsForMedia(loggedUser.currentAccount.id, mediaId)
+    let result = await getOwnerHeirsForMedia(loggedUser.currentAccount.id, mediaId)
+
+    result = {
+      heirs: [
+        {
+          id: 1,
+          name: 'Fulaninho de Tal',
+          account: 'conta herdeira 1',
+          email: 'cleitinho@gmail.com',
+          hasMedia: false,
+        },
+        {
+          id: 2,
+          name: 'Cirilo brabo',
+          email: 'cirila1@gmail.com',
+          account: 'conta herdeira 2',
+          hasMedia: false,
+        },
+        {
+          id: 3,
+          name: 'alfredo berimbau da silva',
+          email: 'cirila1@gmail.com',
+          account: 'conta herdeira 2',
+          hasMedia: true,
+        },
+      ],
+    }
 
     if (result) {
       const mappedResult = mapHeirs(result.heirs)
       setHeirs(mappedResult)
+      setBaseHeirs(mappedResult)
     }
   }
 
@@ -30,7 +60,7 @@ const HeirsModal = ({ heirs, setHeirs, baseHeirs, mediaId }) => {
       setListItems={setHeirs}
       baseItems={baseHeirs}
       onConfirm={hideModal}
-      defaultIcon={<UserIcon />}
+      defaultIcon={UserIcon}
       modalTitle="Pesquise pelos itens"
       emptyContentText="Este herdeiro ainda não possui heranças atribuídas."
     />
@@ -38,9 +68,6 @@ const HeirsModal = ({ heirs, setHeirs, baseHeirs, mediaId }) => {
 }
 
 HeirsModal.propTypes = {
-  heirs: PropTypes.array,
-  setHeirs: PropTypes.func,
-  baseHeirs: PropTypes.array,
   mediaId: PropTypes.number,
 }
 

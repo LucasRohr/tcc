@@ -28,14 +28,15 @@ const useMediaForm = ({ initialData, mediaType }) => {
     label: 'Mídia',
     accept: HERITAGE_TYPES[mediaType].extensions,
     mediaType: HERITAGE_TYPES[mediaType].key,
-    defaultValue: initialData ? initialData.media : null,
+    defaultValue: initialData ? initialData.file : null,
   })
 
-  const fields = [name, description, media]
+  const inputFields = [name, description]
+  const allFields = [...inputFields, media]
 
   useEffect(() => {
     if (initialData) {
-      fillFields(fields, initialData)
+      fillFields(allFields, initialData)
     }
   }, [initialData])
 
@@ -49,8 +50,9 @@ const useMediaForm = ({ initialData, mediaType }) => {
   }
 
   return {
-    isValid: () => isValid({ fields }),
-    renderMediaFields: () => getForm(fields),
+    isValid: () => isValid({ allFields }),
+    renderInputFields: () => getForm(inputFields),
+    renderMediaField: () => media.getInputComponent(),
     buildApiObject,
     sendToApi,
   }

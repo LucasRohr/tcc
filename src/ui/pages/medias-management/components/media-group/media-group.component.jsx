@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { HERITAGE_TYPES } from 'app-constants'
+import { HERITAGE_TYPES, ROLES } from 'app-constants'
 import { Text, Button } from 'app-components'
-import { PlusIcon } from 'app-icons'
-import { DropdownIcon } from 'ui/icons/shapes/index'
+import { PlusIcon, DropdownIcon } from 'app-icons'
+import { useLoggedUser } from 'app-hooks'
 import { MediasList } from '../medias-list/medias-list.component'
 import { MediaForm } from '../media-form/media-form.component'
 
@@ -18,6 +18,7 @@ const MediaGroup = ({ mediaType, mediasList }) => {
   const [selectedMedia, setSelectedMedia] = useState(null)
   const [isClosed, setIsClosed] = useState(false)
   const [currentGroupContent, setCurrentGroupContent] = useState(CONTENTS.MEDIAS)
+  const { loggedUser } = useLoggedUser()
 
   const selectMedia = media => {
     setSelectedMedia(media)
@@ -43,17 +44,44 @@ const MediaGroup = ({ mediaType, mediasList }) => {
         props: { selectedMedia, onFormButtonClick, mediaType },
       },
     }),
-    [mediasList]
+    [mediasList, selectedMedia]
   )
 
   const applyConditionalClass = (positive, negative) => (isClosed ? negative : positive)
 
-  const conditionalArrowClass = applyConditionalClass('media-row-arrow-down', 'media-row-arrow-up')
-  const conditionalContentClass = applyConditionalClass('media-row-content-collapsed', 'media-row-content-expanded')
+  const conditionalArrowClass = useMemo(() => applyConditionalClass('media-group-arrow-down', 'media-group-arrow-up'), [
+    isClosed,
+  ])
+
+  const conditionalContentClass = useMemo(
+    () => applyConditionalClass('media-group-content-collapsed', 'media-group-content-expanded'),
+    [isClosed]
+  )
 
   const renderHeader = () => {
     const MediaIcon = HERITAGE_TYPES[mediaType].icon
     const mediaName = HERITAGE_TYPES[mediaType].label
+
+    const onAddClick = () => {
+      setCurrentGroupContent(GROUP_CONTENTS.MEDIA_FORM.key)
+      setSelectedMedia(null)
+      setIsClosed(!isClosed)
+    }
+
+    const renderAddButton = () => {
+      const isOwner = loggedUser.currentAccount.type === ROLES.OWNER
+
+      if (isOwner) {
+        return (
+          <Button onClick={onAddClick} className="media-group-header-add-media-button">
+            <Text>Adicionar</Text>
+            <PlusIcon className="media-group-header-add-media-icon" />
+          </Button>
+        )
+      }
+
+      return null
+    }
 
     return (
       <div className="media-group-header">
@@ -63,13 +91,7 @@ const MediaGroup = ({ mediaType, mediasList }) => {
         </div>
 
         <div>
-          <Button
-            onClick={() => setCurrentGroupContent(GROUP_CONTENTS.MEDIA_FORM.key)}
-            className="media-group-header-add-media-button"
-          >
-            <Text>Adicionar</Text>
-            <PlusIcon className="media-group-header-add-media-icon" />
-          </Button>
+          {renderAddButton()}
 
           <DropdownIcon onClick={() => setIsClosed(!isClosed)} className={conditionalArrowClass} />
         </div>

@@ -1,7 +1,7 @@
 import { useRequest } from '../use-request/use-request.hook'
 
 const useOwner = () => {
-  const { get, post, put } = useRequest('/owner')
+  const { get, post, put, del } = useRequest('/owner')
 
   const getOwnerHeirs = async ownerId => {
     return await get(`${ownerId}/heirs`)
@@ -22,7 +22,12 @@ const useOwner = () => {
   }
 
   const getOwnerHeirsForMedia = async (ownerId, mediaId) => {
-    return await get(`${ownerId}/${mediaId}/heirs`)
+    return await get(`${ownerId}/${mediaId}/heirs`, { useToast: false, useLoader: false, showDefaultErrorToast: false })
+  }
+
+  const removeMedia = async (ownerId, mediaId) => {
+    const result = await del(`${ownerId}/media-remove/${mediaId}`)
+    return result !== undefined
   }
 
   return {
@@ -31,6 +36,7 @@ const useOwner = () => {
     getHeritageMedias,
     getOwnerHeirs,
     getOwnerHeirsForMedia,
+    removeMedia,
   }
 }
 
