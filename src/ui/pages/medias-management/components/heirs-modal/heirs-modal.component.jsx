@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { useOwner, useLoggedUser, useModal } from 'app-hooks'
+import { useMedia, useLoggedUser, useModal } from 'app-hooks'
 import { SelectItemsModalContent } from 'app-components'
 import { UserIcon } from 'app-icons'
 
-const HeirsModal = ({ mediaId }) => {
+const HeirsModal = ({ mediaId, mediaType }) => {
   const [heirs, setHeirs] = useState([])
   const [baseHeirs, setBaseHeirs] = useState([])
 
-  const { getOwnerHeirsForMedia } = useOwner()
+  const { getOwnerHeirsForMedia } = useMedia({ mediaType })
   const { loggedUser } = useLoggedUser()
   const { hideModal } = useModal()
 
@@ -69,6 +69,7 @@ const HeirsModal = ({ mediaId }) => {
 
 HeirsModal.propTypes = {
   mediaId: PropTypes.number,
+  mediaType: PropTypes.string,
 }
 
 export { HeirsModal }

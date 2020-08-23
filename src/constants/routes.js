@@ -1,4 +1,4 @@
-import { Login, Home, Begin, Register, HeirsManagement, MediasManagement } from 'app-pages'
+import { Login, Home, Begin, Register, HeirsManagement, MediasManagement, CredentialsManagement } from 'app-pages'
 
 const paths = {
   // Login
@@ -18,6 +18,9 @@ const paths = {
 
   //Medias
   medias: () => '/midias',
+
+  //Credentials
+  credentials: () => '/credenciais',
 
   //Generic
   reload: () => '/reload',
@@ -60,6 +63,12 @@ const routes = [
   {
     path: paths.medias(),
     component: MediasManagement,
+  },
+
+  // Credentials
+  {
+    path: paths.credentials(),
+    component: CredentialsManagement,
   },
 
   // Generic

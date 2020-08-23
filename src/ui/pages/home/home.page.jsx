@@ -10,7 +10,7 @@ import './home.style.scss'
 
 const Home = () => {
   const { loggedUser } = useLoggedUser()
-  const { goToHeirsManagement, goToMediasManagement } = useRoute()
+  const { goToHeirsManagement, goToMediasManagement, goToCredentialsManagement } = useRoute()
 
   const accountType = useMemo(() => loggedUser.currentAccount.type, [loggedUser.currentAccount])
 
@@ -37,7 +37,7 @@ const Home = () => {
         accountType === ROLES.OWNER
           ? 'Gerencie credenciais de serviços importantes em sua herança, como logins e senhas'
           : 'Tenha acesso às credenciais herdadas por você e atribuídas nesta conta',
-      onClick: noopFunction,
+      onClick: goToCredentialsManagement,
       icon: <CredentialsIcon />,
       disabled: isInvalidHeir,
     },

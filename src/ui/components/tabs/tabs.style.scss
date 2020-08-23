@@ -1,0 +1,36 @@
+@import 'ui/styles/variables.scss';
+
+.tabs-container {
+  display: flex;
+  margin: 72px 0 46px;
+}
+
+.tab-option-label {
+  width: 240px;
+  font-size: 18px;
+  line-height: 24px;
+  color: $light-gray;
+  background: none;
+  cursor: pointer;
+  padding: 0 12px 12px;
+  border-bottom: 1px solid $light-gray;
+  display: flex;
+  justify-content: center;
+
+  &:hover {
+    transition: 0.2s;
+    color: $primary-light;
+    border-bottom: 2px solid $primary-light;
+  }
+}
+
+.tab-option-input {
+  display: none;
+
+  &:checked {
+    & + .tab-option-label {
+      color: $primary;
+      border-bottom: 2px solid $primary;
+    }
+  }
+}

@@ -31,7 +31,7 @@ const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType }) => {
 
   const showMediaHeirsModal = () => {
     showModal({
-      content: <HeirsModal mediaId={selectedMedia ? selectedMedia.id : null} />,
+      content: <HeirsModal mediaId={selectedMedia ? selectedMedia.id : null} mediaType={mediaType} />,
     })
   }
 

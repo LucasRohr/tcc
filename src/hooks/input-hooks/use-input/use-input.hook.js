@@ -8,6 +8,7 @@ const useInput = ({
   label: initialLabel,
   onChange = () => {},
   onBlur = () => {},
+  onFocus = () => {},
   type,
   validators = [],
   formatters = [],
@@ -98,6 +99,7 @@ const useInput = ({
 
   const handleFocus = () => {
     setHasFocus(true)
+    onFocus()
   }
 
   const isValid = async ({ ignoreInputErrors = false } = {}) => {
