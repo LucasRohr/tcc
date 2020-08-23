@@ -3,22 +3,11 @@ import PropTypes from 'prop-types'
 import { useModal } from 'app-hooks'
 import { HeirsManagementIcon } from 'app-icons'
 import { Button, Text, Switch } from 'app-components'
+import { UPLOAD_OPTIONS } from 'app-constants'
 import { useMediaForm } from './media-form.hook'
 import { HeirsModal } from '../heirs-modal/heirs-modal.component'
 
 import './media-form.style.scss'
-
-const UPLOAD_OPTIONS = {
-  SINGLE: {
-    key: 'SINGLE',
-    label: 'Individual',
-  },
-
-  MULTIPLE: {
-    key: 'MULTIPLE',
-    label: 'Múltiplo',
-  },
-}
 
 const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType }) => {
   const [uploadOption, setUploadOption] = useState(UPLOAD_OPTIONS.SINGLE)
@@ -30,6 +19,8 @@ const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType }) => {
   })
 
   const { showModal } = useModal()
+
+  const rightContainerClass = selectedMedia ? 'media-form-edit-right-container' : 'media-form-right-container'
 
   const getMediaHeirsIds = async heirs => {
     const selectedHeirs = heirs.filter(heirItem => heirItem.isChecked)
@@ -105,8 +96,14 @@ const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType }) => {
         </Button>
       </div>
 
-      <div className="media-form-type-and-buttons-container">
-        <Switch firstOption={UPLOAD_OPTIONS.SINGLE} secondOption={UPLOAD_OPTIONS.MULTIPLE} onChange={setUploadOption} />
+      <div className={rightContainerClass}>
+        {!selectedMedia ? (
+          <Switch
+            firstOption={UPLOAD_OPTIONS.SINGLE}
+            secondOption={UPLOAD_OPTIONS.MULTIPLE}
+            onChange={setUploadOption}
+          />
+        ) : null}
         {renderFormButtons()}
       </div>
     </div>

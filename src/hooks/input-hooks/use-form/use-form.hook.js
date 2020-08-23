@@ -35,11 +35,18 @@ const useForm = () => {
     return fields.map((field, key) => field.getInputComponent(key))
   }
 
+  const cleanFields = fields => {
+    fields.forEach(field => {
+      field.resetInput()
+    })
+  }
+
   return {
     getForm,
     isValid,
     fillFields,
     wasUpdated,
+    cleanFields,
   }
 }
 

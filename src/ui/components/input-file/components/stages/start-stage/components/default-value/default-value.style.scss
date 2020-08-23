@@ -1,4 +1,6 @@
-.file-name {
+@import 'ui/styles/variables.scss';
+
+.input-file-name {
   display: inline-block;
   padding-left: 10px;
   padding-right: 20px;
@@ -6,4 +8,5 @@
   text-overflow: ellipsis;
   overflow: hidden;
   max-width: 140px;
+  color: $primary-light;
 }

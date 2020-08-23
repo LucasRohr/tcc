@@ -65,7 +65,7 @@ const MediaGroup = ({ mediaType, mediasList }) => {
     const onAddClick = () => {
       setCurrentGroupContent(GROUP_CONTENTS.MEDIA_FORM.key)
       setSelectedMedia(null)
-      setIsClosed(!isClosed)
+      setIsClosed(true)
     }
 
     const renderAddButton = () => {

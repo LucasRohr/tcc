@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { useForm, useInput, useInputFile } from 'app-hooks'
 import { minLengthValidator } from 'app-validators'
-import { HERITAGE_TYPES } from 'app-constants'
+import { HERITAGE_TYPES, UPLOAD_OPTIONS } from 'app-constants'
 
-const useMediaForm = ({ initialData, mediaType }) => {
-  const { isValid, getForm, fillFields } = useForm()
+const useMediaForm = ({ initialData, mediaType, uploadOption }) => {
+  const { isValid, getForm, fillFields, cleanFields } = useForm()
 
   const name = useInput({
     name: 'name',
@@ -25,10 +25,11 @@ const useMediaForm = ({ initialData, mediaType }) => {
 
   const media = useInputFile({
     name: 'media',
-    label: 'Mídia',
+    label: UPLOAD_OPTIONS[uploadOption.key].multiple ? 'Mídias' : 'Mídia',
     accept: HERITAGE_TYPES[mediaType].extensions,
     mediaType: HERITAGE_TYPES[mediaType].key,
     defaultValue: initialData ? initialData.file : null,
+    multiple: UPLOAD_OPTIONS[uploadOption.key].multiple,
   })
 
   const inputFields = [name, description]
@@ -37,8 +38,14 @@ const useMediaForm = ({ initialData, mediaType }) => {
   useEffect(() => {
     if (initialData) {
       fillFields(allFields, initialData)
+    } else {
+      cleanFields(allFields)
     }
   }, [initialData])
+
+  useEffect(() => {
+    cleanFields(allFields)
+  }, [uploadOption.key])
 
   const buildApiObject = () => ({
     name: name.value,

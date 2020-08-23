@@ -4,11 +4,11 @@ import SITUATION_OPTIONS from './components'
 
 import './middle-stage.style.scss'
 
-const MiddleStage = ({ situation, removeFile, name }) => {
+const MiddleStage = ({ situation, removeFile, multiple, name }) => {
   const renderMiddle = () => {
     if (Object.keys(SITUATION_OPTIONS).includes(situation)) {
       const Component = SITUATION_OPTIONS[situation]
-      return <Component removeFile={removeFile} name={name} />
+      return <Component removeFile={removeFile} multiple={multiple} name={name} />
     }
 
     return (

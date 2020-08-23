@@ -3,13 +3,22 @@ import { inputFileValidations } from './input-file-validations'
 import { InputFile } from 'app-components'
 import { MEDIA_CONFIG } from 'app-constants'
 
-const useInputFile = ({ name, label, onChange = () => {}, accept, mediaType, defaultValue, icon }) => {
+const useInputFile = ({ name, label, onChange = () => {}, accept, mediaType, defaultValue, icon, multiple }) => {
   const [file, setFile] = useState(null)
+  const [filesList, setFilesList] = useState([])
+
+  const [invalidFiles, setInvalidFiles] = useState([])
+
   const [error, setError] = useState('')
   const [isInputInvalid, setIsInputInvalid] = useState(true)
   const [firstRender, setFirstRender] = useState(true)
   const [withDefaultValue, setWithDefaultValue] = useState(false)
+
+  const [classType, setClassType] = useState('')
+
   const [blobUrl, setBlobUrl] = useState(null)
+  const [blobUrlList, setBlobUrlList] = useState(null)
+
   const [wasUpdated, setWasUpdated] = useState(false)
   const ref = useRef()
 
@@ -71,12 +80,47 @@ const useInputFile = ({ name, label, onChange = () => {}, accept, mediaType, def
       accept={accept}
       mediaType={mediaType}
       defaultValue={defaultValue}
-      inputStates={{ file, blobUrl, error, firstRender, withDefaultValue }}
-      inputSets={{ setFile, setBlobUrl, setError, setWithDefaultValue, setFirstRender }}
+      inputStates={{
+        file,
+        filesList,
+        invalidFiles,
+        blobUrl,
+        blobUrlList,
+        error,
+        firstRender,
+        withDefaultValue,
+        classType,
+      }}
+      inputSets={{
+        setFile,
+        setFilesList,
+        setInvalidFiles,
+        setBlobUrl,
+        setBlobUrlList,
+        setError,
+        setWithDefaultValue,
+        setFirstRender,
+        setClassType,
+      }}
       validateFile={isFileValid}
       icon={icon}
+      multiple={multiple}
     />
   )
+
+  const resetInput = () => {
+    setFile(null)
+    setFilesList([])
+    setInvalidFiles([])
+    setBlobUrl(null)
+    setBlobUrlList([])
+    setWithDefaultValue(false)
+    setFirstRender(true)
+    setIsInputInvalid(false)
+    setWasUpdated(false)
+    setClassType('')
+    setError('')
+  }
 
   return {
     name,
@@ -84,10 +128,13 @@ const useInputFile = ({ name, label, onChange = () => {}, accept, mediaType, def
     getInputComponent,
     scrollTo,
     file,
+    filesList,
     error,
     blobUrl,
+    blobUrlList,
     isValid,
     inputRef: ref,
+    resetInput,
   }
 }
 

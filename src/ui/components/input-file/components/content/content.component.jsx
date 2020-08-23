@@ -20,6 +20,8 @@ const Content = ({
   name,
   accept,
   file,
+  filesList,
+  invalidFiles,
   error,
   firstRender,
   defaultValue,
@@ -31,28 +33,37 @@ const Content = ({
   onChangeLocal,
   renderInfoButton,
   cancelRequest,
+  multiple,
 }) => {
   const renderContent = () => {
     let contentClassAdditional = ''
     let situation = null
 
-    if (file) {
+    const hasFilesList = filesList && filesList.length
+    const hasInvalidFiles = invalidFiles && invalidFiles.length
+
+    if (file || hasFilesList) {
       contentClassAdditional = 'show-file'
       situation = SITUATION_FILE.SHOWING_OFF
     }
 
-    if (error) {
+    if (error || hasInvalidFiles) {
       contentClassAdditional = 'error-file'
       situation = SITUATION_FILE.ERROR
     }
 
     if (defaultValue && firstRender && withDefaultValue) {
       contentClassAdditional = 'show-file'
-      if (classType !== CLASS_TYPE.SUCCESS) setClassType(CLASS_TYPE.SUCCESS)
+      if (classType !== CLASS_TYPE.SUCCESS) {
+        setClassType(CLASS_TYPE.SUCCESS)
+      }
+
       situation = SITUATION_FILE.DEFAULT_VALUE
     }
 
     const checkInputFieldTooltipText = () => {
+      if (multiple) return null
+
       if (file) return file.name
 
       if (defaultValue) return DEFAULT_VALUE_TEXT
@@ -70,18 +81,20 @@ const Content = ({
           <StartStage
             situation={situation}
             file={file}
+            multiple={multiple}
             error={error}
             defaultValue={defaultValue}
             renderMiniature={renderMiniature}
           />
         </div>
         <div className="file-middle-content">
-          <MiddleStage situation={situation} removeFile={removeFile} name={name} />
+          <MiddleStage situation={situation} removeFile={removeFile} multiple={multiple} name={name} />
           <input
             ref={getRef}
             id={id}
             name={name}
             type="file"
+            multiple={multiple}
             className="input-file"
             onChange={event => onChangeLocal(event)}
             accept={accept}
@@ -106,6 +119,7 @@ Content.defaultProps = {
   onChangeLocal: noopFunction,
   renderInfoButton: noopFunction,
   cancelRequest: noopFunction,
+  multiple: false,
 }
 
 Content.propTypes = {
@@ -114,6 +128,8 @@ Content.propTypes = {
   name: PropTypes.string.isRequired,
   accept: PropTypes.string.isRequired,
   file: PropTypes.object,
+  filesList: PropTypes.array,
+  invalidFiles: PropTypes.array,
   error: PropTypes.string,
   firstRender: PropTypes.bool.isRequired,
   defaultValue: PropTypes.object,
@@ -125,6 +141,7 @@ Content.propTypes = {
   onChangeLocal: PropTypes.func.isRequired,
   renderInfoButton: PropTypes.func.isRequired,
   cancelRequest: PropTypes.func.isRequired,
+  multiple: PropTypes.bool,
 }
 
 export { Content }

@@ -3,11 +3,19 @@ import PropTypes from 'prop-types'
 import { EmptyIcon } from 'app-icons'
 import SITUATION_OPTIONS from './components'
 
-const StartStage = ({ situation, file, error, defaultValue, renderMiniature }) => {
+const StartStage = ({ situation, file, error, defaultValue, multiple, renderMiniature }) => {
   const renderStart = () => {
     if (Object.keys(SITUATION_OPTIONS).includes(situation)) {
       const Component = SITUATION_OPTIONS[situation]
-      return <Component renderMiniature={renderMiniature} file={file} error={error} defaultValue={defaultValue} />
+      return (
+        <Component
+          renderMiniature={renderMiniature}
+          file={file}
+          error={error}
+          multiple={multiple}
+          defaultValue={defaultValue}
+        />
+      )
     }
 
     return <EmptyIcon width="45" />

@@ -84,3 +84,34 @@
   max-width: 100%;
   border-radius: $border-radius;
 }
+
+.input-file-multiple-label-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.input-file-multiple-valid-label {
+  font-size: 18px;
+  font-weight: bold;
+  color: $primary;
+}
+
+.input-file-multiple-invalid-label {
+  font-size: 18px;
+  font-weight: bold;
+  color: $red;
+  margin-top: 5px;
+}
+
+.media-document-icon {
+  margin-bottom: 5px;
+  margin-left: 10px;
+
+  & svg {
+    width: 36px;
+    height: 36px;
+    fill: $primary-light;
+  }
+}

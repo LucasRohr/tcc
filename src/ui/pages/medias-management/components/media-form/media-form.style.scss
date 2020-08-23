@@ -1,5 +1,13 @@
 @import 'ui/styles/variables.scss';
 
+@mixin media-form-right-container-mixin {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
 .media-form-container {
   width: 90%;
   display: flex;
@@ -30,7 +38,7 @@
 }
 
 .media-form-heirs-icon {
-  margin-left: 14px;
+  margin-left: 18px;
 
   & svg {
     width: 28px;
@@ -55,12 +63,13 @@
   }
 }
 
-.media-form-type-and-buttons-container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
+.media-form-right-container {
+  @include media-form-right-container-mixin();
+}
+
+.media-form-edit-right-container {
+  @include media-form-right-container-mixin();
+  justify-content: flex-end;
 }
 
 .media-form-multiple-info {

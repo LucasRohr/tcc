@@ -12,14 +12,14 @@ const HERITAGE_TYPES = {
     key: 'VIDEO',
     label: 'Vídeos',
     icon: VideoAssetIcon,
-    extensions: '.mp4',
+    extensions: '.mp4, .webm',
   },
 
   DOCUMENT: {
     key: 'DOCUMENT',
     label: 'Documentos',
     icon: DocumentAssetIcon,
-    extensions: '.pdf .txt. .xls .docx .pptx .csv',
+    extensions: '.pdf, .txt, .xls, .docx, .pptx, .csv',
   },
 
   CREDENTIAL: {
