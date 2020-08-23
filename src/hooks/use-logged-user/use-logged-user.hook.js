@@ -29,14 +29,7 @@ const useLoggedUser = () => {
     isFirstLoad = false
 
     try {
-      // const { user = {}, accounts } = await get('me', { useToast: false, useStateErrors: false })
-
-      const user = {}
-      const accounts = []
-      user.id = 1
-      user.name = 'Lucas Rohr Carreño'
-      user.email = 'lucasrc17@live.com'
-      user.accounts = [{ id: 1, type: 'OWNER', status: 'ACTIVE' }]
+      const { user = {}, accounts } = await get('me', { useToast: false, useStateErrors: false })
 
       const currentAccount = user.accounts[0]
 

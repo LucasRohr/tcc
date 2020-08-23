@@ -88,7 +88,13 @@ const Content = ({
           />
         </div>
         <div className="file-middle-content">
-          <MiddleStage situation={situation} removeFile={removeFile} multiple={multiple} name={name} />
+          <MiddleStage
+            situation={situation}
+            removeFile={removeFile}
+            multiple={multiple}
+            name={name}
+            hasFiles={hasFilesList || hasInvalidFiles}
+          />
           <input
             ref={getRef}
             id={id}
