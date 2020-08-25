@@ -5,6 +5,7 @@ import { ROLES } from 'app-constants'
 
 import './credentials-management.style.scss'
 import { CredentialsList } from './components/index'
+import { CREDENTIALS_MOCK } from 'mocks/index'
 
 const TAB_OPTIONS = [
   {
@@ -26,21 +27,6 @@ const CredentialsManagement = () => {
   const [currentTab, setCurrentTab] = useState(TAB_OPTIONS[0].value)
   const [credentials, setCredentials] = useState([])
 
-  const CONTENT_OPTIONS = useMemo(
-    () => ({
-      CREDENTIALS_LIST: {
-        component: CredentialsList,
-        props: { credentials },
-      },
-
-      CREDENTIAL_FORM: {
-        component: () => <div />,
-        props: {},
-      },
-    }),
-    [credentials]
-  )
-
   const { loggedUser } = useLoggedUser()
   const { getOwnerHeritageCredentials, getHeirReceivedCredentials } = useCredential()
 
@@ -50,9 +36,11 @@ const CredentialsManagement = () => {
     const isOwner = currentAccountType === ROLES.OWNER
     const accountId = loggedUser.currentAccount.id
 
-    const result = isOwner ? await getOwnerHeritageCredentials(accountId) : await getHeirReceivedCredentials(accountId)
+    // const result = isOwner ? await getOwnerHeritageCredentials(accountId) : await getHeirReceivedCredentials(accountId)
 
-    if (result && result.length) {
+    const result = CREDENTIALS_MOCK
+
+    if (result && result.credentials) {
       setCredentials(result.credentials)
     }
   }
@@ -60,6 +48,21 @@ const CredentialsManagement = () => {
   useEffect(() => {
     getCredentials()
   }, [])
+
+  const CONTENT_OPTIONS = useMemo(
+    () => ({
+      CREDENTIALS_LIST: {
+        component: CredentialsList,
+        props: { credentials, loadCredentials: getCredentials },
+      },
+
+      CREDENTIAL_FORM: {
+        component: () => <div />,
+        props: {},
+      },
+    }),
+    [credentials]
+  )
 
   const renderContent = () => {
     const ContentComponent = CONTENT_OPTIONS[currentTab].component

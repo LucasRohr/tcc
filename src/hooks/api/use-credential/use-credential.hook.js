@@ -1,7 +1,7 @@
 import { useRequest } from '../use-request/use-request.hook'
 
 const useCredential = () => {
-  const { get } = useRequest('/credential-service')
+  const { get, put } = useRequest('/credential-service')
 
   const getHeirReceivedCredentials = async heirId => {
     return await get(`${heirId}/heir-credentials`)
@@ -15,10 +15,22 @@ const useCredential = () => {
     return await get(`credentials/${credentialId}/auth`)
   }
 
+  const updateCredential = async (credentialId, updateObject) => {
+    const result = await put(`credentials/${credentialId}/edit`, updateObject)
+    return result !== undefined
+  }
+
+  const removeCredential = async credentialId => {
+    const result = await put(`credentials/${credentialId}/inactive`)
+    return result !== undefined
+  }
+
   return {
     getHeirReceivedCredentials,
     getOwnerHeritageCredentials,
     getOwnerHeritageCredentialPassword,
+    updateCredential,
+    removeCredential,
   }
 }
 

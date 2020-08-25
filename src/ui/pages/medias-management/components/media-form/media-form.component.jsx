@@ -2,15 +2,15 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useModal } from 'app-hooks'
 import { HeirsManagementIcon } from 'app-icons'
-import { Button, Text, Switch } from 'app-components'
+import { Button, Text, Switch, HeirsModal } from 'app-components'
 import { UPLOAD_OPTIONS } from 'app-constants'
 import { useMediaForm } from './media-form.hook'
-import { HeirsModal } from '../heirs-modal/heirs-modal.component'
 
 import './media-form.style.scss'
 
 const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType }) => {
   const [uploadOption, setUploadOption] = useState(UPLOAD_OPTIONS.SINGLE)
+  const [heirs, setHeirs] = useState([])
 
   const { isValid, renderInputFields, renderMediaField, buildApiObject, sendToApi } = useMediaForm({
     initialData: selectedMedia,
@@ -22,7 +22,7 @@ const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType }) => {
 
   const rightContainerClass = selectedMedia ? 'media-form-edit-right-container' : 'media-form-right-container'
 
-  const getMediaHeirsIds = async heirs => {
+  const getMediaHeirsIds = async () => {
     const selectedHeirs = heirs.filter(heirItem => heirItem.isChecked)
     const heirsIds = selectedHeirs.maṕ(heirItem => heirItem.item.id)
 
@@ -31,7 +31,7 @@ const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType }) => {
 
   const showMediaHeirsModal = () => {
     showModal({
-      content: <HeirsModal mediaId={selectedMedia ? selectedMedia.id : null} mediaType={mediaType} />,
+      content: <HeirsModal onConfirm={setHeirs} />,
     })
   }
 
@@ -42,8 +42,8 @@ const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType }) => {
   const onConfirm = async () => {
     if (await isValid()) {
       const mediaObject = buildApiObject()
-      const heirs = getMediaHeirsIds()
-      const apiObject = { ...mediaObject, heirs }
+      const heirsId = getMediaHeirsIds()
+      const apiObject = { ...mediaObject, heirs: heirsId }
 
       const result = await sendToApi(apiObject)
 

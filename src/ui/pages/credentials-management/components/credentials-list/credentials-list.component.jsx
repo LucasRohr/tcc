@@ -5,12 +5,12 @@ import { CredentialCard } from '../credential-card/credential-card.component'
 
 import './credentials-list.style.scss'
 
-const CredentialsList = ({ credentials }) => {
+const CredentialsList = ({ credentials, loadCredentials }) => {
   const renderCredentialsList = () => {
     const hasCredentials = credentials && credentials.length
 
     if (hasCredentials) {
-      return credentials.map(credential => <CredentialCard credential={credential} />)
+      return credentials.map(credential => <CredentialCard credential={credential} loadCredentials={loadCredentials} />)
     }
 
     return (
@@ -25,6 +25,7 @@ const CredentialsList = ({ credentials }) => {
 
 CredentialsList.propTypes = {
   credentials: PropTypes.array,
+  loadCredentials: PropTypes.func,
 }
 
 export { CredentialsList }

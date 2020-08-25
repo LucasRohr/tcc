@@ -5,52 +5,58 @@ import { minLengthValidator } from 'app-validators'
 const DEFAULT_VALUE = 'defaultValue'
 
 const useCredentialCard = ({ initialData }) => {
-  const [credentialPassword, setCredentialPassword] = useState(DEFAULT_VALUE)
+  const [isFirstInteraction, setIsFirstInteraction] = useState(true)
 
-  const { isValid, getForm } = useForm()
-  const { getOwnerHeritageCredentialPassword } = useCredential()
+  const { isValid, getForm, fillFields } = useForm()
+  const { getOwnerHeritageCredentialPassword, updateCredential } = useCredential()
 
   const getCredentialPassword = async () => {
-    if (credentialPassword === DEFAULT_VALUE) {
-      const result = await getOwnerHeritageCredentialPassword(initialData.id)
+    if (isFirstInteraction) {
+      // const result = await getOwnerHeritageCredentialPassword(initialData.id)
+
+      const result = { auth: 'lkdfkdfkds123' }
 
       if (result) {
-        setCredentialPassword(result.auth)
+        setIsFirstInteraction(false)
+        password.changeInputValue(result.auth)
       }
     }
   }
 
   const name = useInput({
-    name: 'credentialName',
+    name: 'name',
     label: 'Nome',
     variant: 'full',
     validators: [value => minLengthValidator({ value, minLength: 2 })],
   })
 
   const login = useInput({
-    name: 'credentialLogin',
+    name: 'login',
     label: 'Login',
     variant: 'full',
     required: false,
+    autoComplete: 'new-password',
   })
 
   const password = useInput({
-    name: 'credentialPassword',
+    name: 'password',
     label: 'Senha',
     variant: 'full',
+    defaultValue: DEFAULT_VALUE,
+    autoComplete: 'new-password',
+    usePassword: true,
     validators: [value => minLengthValidator({ value, minLength: 2 })],
-    onFocus: getCredentialPassword,
   })
 
   const link = useInput({
-    name: 'credentialLink',
+    name: 'link',
     label: 'Link',
     variant: 'full',
     required: false,
   })
 
   const description = useInput({
-    name: 'credentialDescription',
+    name: 'description',
     label: 'Descrição',
     variant: 'full',
     required: false,
@@ -61,8 +67,14 @@ const useCredentialCard = ({ initialData }) => {
   const extraFields = [link, description]
 
   const allFields = [...mainFields, ...extraFields]
+  const fieldsToFill = [name, login, link, description]
 
-  useEffect(() => {}, [initialData])
+  useEffect(() => {
+    if (initialData) {
+      fillFields(fieldsToFill, initialData)
+      getCredentialPassword()
+    }
+  }, [initialData])
 
   const buildApiObject = () => {
     const apiObject = {}
@@ -74,7 +86,9 @@ const useCredentialCard = ({ initialData }) => {
     return apiObject
   }
 
-  const sendToApi = apiObject => apiObject
+  const sendToApi = async apiObject => {
+    return await updateCredential(initialData.id, apiObject)
+  }
 
   return {
     getMainFormFields: () => getForm(mainFields),

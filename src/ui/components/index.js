@@ -21,3 +21,4 @@ export { SelectItemsModalContent } from './select-items-modal-content/select-ite
 export { InputFile } from './input-file/input-file.component'
 export { Switch } from './switch/switch.component'
 export { Tabs } from './tabs/tabs.component'
+export { HeirsModal } from './heirs-modal/heirs-modal.component'
