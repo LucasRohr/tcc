@@ -1,16 +1,16 @@
 import React, { useState, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { Button, Text, HeirsModal } from 'app-components'
-import { noopFunction } from 'app-helpers'
 import { HeirsManagementIcon } from 'app-icons'
 import { useModal } from 'app-hooks'
+import { noopFunction } from 'app-helpers'
 import { useCredentialCard } from './credential-card.hook'
 import { CredentialInfo } from '../credential-info/credential-info.component'
-
-import './credential-card.style.scss'
 import { RemoveCredentialModal } from '../remove-credential-modal/remove-credential-modal.component'
 
-const CredentialCard = ({ credential, loadCredentials }) => {
+import './credential-card.style.scss'
+
+const CredentialCard = ({ credential, loadCredentials, isHeirAccount }) => {
   const [isEditing, setIsEditing] = useState(false)
   const [heirs, setHeirs] = useState([])
 
@@ -22,7 +22,7 @@ const CredentialCard = ({ credential, loadCredentials }) => {
 
   const getCredentialHeirsIds = async () => {
     const selectedHeirs = heirs.filter(heirItem => heirItem.isChecked)
-    const heirsIds = selectedHeirs.maṕ(heirItem => heirItem.item.id)
+    const heirsIds = selectedHeirs.map(heirItem => heirItem.item.id)
 
     return heirsIds
   }
@@ -98,6 +98,7 @@ const CredentialCard = ({ credential, loadCredentials }) => {
       {
         text: '',
         variant: 'PASSWORD',
+        isHeirAccount,
       },
 
       {
@@ -149,15 +150,21 @@ const CredentialCard = ({ credential, loadCredentials }) => {
       <div className="credential-card-content-wrapper">
         <div className="credential-card-content">{renderLeftContent()}</div>
 
-        <div className="credential-card-content">{renderRightContent()}</div>
+        {!isHeirAccount ? <div className="credential-card-content">{renderRightContent()}</div> : null}
       </div>
     </div>
   )
 }
 
+CredentialCard.defaultProps = {
+  loadCredentials: noopFunction,
+  isHeirAccount: false,
+}
+
 CredentialCard.propTypes = {
   credential: PropTypes.object.isRequired,
   loadCredentials: PropTypes.func,
+  isHeirAccount: PropTypes.bool,
 }
 
 export { CredentialCard }

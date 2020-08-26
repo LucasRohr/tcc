@@ -8,7 +8,7 @@ const DEFAULT_VARIANT = 'DEFAULT'
 
 const NO_INFO_TEXT = 'Informação não definida'
 
-const CredentialInfo = ({ text, variant }) => {
+const CredentialInfo = ({ text, variant, isHeirAccount }) => {
   const renderPasswordInfo = () => (
     <div className="credential-info-password-container">
       <input className="credential-info-password" type="password" value={DEFAULT_PASSWORD} disabled />
@@ -31,11 +31,13 @@ const CredentialInfo = ({ text, variant }) => {
 
 CredentialInfo.defaultProps = {
   variant: DEFAULT_VARIANT,
+  isHeirAccount: false,
 }
 
 CredentialInfo.propTypes = {
   text: PropTypes.string,
   variant: PropTypes.string,
+  isHeirAccount: PropTypes.bool,
 }
 
 export { CredentialInfo }

@@ -2,10 +2,10 @@ import React, { useState, useEffect, useMemo } from 'react'
 import { PageTitle, Tabs } from 'app-components'
 import { useLoggedUser, useCredential } from 'app-hooks'
 import { ROLES } from 'app-constants'
+import { CredentialsList, CreateCredential } from './components'
+import { CREDENTIALS_MOCK } from 'mocks'
 
 import './credentials-management.style.scss'
-import { CredentialsList } from './components/index'
-import { CREDENTIALS_MOCK } from 'mocks/index'
 
 const TAB_OPTIONS = [
   {
@@ -26,17 +26,19 @@ const TAB_OPTIONS = [
 const CredentialsManagement = () => {
   const [currentTab, setCurrentTab] = useState(TAB_OPTIONS[0].value)
   const [credentials, setCredentials] = useState([])
+  const [canShowContent, setCanShowContent] = useState(false)
 
   const { loggedUser } = useLoggedUser()
   const { getOwnerHeritageCredentials, getHeirReceivedCredentials } = useCredential()
 
   const currentAccountType = loggedUser.currentAccount.type
+  const isOwnerAccount = currentAccountType === ROLES.OWNER
 
   const getCredentials = async () => {
-    const isOwner = currentAccountType === ROLES.OWNER
     const accountId = loggedUser.currentAccount.id
 
-    // const result = isOwner ? await getOwnerHeritageCredentials(accountId) : await getHeirReceivedCredentials(accountId)
+    // const result = isOwnerAccount ? await getOwnerHeritageCredentials(accountId) : await getHeirReceivedCredentials(accountId)
+    setCanShowContent(true)
 
     const result = CREDENTIALS_MOCK
 
@@ -57,7 +59,7 @@ const CredentialsManagement = () => {
       },
 
       CREDENTIAL_FORM: {
-        component: () => <div />,
+        component: CreateCredential,
         props: {},
       },
     }),
@@ -65,19 +67,23 @@ const CredentialsManagement = () => {
   )
 
   const renderContent = () => {
-    const ContentComponent = CONTENT_OPTIONS[currentTab].component
-    const props = CONTENT_OPTIONS[currentTab].props
+    if (isOwnerAccount) {
+      const ContentComponent = CONTENT_OPTIONS[currentTab].component
+      const props = CONTENT_OPTIONS[currentTab].props
 
-    return <ContentComponent {...props} />
+      return <ContentComponent {...props} />
+    }
+
+    return <CredentialsList credentials={credentials} isHeirAccount />
   }
 
-  return (
+  return canShowContent ? (
     <div className="credentials-management-container">
       <PageTitle title="Gerenciamento de Credenciais" />
       <Tabs options={TAB_OPTIONS} currentTab={currentTab} setCurrentTab={setCurrentTab} />
       {renderContent()}
     </div>
-  )
+  ) : null
 }
 
 export { CredentialsManagement }

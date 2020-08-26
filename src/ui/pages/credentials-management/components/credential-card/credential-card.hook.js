@@ -12,9 +12,7 @@ const useCredentialCard = ({ initialData }) => {
 
   const getCredentialPassword = async () => {
     if (isFirstInteraction) {
-      // const result = await getOwnerHeritageCredentialPassword(initialData.id)
-
-      const result = { auth: 'lkdfkdfkds123' }
+      const result = await getOwnerHeritageCredentialPassword(initialData.id)
 
       if (result) {
         setIsFirstInteraction(false)
@@ -93,7 +91,7 @@ const useCredentialCard = ({ initialData }) => {
   return {
     getMainFormFields: () => getForm(mainFields),
     getExtraFormFields: () => getForm(extraFields),
-    isValid: () => isValid(allFields),
+    isValid: () => isValid({ fields: allFields }),
     buildApiObject,
     sendToApi,
   }

@@ -24,7 +24,7 @@ const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType }) => {
 
   const getMediaHeirsIds = async () => {
     const selectedHeirs = heirs.filter(heirItem => heirItem.isChecked)
-    const heirsIds = selectedHeirs.maṕ(heirItem => heirItem.item.id)
+    const heirsIds = selectedHeirs.map(heirItem => heirItem.item.id)
 
     return heirsIds
   }

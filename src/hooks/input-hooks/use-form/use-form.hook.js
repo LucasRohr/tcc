@@ -25,7 +25,6 @@ const useForm = () => {
 
   const fillFields = (fields, model) => {
     fields.forEach(field => {
-      console.log(field)
       if (model[field.name]) {
         field.setInitialValue(model[field.name])
       }
