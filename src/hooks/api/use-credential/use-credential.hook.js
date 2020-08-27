@@ -30,6 +30,19 @@ const useCredential = () => {
     return result !== undefined
   }
 
+  const getAllHeirsForCredential = async (ownerId, credentialId) => {
+    return await get(`credentials/${credentialId}/owner/${ownerId}/available-heirs`, {
+      useToast: false,
+      useLoader: false,
+      showDefaultErrorToast: false,
+    })
+  }
+
+  const updateCredentialHeirs = async (credentialId, heirs) => {
+    const result = await put(`credentials/${credentialId}/heirs-update`, heirs)
+    return result !== undefined
+  }
+
   return {
     getHeirReceivedCredentials,
     getOwnerHeritageCredentials,
@@ -37,6 +50,8 @@ const useCredential = () => {
     updateCredential,
     removeCredential,
     createCredential,
+    getAllHeirsForCredential,
+    updateCredentialHeirs,
   }
 }
 

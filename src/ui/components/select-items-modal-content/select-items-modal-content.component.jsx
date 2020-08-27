@@ -66,7 +66,6 @@ const SelectItemsModalContent = ({
         initialIsChecked={itemCheck}
         title={item.name}
         onChange={changeItemsOnCheck}
-        index={index}
       />
     ))
 

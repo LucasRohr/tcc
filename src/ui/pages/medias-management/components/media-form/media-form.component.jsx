@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useModal } from 'app-hooks'
+import { useModal, useLoggedUser, useMedia } from 'app-hooks'
 import { HeirsManagementIcon } from 'app-icons'
 import { Button, Text, Switch, HeirsModal } from 'app-components'
 import { UPLOAD_OPTIONS } from 'app-constants'
@@ -19,6 +19,8 @@ const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType }) => {
   })
 
   const { showModal } = useModal()
+  const { loggedUser } = useLoggedUser()
+  const { getAllHeirsForMedia } = useMedia({ mediaType })
 
   const rightContainerClass = selectedMedia ? 'media-form-edit-right-container' : 'media-form-right-container'
 
@@ -29,9 +31,19 @@ const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType }) => {
     return heirsIds
   }
 
+  const mapHeirs = heirsList => heirsList.map(heirItem => ({ item: heirItem, itemCheck: heirItem.hasMedia }))
+
+  const getAvailableHeirs = async () => {
+    const result = await getAllHeirsForMedia(loggedUser.currentAccount.id, selectedMedia.id)
+
+    if (result && result.length) {
+      return result
+    }
+  }
+
   const showMediaHeirsModal = () => {
     showModal({
-      content: <HeirsModal onConfirm={setHeirs} />,
+      content: <HeirsModal onConfirm={setHeirs} getHeirs={getAvailableHeirs} mapHeirs={mapHeirs} />,
     })
   }
 

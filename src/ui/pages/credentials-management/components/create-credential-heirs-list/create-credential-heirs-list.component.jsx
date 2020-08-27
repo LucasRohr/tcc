@@ -39,21 +39,18 @@ function CreateCredentialHeirsList({ onChange }) {
           name: 'Fulaninho de Tal',
           account: 'conta herdeira 1',
           email: 'cleitinho@gmail.com',
-          hasMedia: false,
         },
         {
           id: 2,
           name: 'Cirilo brabo',
           email: 'cirila1@gmail.com',
           account: 'conta herdeira 2',
-          hasMedia: false,
         },
         {
           id: 3,
           name: 'alfredo berimbau da silva',
           email: 'cirila1@gmail.com',
           account: 'conta herdeira 2',
-          hasMedia: true,
         },
       ],
     }
@@ -91,7 +88,6 @@ function CreateCredentialHeirsList({ onChange }) {
         initialIsChecked={itemCheck}
         title={item.name}
         onChange={changeItemsOnCheck}
-        index={index}
       />
     ))
 

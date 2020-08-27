@@ -3,7 +3,6 @@ import { PageTitle, Tabs } from 'app-components'
 import { useLoggedUser, useCredential } from 'app-hooks'
 import { ROLES } from 'app-constants'
 import { CredentialsList, CreateCredential } from './components'
-import { CREDENTIALS_MOCK } from 'mocks'
 
 import './credentials-management.style.scss'
 
@@ -37,10 +36,10 @@ const CredentialsManagement = () => {
   const getCredentials = async () => {
     const accountId = loggedUser.currentAccount.id
 
-    // const result = isOwnerAccount ? await getOwnerHeritageCredentials(accountId) : await getHeirReceivedCredentials(accountId)
+    const result = isOwnerAccount
+      ? await getOwnerHeritageCredentials(accountId)
+      : await getHeirReceivedCredentials(accountId)
     setCanShowContent(true)
-
-    const result = CREDENTIALS_MOCK
 
     if (result && result.credentials) {
       setCredentials(result.credentials)

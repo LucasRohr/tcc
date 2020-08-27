@@ -1,8 +1,8 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Button, Text, HeirsModal } from 'app-components'
 import { HeirsManagementIcon } from 'app-icons'
-import { useModal } from 'app-hooks'
+import { useModal, useCredential, useLoggedUser, useToastAlert } from 'app-hooks'
 import { noopFunction } from 'app-helpers'
 import { useCredentialCard } from './credential-card.hook'
 import { CredentialInfo } from '../credential-info/credential-info.component'
@@ -12,25 +12,42 @@ import './credential-card.style.scss'
 
 const CredentialCard = ({ credential, loadCredentials, isHeirAccount }) => {
   const [isEditing, setIsEditing] = useState(false)
-  const [heirs, setHeirs] = useState([])
+  const [isFirstInteraction, setIsFirstInteraction] = useState(true)
+  const [credentialPassword, setCredentialPassword] = useState('')
+
+  const { getOwnerHeritageCredentialPassword, getAllHeirsForCredential, updateCredentialHeirs } = useCredential()
+  const { showModal } = useModal()
+  const { loggedUser } = useLoggedUser()
+  const { showSuccessToastAlert } = useToastAlert()
 
   const { getMainFormFields, getExtraFormFields, isValid, buildApiObject, sendToApi } = useCredentialCard({
-    initialData: isEditing ? credential : null,
+    initialData: isEditing ? { ...credential, password: credentialPassword } : null,
   })
 
-  const { showModal } = useModal()
+  useEffect(() => {
+    if (isEditing) {
+      getCredentialPassword()
+    }
+  }, [isEditing])
 
-  const getCredentialHeirsIds = async () => {
-    const selectedHeirs = heirs.filter(heirItem => heirItem.isChecked)
-    const heirsIds = selectedHeirs.map(heirItem => heirItem.item.id)
+  const getCredentialPassword = async () => {
+    if (isFirstInteraction) {
+      const result = await getOwnerHeritageCredentialPassword(credential.id)
 
-    return heirsIds
+      if (result) {
+        setIsFirstInteraction(false)
+        setCredentialPassword(result.auth)
+      }
+
+      return true
+    }
+
+    return true
   }
 
   const saveCredentialEdit = async () => {
     if (await isValid()) {
       const credentialObject = buildApiObject()
-      credentialObject.heirs = getCredentialHeirsIds()
       const result = await sendToApi(credentialObject)
 
       if (result) {
@@ -48,9 +65,35 @@ const CredentialCard = ({ credential, loadCredentials, isHeirAccount }) => {
     setIsEditing(false)
   }
 
+  const getAvailableHeirs = async () => {
+    const result = await getAllHeirsForCredential(loggedUser.currentAccount.id, credential.id)
+
+    if (result && result.length) {
+      return result
+    }
+  }
+
+  const mapHeirs = heirsList => heirsList.map(heirItem => ({ item: heirItem, itemCheck: heirItem.hasCredential }))
+
+  const getSelectedHeirsId = selectedHeirs => {
+    const selectedHeirsFiltered = selectedHeirs.filter(heirItem => heirItem.itemCheck)
+    const heirsIds = selectedHeirsFiltered.map(heirItem => heirItem.item.id)
+
+    return heirsIds
+  }
+
+  const saveCredentialHeirs = async selectedHeirs => {
+    const heirs = getSelectedHeirsId(selectedHeirs)
+    const result = await updateCredentialHeirs(credential.id, heirs)
+
+    if (result) {
+      showSuccessToastAlert('Herdeiros atualizados com sucesso.')
+    }
+  }
+
   const showCredentialsHeirsModal = () => {
     showModal({
-      content: <HeirsModal onConfirm={setHeirs} />,
+      content: <HeirsModal onConfirm={saveCredentialHeirs} mapHeirs={mapHeirs} getHeirs={getAvailableHeirs} />,
     })
   }
 
@@ -96,9 +139,9 @@ const CredentialCard = ({ credential, loadCredentials, isHeirAccount }) => {
       },
 
       {
-        text: '',
+        text: credentialPassword,
         variant: 'PASSWORD',
-        isHeirAccount,
+        getCredentialPassword,
       },
 
       {
@@ -111,11 +154,13 @@ const CredentialCard = ({ credential, loadCredentials, isHeirAccount }) => {
         variant: 'AREA',
       },
     ],
-    [credential]
+    [credential, credentialPassword, getCredentialPassword]
   )
 
   const renderCredentialInfo = () => {
-    const fields = infoOptions.map(({ text, variant }) => <CredentialInfo text={text} variant={variant} />)
+    const fields = infoOptions.map(({ text, variant, getCredentialPassword }) => (
+      <CredentialInfo text={text} variant={variant} getCredentialPassword={getCredentialPassword} />
+    ))
 
     return <div className="credential-card-left-content-view">{fields}</div>
   }

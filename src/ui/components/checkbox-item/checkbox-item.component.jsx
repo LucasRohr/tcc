@@ -6,9 +6,9 @@ import { Text } from '../text/text.component'
 
 import './checkbox-item.style.scss'
 
-const CheckboxItem = ({ icon: Icon, title, initialIsChecked, item, onChange, index }) => {
-  const onCheck = () => {
-    onChange(item, checkbox.isChecked)
+const CheckboxItem = ({ icon: Icon, title, initialIsChecked, item, onChange }) => {
+  const onCheck = check => {
+    onChange(item, check)
   }
 
   const renderLabel = () => (
@@ -19,11 +19,12 @@ const CheckboxItem = ({ icon: Icon, title, initialIsChecked, item, onChange, ind
   )
 
   const checkbox = useInputCheckbox({
-    id: `checkbox_item_${index + 1}`,
-    name: `checkbox_item_${index + 1}`,
+    id: `checkbox_item_${item.id}`,
+    name: `checkbox_item_${item.id}`,
     additionalClass: 'checkbox-item-checkbox',
     label: renderLabel(),
     defaultValue: initialIsChecked,
+    useDefaultCheck: true,
     required: false,
   })
 
@@ -45,7 +46,6 @@ CheckboxItem.propTypes = {
   item: PropTypes.object.isRequired,
   initialIsChecked: PropTypes.bool,
   onChange: PropTypes.string,
-  index: PropTypes.number,
 }
 
 export { CheckboxItem }

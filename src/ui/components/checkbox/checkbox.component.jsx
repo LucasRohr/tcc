@@ -57,6 +57,7 @@ Checkbox.defaultProps = {
 Checkbox.propTypes = {
   id: PropTypes.string,
   getRef: PropTypes.object,
+  isChecked: PropTypes.bool,
   name: PropTypes.string,
   onChange: PropTypes.func,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),

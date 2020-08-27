@@ -10,6 +10,7 @@ const useInputCheckbox = ({
   defaultValue,
   label,
   required = true,
+  useDefaultCheck = false,
   ...props
 }) => {
   const [isChecked, setIsChecked] = useState(false)
@@ -60,10 +61,9 @@ const useInputCheckbox = ({
       key={key}
       id={id}
       name={name}
-      isChecked={isChecked}
+      isChecked={useDefaultCheck ? defaultValue : isChecked}
       onChange={handleCheck}
       error={error}
-      defaultValue={defaultValue}
       label={label}
       getRef={ref}
       {...props}

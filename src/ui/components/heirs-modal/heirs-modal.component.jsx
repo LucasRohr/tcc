@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { useOwner, useLoggedUser, useModal } from 'app-hooks'
+import { useModal } from 'app-hooks'
 import { SelectItemsModalContent } from 'app-components'
 import { UserIcon } from 'app-icons'
 
-const HeirsModal = ({ onConfirm }) => {
+const HeirsModal = ({ onConfirm, mapHeirs, getHeirs }) => {
   const [heirs, setHeirs] = useState([])
   const [baseHeirs, setBaseHeirs] = useState([])
 
-  const { getOwnerHeirs } = useOwner()
-  const { loggedUser } = useLoggedUser()
   const { hideModal } = useModal()
 
   const onConfirmHeirs = () => {
@@ -17,10 +15,8 @@ const HeirsModal = ({ onConfirm }) => {
     hideModal()
   }
 
-  const mapHeirs = heirsList => heirsList.map(heirItem => ({ item: heirItem, itemCheck: heirItem.hasMedia }))
-
   const getAllOwnerHeirs = async () => {
-    let result = await getOwnerHeirs(loggedUser.currentAccount.id)
+    let result = await getHeirs()
 
     result = {
       heirs: [

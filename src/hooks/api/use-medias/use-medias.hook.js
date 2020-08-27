@@ -9,8 +9,12 @@ const MEDIA_OPTIONS = {
 const useMedia = ({ mediaType }) => {
   const { get, del } = useRequest(MEDIA_OPTIONS[mediaType])
 
-  const getOwnerHeirsForMedia = async (ownerId, mediaId) => {
-    return await get(`${ownerId}/${mediaId}/heirs`, { useToast: false, useLoader: false, showDefaultErrorToast: false })
+  const getAllHeirsForMedia = async (ownerId, mediaId) => {
+    return await get(`medias/${mediaId}/owner/${ownerId}/available-heirs`, {
+      useToast: false,
+      useLoader: false,
+      showDefaultErrorToast: false,
+    })
   }
 
   const removeMedia = async (ownerId, mediaId) => {
@@ -19,7 +23,7 @@ const useMedia = ({ mediaType }) => {
   }
 
   return {
-    getOwnerHeirsForMedia,
+    getAllHeirsForMedia,
     removeMedia,
   }
 }
