@@ -36,7 +36,7 @@ const CreateCredential = () => {
   const renderHelpModal = () => {
     const renderContent = () => (
       <div className="create-credential-help-container">
-        <Title variant="sans-serif">O que é a criação de crendencias?</Title>
+        <Title variant="sans-serif">O que é a criação de credencias?</Title>
         <Text variant="serif">
           Aqui você pode adicionar logins e senhas de contas de redes sociais e serviços que você utiliza. Você também
           pode adicionar senhas de dispositivos, como celulares.

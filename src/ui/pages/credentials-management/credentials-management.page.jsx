@@ -39,6 +39,7 @@ const CredentialsManagement = () => {
     const result = isOwnerAccount
       ? await getOwnerHeritageCredentials(accountId)
       : await getHeirReceivedCredentials(accountId)
+
     setCanShowContent(true)
 
     if (result && result.credentials) {
@@ -76,10 +77,13 @@ const CredentialsManagement = () => {
     return <CredentialsList credentials={credentials} isHeirAccount />
   }
 
+  const renderTabs = () =>
+    isOwnerAccount ? <Tabs options={TAB_OPTIONS} currentTab={currentTab} setCurrentTab={setCurrentTab} /> : null
+
   return canShowContent ? (
     <div className="credentials-management-container">
       <PageTitle title="Gerenciamento de Credenciais" />
-      <Tabs options={TAB_OPTIONS} currentTab={currentTab} setCurrentTab={setCurrentTab} />
+      {renderTabs()}
       {renderContent()}
     </div>
   ) : null

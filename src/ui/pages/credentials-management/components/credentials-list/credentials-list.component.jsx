@@ -7,6 +7,8 @@ import { CredentialCard } from '../credential-card/credential-card.component'
 import './credentials-list.style.scss'
 
 const CredentialsList = ({ credentials, loadCredentials, isHeirAccount }) => {
+  const listContainerClass = isHeirAccount ? 'credentials-list-container--heir' : 'credentials-list-container'
+
   const credentialsCards = useMemo(
     () =>
       credentials.map(credential => (
@@ -29,7 +31,7 @@ const CredentialsList = ({ credentials, loadCredentials, isHeirAccount }) => {
     )
   }
 
-  return <div className="credentials-list-container"> {renderCredentialsList()} </div>
+  return <div className={listContainerClass}> {renderCredentialsList()} </div>
 }
 
 CredentialsList.defaultProps = {
