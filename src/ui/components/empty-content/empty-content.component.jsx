@@ -5,9 +5,9 @@ import { Text } from '../text/text.component'
 
 import './empty-content.style.scss'
 
-const EmptyContent = ({ mainMessage, additionalMessage }) => {
+const EmptyContent = ({ className, mainMessage, additionalMessage }) => {
   return (
-    <div className="empty-content-container">
+    <div className={`empty-content-container ${className}`}>
       <div className="empty-content-icons-container">
         <EmptyIcon className="empty-content-first-icon" />
         <EmptyIcon className="empty-content-middle-icon" />
@@ -25,6 +25,7 @@ const EmptyContent = ({ mainMessage, additionalMessage }) => {
 EmptyContent.propTypes = {
   mainMessage: PropTypes.string.isRequired,
   additionalMessage: PropTypes.string,
+  className: PropTypes.string,
 }
 
 export { EmptyContent }

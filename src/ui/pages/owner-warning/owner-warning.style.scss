@@ -1,0 +1,138 @@
+@import 'app-styles/variables.scss';
+
+.owner-warning-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 60px;
+
+  & .owner-warning-explanation-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: $border-radius;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
+    padding: 36px 42px;
+    margin-top: 70px;
+
+    & > .owner-warning-explanation-text-container {
+      max-width: 70%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      & > span {
+        font-size: 26px;
+        line-height: 32px;
+
+        & > span {
+          font-size: 26px;
+          line-height: 32px;
+          font-weight: bold;
+          color: $primary;
+        }
+      }
+    }
+
+    & .owner-warning-explanation-icon {
+      margin-right: 70px;
+
+      & svg {
+        width: 160px;
+        height: 160px;
+        fill: $primary;
+      }
+    }
+  }
+
+  & .owner-warning-code-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: $border-radius;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
+    margin-top: 60px;
+    padding: 26px 36px;
+
+    & > span {
+      max-width: 55%;
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 30px;
+    }
+
+    & .owner-warning-code-arrow-icon {
+      transform: rotate(180deg);
+
+      & svg {
+        width: 44px;
+        height: 44px;
+        fill: $gray;
+      }
+    }
+
+    & .owner-warning-code-image-container {
+      width: 35%;
+      margin-left: 60px;
+
+      & > img {
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+  }
+
+  & .owner-warning-code-send-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: $border-radius;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
+    margin-top: 50px;
+    padding: 30px 36px;
+
+    & > .owner-warning-code-send-advice {
+      max-width: 55%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      & > h1 {
+        font-size: 26px;
+        line-height: 30px;
+        color: $gray;
+        margin-bottom: 16px;
+      }
+
+      & > span {
+        font-size: 26px;
+        line-height: 30px;
+        color: $gray;
+      }
+    }
+
+    & > .owner-warning-form {
+      width: 40%;
+
+      & > div {
+        padding-bottom: 0;
+
+        & > div {
+          margin-bottom: 0;
+        }
+      }
+
+      & .owner-warning-form-button {
+        width: 100%;
+        font-size: 20px;
+      }
+    }
+  }
+}

@@ -25,9 +25,10 @@ const CredentialsList = ({ credentials, loadCredentials, isHeirAccount }) => {
     }
 
     return (
-      <div className="credentials-list-empty">
-        <EmptyContent mainMessage="Não existem credenciais criadas para serem exibidas." />
-      </div>
+      <EmptyContent
+        className="credentials-list-empty"
+        mainMessage="Não existem credenciais criadas para serem exibidas."
+      />
     )
   }
 
