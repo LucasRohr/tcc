@@ -40,7 +40,7 @@ CheckboxItem.defaultProps = {
 }
 
 CheckboxItem.propTypes = {
-  icon: PropTypes.element.isRequired,
+  icon: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
   item: PropTypes.object.isRequired,
   initialIsChecked: PropTypes.bool,

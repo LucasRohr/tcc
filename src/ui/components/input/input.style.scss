@@ -10,12 +10,40 @@
   align-items: flex-end;
 }
 
+@mixin text-area-and-label-mixin {
+  width: 100%;
+  position: relative;
+  display: inline-flex;
+  border-radius: $border-radius;
+  border: 1px solid $light-gray;
+  height: 100px;
+  align-items: flex-end;
+  padding-top: 28px;
+}
+
 @mixin label-small {
   font-size: 14px;
   line-height: 16px;
   margin-top: -12px;
   margin-bottom: 5px;
   font-weight: normal;
+}
+
+@mixin text-area-label-small {
+  @include label-small();
+  margin-top: -12px;
+}
+
+@mixin common-label {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 24px;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 300;
+  transition-duration: 0.2s;
+  transition-property: color, font-size, margin-top;
 }
 
 .input-container-medium {
@@ -46,20 +74,25 @@
   @include input-and-label-mixin();
 }
 
+.text-area-and-label {
+  @include text-area-and-label-mixin();
+}
+
 .input-label {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 24px;
-  font-size: 20px;
-  line-height: 28px;
-  font-weight: 300;
-  transition-duration: 0.2s;
-  transition-property: color, font-size, margin-top;
+  @include common-label();
 }
 
 .input-and-label-with-error {
   @include input-and-label-mixin();
+  border-top-color: $red;
+
+  & > label {
+    color: $red;
+  }
+}
+
+.text-area-and-label-with-error {
+  @include text-area-and-label-mixin();
   border-top-color: $red;
 
   & > label {
@@ -79,7 +112,19 @@
   }
 }
 
-.input {
+.text-area-and-label-disabled {
+  @include input-and-label-mixin();
+
+  & .input {
+    background-color: $light-gray;
+  }
+
+  & .input-label {
+    color: $gray;
+  }
+}
+
+@mixin input-mixin {
   width: 100%;
   height: 100%;
   position: relative;
@@ -90,6 +135,7 @@
   font-size: 20px;
   line-height: 28px;
   font-weight: 300;
+  font-family: 'Noto Sans', sans-serif;
   padding: 30px 64px 14px 24px;
   border-radius: inherit;
 
@@ -136,10 +182,37 @@
   }
 }
 
+.input {
+  @include input-mixin();
+}
+
 .input-calendar-icon {
   & svg {
     width: 24px;
     height: 24px;
     fill: $primary;
   }
+}
+
+.text-area {
+  @include input-mixin();
+  padding: 4px 64px 14px 24px;
+  resize: none;
+
+  &:not(:placeholder-shown) + .text-area-label {
+    @include text-area-label-small();
+  }
+
+  &:not(:-ms-input-placeholder) + .text-area-label {
+    @include text-area-label-small();
+  }
+
+  &:focus + .text-area-label {
+    @include text-area-label-small();
+  }
+}
+
+.text-area-label {
+  @include common-label();
+  top: 30%;
 }

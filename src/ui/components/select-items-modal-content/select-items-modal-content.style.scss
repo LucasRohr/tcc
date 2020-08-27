@@ -1,0 +1,23 @@
+.select-items-modal-content {
+  width: 480px;
+
+  & h1 {
+    font-size: 25px;
+    margin-bottom: 12px;
+  }
+
+  & .empty-content-container {
+    margin: 25px 0;
+  }
+}
+
+.select-items-modal-contentent-list {
+  margin: 40px 0;
+}
+
+.select-items-modal-content-buttons-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

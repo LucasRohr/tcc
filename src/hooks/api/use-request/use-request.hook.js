@@ -80,6 +80,7 @@ const useRequest = path => {
     url,
     data,
     returnHeader = false,
+    showDefaultErrorToast = true,
     ...config
   }) => {
     config.url = buildUrl(url)
@@ -90,7 +91,7 @@ const useRequest = path => {
       const result = useLoader ? await withLoading(instance.request(config)) : await instance.request(config)
       return returnHeader ? { header: result.headers, data: result.data } : result.data
     } catch (apiError) {
-      if (apiError.response) {
+      if (apiError.response && showDefaultErrorToast) {
         handleErrorStatus(apiError.response && apiError.response.status)
         handleErrorMessage(apiError, useToast, useStateErrors)
       } else {

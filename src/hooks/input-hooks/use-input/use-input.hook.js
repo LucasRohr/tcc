@@ -14,6 +14,7 @@ const useInput = ({
   usePassword = false,
   disabled = false,
   required = true,
+  inputArea = false,
   defaultValue,
   ...props
 }) => {
@@ -155,6 +156,7 @@ const useInput = ({
       error={error}
       usePassword={usePassword}
       disabled={isInputDisabled}
+      inputArea={inputArea}
       changeInputValue={changeInputValue}
     />
   )

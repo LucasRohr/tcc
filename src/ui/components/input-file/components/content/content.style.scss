@@ -1,0 +1,100 @@
+@import 'ui/styles/variables.scss';
+
+.input-file-content {
+  width: 100%;
+  display: flex;
+  height: 80px;
+  align-items: center;
+
+  & .uploading {
+    & > .file-start-content,
+    & > .file-middle-content,
+    & > .file-end-content {
+      opacity: 0;
+    }
+  }
+
+  & .show-file {
+    max-height: 100%;
+
+    & > .file-start-content {
+      flex: 4;
+    }
+
+    & > .file-middle-content {
+      flex: 5;
+      border-left-style: 1px solid $clear-gray;
+    }
+
+    & > .file-end-content {
+      flex: 0;
+    }
+
+    & > .file-start-content & > .file-middle-content & > .file-end-content {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &.error-file {
+    & > .file-start-content {
+      flex: 5;
+    }
+
+    & > .file-middle-content {
+      flex: 4;
+      border-left: 1px solid $clear-gray;
+    }
+
+    & > .file-end-content {
+      flex: 1;
+    }
+
+    & > .file-start-content,
+    & > .file-middle-content,
+    & > .file-end-content {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.file-middle-content {
+  flex: 1;
+  margin-left: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input-file {
+  white-space: pre;
+  overflow-wrap: break-word;
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.with-file-uploading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 26px;
+  z-index: 2;
+
+  & > button > div > svg {
+    transform: rotate(45deg);
+    fill: $primary;
+  }
+}

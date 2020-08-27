@@ -59,6 +59,11 @@ const useRoute = () => {
     changeRoute(paths.heirs(), config)
   }
 
+  // Medias
+  const goToMediasManagement = config => {
+    changeRoute(paths.medias(), config)
+  }
+
   //Generic
   const goTo = (path, config) => {
     if (config && config.redirectedFromLogin) {
@@ -84,6 +89,7 @@ const useRoute = () => {
     goToRegister,
     goToHome,
     goToHeirsManagement,
+    goToMediasManagement,
     goToBegin,
     setShouldRedirectToOriginalRoute,
   }

@@ -34,7 +34,7 @@ const HeirRow = ({ id, name, account, email, heritageItems }) => {
 
       <div>{email}</div>
 
-      <div onClick={showHeritagesManagementModal}>{heritageItems.length}</div>
+      <div onClick={showHeritagesManagementModal}>{heritageItems || 0}</div>
 
       <div onClick={renderRemoveHeirModal}>
         <DeleteIcon />
@@ -48,7 +48,7 @@ HeirRow.propTypes = {
   name: PropTypes.string,
   account: PropTypes.string,
   email: PropTypes.string,
-  heritageItems: PropTypes.arrayOf(PropTypes.object),
+  heritageItems: PropTypes.number,
 }
 
 export { HeirRow }

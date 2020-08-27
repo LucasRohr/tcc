@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { PageTitle, Button, Text, Pagination } from 'app-components'
 import { PlusIcon } from 'app-icons'
 import { HeirsList, AddHeirModalContent } from './components'
-import { useModal } from 'app-hooks'
+import { useModal, useOwner, useLoggedUser } from 'app-hooks'
 
 import './heirs-management.style.scss'
 
@@ -16,16 +16,27 @@ const HeirsManagement = () => {
   })
 
   const { showModal } = useModal()
+  const { getOwnerHeirs } = useOwner()
+  const { loggedUser } = useLoggedUser()
+
+  const setResultAndHandlePagination = result => {
+    const resultPaginationConfig = {
+      total: result.totalPages,
+      currentPage: result.currentPage,
+      isFirstPage: result.isFirstPage,
+      isLastPage: result.isLastPage,
+    }
+
+    setPaginationConfig(resultPaginationConfig)
+    setHeirs(result.data.heirs)
+  }
 
   const getHeirs = () => {
-    const resultPaginationConfig = {
-      total: 10,
-      currentPage: 1,
-      isFirstPage: true,
-      isLastPage: false,
+    const result = getOwnerHeirs(loggedUser.currentAccount.id)
+
+    if (result) {
+      setResultAndHandlePagination(result)
     }
-    setPaginationConfig(resultPaginationConfig)
-    setHeirs([])
   }
 
   useEffect(() => {

@@ -1,7 +1,16 @@
 const HEIR_STATUS = {
-  ACTIVE: 'Ativo',
-  PENDING: 'Pendente',
-  ACCEPTED: 'Aceito',
+  ACTIVE: {
+    key: 'ACTIVE',
+    label: 'Ativo',
+  },
+  PENDING: {
+    key: 'PENDING',
+    label: 'Pendente',
+  },
+  ACCEPTED: {
+    key: 'ACCEPTED',
+    label: 'Aceito',
+  },
 }
 
 export { HEIR_STATUS }
