@@ -4,8 +4,9 @@ import { Title, Text, Button } from 'app-components'
 import { useModal, useLoggedUser, useOwner } from 'app-hooks'
 
 import './remove-heir-modal-content.style.scss'
+import { noopFunction } from 'app-helpers'
 
-const RemoveHeirModalContent = ({ heirId }) => {
+const RemoveHeirModalContent = ({ heirId, onConfirm }) => {
   const { hideModal } = useModal()
   const { loggedUser } = useLoggedUser()
   const { removeHeir } = useOwner()
@@ -16,11 +17,11 @@ const RemoveHeirModalContent = ({ heirId }) => {
       ownerId: loggedUser.currentAccount.id,
     }
 
+    await onConfirm()
     const result = await removeHeir(removeObject)
-    hideModal()
 
     if (result) {
-      return
+      hideModal()
     }
   }
 
@@ -39,8 +40,8 @@ const RemoveHeirModalContent = ({ heirId }) => {
     <div className="remove-heir-modal-content">
       <Title variant="sans-serif">Remover herdeiro</Title>
       <Text variant="serif">
-        Tem certeza que deseja remover este herdeiro? Os vínculos de herança com essa pessoa serão inativados. Contando
-        com a volta deste herdeiro, as heranças já estabelecidas voltarão para ele.
+        Tem certeza que deseja remover este herdeiro? Todos os vínculos de herança com ele serão inativados. Você pode
+        adicionar esse herdeiro novamente depois.
       </Text>
 
       {renderButtons()}
@@ -49,7 +50,12 @@ const RemoveHeirModalContent = ({ heirId }) => {
 }
 
 RemoveHeirModalContent.propTypes = {
+  onConfirm: noopFunction,
+}
+
+RemoveHeirModalContent.propTypes = {
   heirId: PropTypes.number,
+  onConfirm: PropTypes.func,
 }
 
 export { RemoveHeirModalContent }

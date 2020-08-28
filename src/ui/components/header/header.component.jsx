@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { LogoIcon, AccountsIcon } from 'app-icons'
 import { Text } from '../text/text.component'
-import { noopFunction } from 'app-helpers'
 import { useRoute } from 'app-hooks'
 import { NotificationsTab, ProfileTab } from './components'
 import { CircleButton } from '../circle-button/circle-button.component'
@@ -12,7 +11,7 @@ const Header = () => {
   const [isNotificationsTabOpened, setIsNotificationsTabOpened] = useState(false)
   const [isProfileTabOpened, setIsProfileTabOpened] = useState(false)
 
-  const { goToHome } = useRoute()
+  const { goToHome, goToAccountsManagement } = useRoute()
 
   const onNotificationsClick = () => {
     setIsNotificationsTabOpened(!isNotificationsTabOpened)
@@ -32,7 +31,7 @@ const Header = () => {
         onClick={onNotificationsClick}
       />
 
-      <CircleButton onClick={noopFunction} variant="secondary" icon={<AccountsIcon />} />
+      <CircleButton onClick={goToAccountsManagement} variant="secondary" icon={<AccountsIcon />} />
 
       <ProfileTab onClick={onProfileClick} clicked={isProfileTabOpened} selected={isProfileTabOpened} />
     </div>
