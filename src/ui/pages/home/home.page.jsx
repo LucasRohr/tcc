@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react'
 import { Title } from 'app-components'
 import { useLoggedUser, useRoute } from 'app-hooks'
-import { noopFunction } from 'app-helpers'
 import { MediasIcon, CredentialsIcon, HeirsManagementIcon, AlertIcon } from 'ui/icons/shapes/index'
 import { ROLES, HEIR_STATUS } from 'app-constants'
 import { ServiceCard } from './components/index'
@@ -10,7 +9,7 @@ import './home.style.scss'
 
 const Home = () => {
   const { loggedUser } = useLoggedUser()
-  const { goToHeirsManagement, goToMediasManagement, goToCredentialsManagement } = useRoute()
+  const { goToHeirsManagement, goToMediasManagement, goToCredentialsManagement, goToOwnerWarning } = useRoute()
 
   const accountType = useMemo(() => loggedUser.currentAccount.type, [loggedUser.currentAccount])
 
@@ -64,7 +63,7 @@ const Home = () => {
       {
         title: 'Aviso de Proprietário',
         description: 'Entre em contato conosco para comunicar o falecimento do proprietário da herança',
-        onClick: noopFunction,
+        onClick: goToOwnerWarning,
         icon: <AlertIcon />,
       },
     ],

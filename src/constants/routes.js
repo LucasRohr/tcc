@@ -1,26 +1,38 @@
-import { Login, Home, Begin, Register, HeirsManagement, MediasManagement, CredentialsManagement } from 'app-pages'
+import {
+  Login,
+  Home,
+  Begin,
+  Register,
+  HeirsManagement,
+  MediasManagement,
+  CredentialsManagement,
+  OwnerWarning,
+} from 'app-pages'
 
 const paths = {
   // Login
   login: () => '/login',
 
-  //Register
+  // Register
   register: () => '/registro',
 
-  //Begin
+  // Begin
   begin: () => '/',
 
   // Home
   home: () => '/home',
 
-  //Heirs
+  // Heirs
   heirs: () => '/herdeiros',
 
-  //Medias
+  // Medias
   medias: () => '/midias',
 
-  //Credentials
+  // Credentials
   credentials: () => '/credenciais',
+
+  // Owner Warning
+  ownerWarning: () => '/aviso-proprietario',
 
   //Generic
   reload: () => '/reload',
@@ -69,6 +81,12 @@ const routes = [
   {
     path: paths.credentials(),
     component: CredentialsManagement,
+  },
+
+  // Owner Warning
+  {
+    path: paths.ownerWarning(),
+    component: OwnerWarning,
   },
 
   // Generic

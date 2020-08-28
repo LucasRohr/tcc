@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { PageTitle, Button, Text, Pagination } from 'app-components'
+import { PageTitle, Button, Text, Pagination, EmptyContent } from 'app-components'
 import { PlusIcon } from 'app-icons'
 import { HeirsList, AddHeirModalContent } from './components'
 import { useModal, useOwner, useLoggedUser } from 'app-hooks'
@@ -31,8 +31,8 @@ const HeirsManagement = () => {
     setHeirs(result.data.heirs)
   }
 
-  const getHeirs = () => {
-    const result = getOwnerHeirs(loggedUser.currentAccount.id)
+  const getHeirs = async () => {
+    const result = await getOwnerHeirs(loggedUser.currentAccount.id)
 
     if (result) {
       setResultAndHandlePagination(result)
@@ -54,7 +54,13 @@ const HeirsManagement = () => {
       return <HeirsList heirs={heirs} />
     }
 
-    return <HeirsList heirs={heirs} />
+    return (
+      <EmptyContent
+        className="heirs-list-empty"
+        mainMessage="Você ainda não possui herdeiros para gerenciar."
+        additionalMessage="Comece a adicioná-los quando quiser por esta página."
+      />
+    )
   }
 
   return (

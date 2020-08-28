@@ -1,7 +1,7 @@
 import { useRequest } from '../use-request/use-request.hook'
 
 const useHeir = () => {
-  const { get, put } = useRequest('/heir')
+  const { get, put, post } = useRequest('/heir')
 
   const getHeritages = async heirId => {
     return await get(`${heirId}/heir-heritages`)
@@ -16,10 +16,16 @@ const useHeir = () => {
     return await get(`${heirId}/medias`)
   }
 
+  const validateDigitalDeathCertificate = async certificateObject => {
+    const result = await post('certificate-validation', certificateObject)
+    return result !== undefined
+  }
+
   return {
     getHeritages,
     getReceivedMedias,
     updateHeirItems,
+    validateDigitalDeathCertificate,
   }
 }
 

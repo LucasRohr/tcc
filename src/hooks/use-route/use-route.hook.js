@@ -69,7 +69,12 @@ const useRoute = () => {
     changeRoute(paths.credentials(), config)
   }
 
-  //Generic
+  // Owner Warning
+  const goToOwnerWarning = config => {
+    changeRoute(paths.ownerWarning(), config)
+  }
+
+  // Generic
   const goTo = (path, config) => {
     if (config && config.redirectedFromLogin) {
       if (shouldRedirectToOriginalRoute) {
@@ -96,6 +101,7 @@ const useRoute = () => {
     goToHeirsManagement,
     goToMediasManagement,
     goToCredentialsManagement,
+    goToOwnerWarning,
     goToBegin,
     setShouldRedirectToOriginalRoute,
   }
