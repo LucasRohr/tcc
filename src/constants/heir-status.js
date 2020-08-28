@@ -3,10 +3,12 @@ const HEIR_STATUS = {
     key: 'ACTIVE',
     label: 'Ativo',
   },
+
   PENDING: {
     key: 'PENDING',
     label: 'Pendente',
   },
+
   ACCEPTED: {
     key: 'ACCEPTED',
     label: 'Aceito',

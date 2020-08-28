@@ -1,0 +1,92 @@
+@import 'app-styles/variables.scss';
+
+.account-row-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 22px;
+  border: 1px solid $primary;
+  border-radius: $border-radius;
+  margin-bottom: 16px;
+
+  &:hover {
+    transition: 0.2s;
+    box-shadow: 0px 0px 5px $primary-light;
+  }
+
+  & > .account-row-info-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & > .account-row-user-icon {
+      margin-right: 26px;
+
+      & svg {
+        width: 44px;
+        height: 44px;
+        fill: $primary;
+      }
+    }
+
+    & .account-row-heir-highlighted-text {
+      color: $primary;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 22px;
+    }
+
+    & > span {
+      color: $black;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 22px;
+    }
+
+    & .account-row-heir-user-name {
+      color: $primary;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 22px;
+    }
+  }
+
+  & > .account-row-action-access-account-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & > .account-row-action-button-icon {
+      margin-left: 18px;
+
+      & svg {
+        width: 24px;
+        height: 24px;
+        fill: $primary;
+      }
+    }
+  }
+
+  & > .account-row-heir-pendent-message {
+    color: $primary;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 28px;
+  }
+
+  & > .account-row-remove-heir-icon {
+    cursor: pointer;
+
+    & svg {
+      width: 40px;
+      height: 40px;
+      fill: $red;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+      transition: 0.2s;
+    }
+  }
+}

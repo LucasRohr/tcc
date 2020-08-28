@@ -7,6 +7,7 @@ import {
   MediasManagement,
   CredentialsManagement,
   OwnerWarning,
+  AccountsManagement,
 } from 'app-pages'
 
 const paths = {
@@ -33,6 +34,9 @@ const paths = {
 
   // Owner Warning
   ownerWarning: () => '/aviso-proprietario',
+
+  // Accounts Management
+  accountsManagement: () => '/contas',
 
   //Generic
   reload: () => '/reload',
@@ -87,6 +91,12 @@ const routes = [
   {
     path: paths.ownerWarning(),
     component: OwnerWarning,
+  },
+
+  // Accounts Management
+  {
+    path: paths.accountsManagement(),
+    component: AccountsManagement,
   },
 
   // Generic

@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { UserIcon, DeleteIcon } from 'app-icons'
 import { useModal } from 'app-hooks'
+import { RemoveHeirModalContent } from 'app-components'
+import { HeritagesManagementModalContent } from '../heritages-management-modal-content/heritages-management-modal-content.component'
 
 import './heir-row.style.scss'
-import { RemoveHeirModalContent } from '../remove-heir-modal-content/remove-heir-modal-content.component'
-import { HeritagesManagementModalContent } from '../heritages-management-modal-content/heritages-management-modal-content.component'
 
 const HeirRow = ({ id, name, account, email, heritageItems }) => {
   const { showModal } = useModal()
