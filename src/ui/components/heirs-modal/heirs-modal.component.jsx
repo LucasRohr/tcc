@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { useOwner, useLoggedUser, useModal } from 'app-hooks'
+import { useModal } from 'app-hooks'
 import { SelectItemsModalContent } from 'app-components'
 import { UserIcon } from 'app-icons'
 
-const HeirsModal = ({ mediaId }) => {
+const HeirsModal = ({ onConfirm, mapHeirs, getHeirs }) => {
   const [heirs, setHeirs] = useState([])
   const [baseHeirs, setBaseHeirs] = useState([])
 
-  const { getOwnerHeirsForMedia } = useOwner()
-  const { loggedUser } = useLoggedUser()
   const { hideModal } = useModal()
 
-  const mapHeirs = heirsList => heirsList.map(heirItem => ({ item: heirItem, itemCheck: heirItem.hasMedia }))
+  const onConfirmHeirs = () => {
+    onConfirm(heirs)
+    hideModal()
+  }
 
   const getAllOwnerHeirs = async () => {
-    let result = await getOwnerHeirsForMedia(loggedUser.currentAccount.id, mediaId)
+    let result = await getHeirs()
 
     result = {
       heirs: [
@@ -59,7 +60,7 @@ const HeirsModal = ({ mediaId }) => {
       listItems={heirs}
       setListItems={setHeirs}
       baseItems={baseHeirs}
-      onConfirm={hideModal}
+      onConfirm={onConfirmHeirs}
       defaultIcon={UserIcon}
       modalTitle="Pesquise pelos itens"
       emptyContentText="Este herdeiro ainda não possui heranças atribuídas."
@@ -68,7 +69,7 @@ const HeirsModal = ({ mediaId }) => {
 }
 
 HeirsModal.propTypes = {
-  mediaId: PropTypes.number,
+  onConfirm: PropTypes.func,
 }
 
 export { HeirsModal }

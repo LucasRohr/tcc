@@ -66,7 +66,6 @@ const SelectItemsModalContent = ({
         initialIsChecked={itemCheck}
         title={item.name}
         onChange={changeItemsOnCheck}
-        index={index}
       />
     ))
 
@@ -89,7 +88,7 @@ const SelectItemsModalContent = ({
   return (
     <div className="select-items-modal-content">
       <Title variant="sans-serif">{modalTitle}</Title>
-      {renderContent()}
+      <div className="select-items-modal-content-wrapper">{renderContent()}</div>
     </div>
   )
 }

@@ -16,7 +16,7 @@ const MediaActions = ({ media, selectMedia }) => {
 
   const showRemoveMediaModal = () => {
     showModal({
-      content: <RemoveMediaModal mediaId={media.id} />,
+      content: <RemoveMediaModal mediaId={media.id} mediaType={selectMedia.type} />,
     })
   }
 

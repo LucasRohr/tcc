@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Title, Text, Button } from 'app-components'
-import { useModal, useOwner, useLoggedUser } from 'app-hooks'
+import { useModal, useMedia, useLoggedUser } from 'app-hooks'
 
 import './remove-media-modal.style.scss'
 
-const RemoveMediaModal = ({ mediaId }) => {
+const RemoveMediaModal = ({ mediaId, mediaType }) => {
   const { hideModal } = useModal()
-  const { removeMedia } = useOwner()
+  const { removeMedia } = useMedia({ mediaType })
   const { loggedUser } = useLoggedUser()
 
   const removeOwnerMedia = async () => {
@@ -45,6 +45,7 @@ const RemoveMediaModal = ({ mediaId }) => {
 
 RemoveMediaModal.propTypes = {
   mediaId: PropTypes.number,
+  mediaType: PropTypes.string,
 }
 
 export { RemoveMediaModal }
