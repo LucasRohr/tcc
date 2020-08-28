@@ -8,6 +8,7 @@ import {
   CredentialsManagement,
   OwnerWarning,
   AccountsManagement,
+  HeirInvites,
 } from 'app-pages'
 
 const paths = {
@@ -37,6 +38,9 @@ const paths = {
 
   // Accounts Management
   accountsManagement: () => '/contas',
+
+  // Heir Invites
+  heirInvites: () => '/convites-herdeiro',
 
   //Generic
   reload: () => '/reload',
@@ -97,6 +101,12 @@ const routes = [
   {
     path: paths.accountsManagement(),
     component: AccountsManagement,
+  },
+
+  // Heir Invites
+  {
+    path: paths.heirInvites(),
+    component: HeirInvites,
   },
 
   // Generic
