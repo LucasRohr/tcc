@@ -79,6 +79,11 @@ const useRoute = () => {
     changeRoute(paths.accountsManagement(), config)
   }
 
+  // Heir Invites
+  const goToHeirInvites = config => {
+    changeRoute(paths.heirInvites(), config)
+  }
+
   // Generic
   const goTo = (path, config) => {
     if (config && config.redirectedFromLogin) {
@@ -108,6 +113,7 @@ const useRoute = () => {
     goToCredentialsManagement,
     goToOwnerWarning,
     goToAccountsManagement,
+    goToHeirInvites,
     goToBegin,
     setShouldRedirectToOriginalRoute,
   }

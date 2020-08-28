@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import { PageTitle, Button, Text, Tabs } from 'app-components'
-import { useLoggedUser, useModal } from 'app-hooks'
+import { useLoggedUser, useModal, useRoute } from 'app-hooks'
 import { ROLES } from 'app-constants'
 import { PlusIcon, HeirsManagementIcon } from 'app-icons'
-import { noopFunction } from 'app-helpers'
 import { AccountsTab, CreateOwnerModalContent } from './components'
 
 import './accounts-management.style.scss'
@@ -29,6 +28,7 @@ const AccountsManagement = () => {
 
   const { loggedUser } = useLoggedUser()
   const { showModal } = useModal()
+  const { goToHeirInvites } = useRoute()
 
   const isOwner = loggedUser.currentAccount.type === ROLES.OWNER
 
@@ -54,7 +54,7 @@ const AccountsManagement = () => {
       <div className="accounts-management-actions-container">
         {renderAddOwnerButton()}
 
-        <Button className="accounts-management-action-button" variant="primary" onClick={noopFunction}>
+        <Button className="accounts-management-action-button" variant="primary" onClick={goToHeirInvites}>
           <Text>Convites de Herdeiro</Text>
           <HeirsManagementIcon className="accounts-management-action-plus-icon" />
         </Button>
