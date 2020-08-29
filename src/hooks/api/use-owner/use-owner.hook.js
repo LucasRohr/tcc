@@ -21,11 +21,16 @@ const useOwner = () => {
     return await get(`${ownerId}/medias`)
   }
 
+  const getOwnerHeitsTotalNumber = async ownerId => {
+    return await get(`${ownerId}/heirs-total`)
+  }
+
   return {
     inviteHeir,
     removeHeir,
     getOwnerHeirs,
     getHeritageMedias,
+    getOwnerHeitsTotalNumber,
   }
 }
 

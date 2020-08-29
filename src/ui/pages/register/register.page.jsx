@@ -7,6 +7,7 @@ import { UserTypeStep, MainFormStep, PasswordStep, AccountStep, FinalStep } from
 
 import './register.style.scss'
 import { ProgressBar } from 'ui/components/progress-bar/progress-bar.component'
+import { useUser } from 'hooks/api/index'
 
 const FIRST_STEP = 0
 
@@ -19,8 +20,9 @@ const Register = () => {
   const firstAccountType = isCreatingHeirAccount ? ROLES.HEIR : ROLES.OWNER
 
   const { goToLogin } = useRoute()
+  const { registerUser } = useUser()
 
-  const registerUserWithAccount = () => {
+  const registerUserWithAccount = async () => {
     const apiObject = {
       ...registerObject.mainForm,
       password: registerObject.passwordForm.password,
@@ -28,8 +30,11 @@ const Register = () => {
       firstAccountType,
     }
 
-    setCompletedRegister(true)
-    return apiObject
+    const result = await registerUser(apiObject)
+
+    if (result) {
+      setCompletedRegister(true)
+    }
   }
 
   const increaseStep = () => {

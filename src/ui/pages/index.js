@@ -11,3 +11,4 @@ export { CredentialsManagement } from './credentials-management/credentials-mana
 export { OwnerWarning } from './owner-warning/owner-warning.page'
 export { AccountsManagement } from './accounts-management/accounts-management.page'
 export { HeirInvites } from './heir-invites/heir-invites.page'
+export { Profile } from './profile/progile.page'
