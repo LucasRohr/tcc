@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { Text, Button } from 'app-components'
 import { DateHelper } from 'app-helpers'
@@ -7,13 +7,24 @@ import { UserIcon } from 'app-icons'
 import { CPFFormatter } from 'app-formatters'
 import { useModal } from 'app-hooks'
 import { ProfileRemoveModal } from '../profile-remove-modal/profile-remove-modal.component'
+import { UserEditForm } from '../user-edit-form/user-edit-form.component'
+import { PasswordEditForm } from '../password-edit-form/password-edit-form.component'
 
 import './user-card.style.scss'
 
+const CARD_CONTENTS = {
+  DEFAULT: 'DEFAULT',
+  EDIT_FORM: 'EDIT_FORM',
+  PASSWORD_FORM: 'PASSWORD_FORM',
+}
+
 const UserCard = ({ email, cpf, name, accountsTotal, birthday }) => {
-  const [isEditing, setIsEditing] = useState(false)
+  const [currentCardContent, setCurrentCardContent] = useState(CARD_CONTENTS.DEFAULT)
 
   const { showModal } = useModal()
+
+  const formattedDate = DateHelper.fromUTC(birthday).format(DATE_FORMAT)
+  const formattedCpf = CPFFormatter(cpf)
 
   const renderUserInfo = () => (
     <div className="profile-user-card-info-container">
@@ -25,7 +36,7 @@ const UserCard = ({ email, cpf, name, accountsTotal, birthday }) => {
         <div>
           <Text variant="sans-serif">{name}</Text>
           <Text variant="sans-serif">{email}</Text>
-          <Text variant="sans-serif">{CPFFormatter(cpf)}</Text>
+          <Text variant="sans-serif">{formattedCpf}</Text>
         </div>
 
         <Text className="profile-user-card-account" variant="sans-serif">
@@ -37,7 +48,7 @@ const UserCard = ({ email, cpf, name, accountsTotal, birthday }) => {
       </div>
 
       <Text className="profile-user-card-text--light" variant="sans-serif">
-        Nascimento: <Text>{DateHelper.fromUTC(birthday).format(DATE_FORMAT)}</Text>
+        Nascimento: <Text>{formattedDate}</Text>
       </Text>
     </div>
   )
@@ -57,19 +68,53 @@ const UserCard = ({ email, cpf, name, accountsTotal, birthday }) => {
           Deletar usuário
         </Button>
 
-        <Button onClick={() => setIsEditing(true)} variant="primary">
+        <Button onClick={() => setCurrentCardContent(CARD_CONTENTS.EDIT_FORM)} variant="primary">
           Editar
         </Button>
       </div>
     </div>
   )
 
-  return (
-    <div className="profile-user-card-container">
+  const renderDefaultContent = () => (
+    <>
       {renderUserInfo()}
       {renderRightContent()}
-    </div>
+    </>
   )
+
+  const cardContentOptions = useMemo(
+    () => ({
+      DEFAULT: {
+        component: renderDefaultContent,
+        props: {},
+      },
+
+      EDIT_FORM: {
+        component: UserEditForm,
+        props: {
+          initialData: { name, email, cpf: formattedCpf, birthday: formattedDate },
+          setCurrentCardContent,
+        },
+      },
+
+      PASSWORD_FORM: {
+        component: PasswordEditForm,
+        props: {
+          setCurrentCardContent,
+        },
+      },
+    }),
+    []
+  )
+
+  const renderContent = () => {
+    const CardComponent = cardContentOptions[currentCardContent].component
+    const props = cardContentOptions[currentCardContent].props
+
+    return <CardComponent {...props} />
+  }
+
+  return <div className="profile-user-card-container">{renderContent()}</div>
 }
 
 UserCard.defaultProps = {

@@ -41,7 +41,7 @@ const Profile = () => {
         birthday={loggedUser.birthday}
       />
 
-      <AccountCard name={account.name} accountType={account.type} heirsTotal={totalHeirs} />
+      <AccountCard name={account.name} accountType={account.type} heirsTotal={totalHeirs} heirStatus={account.status} />
     </div>
   )
 }
