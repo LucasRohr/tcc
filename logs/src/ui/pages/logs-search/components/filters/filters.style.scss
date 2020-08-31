@@ -1,0 +1,22 @@
+@import 'app-styles/variables.scss';
+
+.log-filters-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 30px 28px;
+  border-bottom: 1px solid $light-gray;
+  margin-bottom: 90px;
+}
+
+.log-filter-fields-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & .input-container-larger {
+    margin-right: 40px;
+    margin-bottom: 0;
+  }
+}

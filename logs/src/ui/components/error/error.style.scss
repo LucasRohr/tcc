@@ -1,0 +1,20 @@
+@import 'app-styles/variables.scss';
+
+.input-error {
+  padding-left: 6px;
+  margin-top: 8px;
+  font-size: 16px;
+  line-height: 24px;
+  color: $red;
+  animation: showError 0.2s linear;
+}
+
+@keyframes showError {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
