@@ -41,7 +41,7 @@ const Header = () => {
     <div className="header-container">
       <div className="header-app-name-container" onClick={goToHome}>
         <LogoIcon className="header-logo-icon" />
-        <Text variant="serif">Herança Digital Segura</Text>
+        <Text variant="serif">Herança Digital</Text>
       </div>
 
       {renderHeaderActions()}
