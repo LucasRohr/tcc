@@ -1,0 +1,66 @@
+@import 'app-styles/variables.scss';
+
+@mixin toast-pseudo-defaults {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 21px;
+  height: 2px;
+  background-color: currentColor;
+}
+
+.toast-container {
+  width: 100%;
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 35px;
+  background-color: $gray;
+  position: fixed;
+  left: 0;
+  z-index: 4;
+  top: 75px;
+
+  &.success {
+    background-color: $green;
+  }
+
+  &.error {
+    background-color: $red;
+  }
+}
+
+.toast-icon {
+  margin-right: 15px;
+}
+
+.toast-message {
+  width: 100%;
+  color: $white;
+  font-size: 20px;
+}
+
+.toast-close-button {
+  color: $white;
+  position: relative;
+  width: 21px;
+  height: 21px;
+  background: none;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &::before {
+    @include toast-pseudo-defaults;
+    transform: rotate(-45deg);
+  }
+
+  &::after {
+    @include toast-pseudo-defaults;
+    transform: rotate(45deg);
+  }
+}

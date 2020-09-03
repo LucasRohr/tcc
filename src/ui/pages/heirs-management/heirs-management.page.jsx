@@ -16,7 +16,7 @@ const HeirsManagement = () => {
   })
 
   const { showModal } = useModal()
-  const { getOwnerHeirs } = useOwner()
+  const { getPageableOwnerHeirs } = useOwner()
   const { loggedUser } = useLoggedUser()
 
   const setResultAndHandlePagination = result => {
@@ -31,8 +31,8 @@ const HeirsManagement = () => {
     setHeirs(result.data.heirs)
   }
 
-  const getHeirs = async () => {
-    const result = await getOwnerHeirs(loggedUser.currentAccount.id)
+  const getHeirs = async page => {
+    const result = await getPageableOwnerHeirs(loggedUser.currentAccount.id, page)
 
     if (result) {
       setResultAndHandlePagination(result)

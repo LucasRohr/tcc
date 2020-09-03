@@ -3,7 +3,11 @@ import { useRequest } from '../use-request/use-request.hook'
 const useOwner = () => {
   const { get, post, put } = useRequest('/owner')
 
-  const getOwnerHeirs = async ownerId => {
+  const getPageableOwnerHeirs = async (ownerId, page) => {
+    return await get(`${ownerId}/heirs?page=${page}`)
+  }
+
+  const getAllOwnerHeirs = async ownerId => {
     return await get(`${ownerId}/heirs`)
   }
 
@@ -28,7 +32,8 @@ const useOwner = () => {
   return {
     inviteHeir,
     removeHeir,
-    getOwnerHeirs,
+    getPageableOwnerHeirs,
+    getAllOwnerHeirs,
     getHeritageMedias,
     getOwnerHeitsTotalNumber,
   }

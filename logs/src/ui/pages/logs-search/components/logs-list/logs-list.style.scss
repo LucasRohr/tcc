@@ -1,0 +1,46 @@
+.logs-list-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  & > .logs-list-empty {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+
+    & .empty-content-icons-container {
+      margin-bottom: 60px;
+    }
+
+    & .empty-content-first-icon {
+      & svg {
+        width: 110px;
+        height: 110px;
+        left: -35px;
+      }
+    }
+
+    & .empty-content-middle-icon {
+      & svg {
+        width: 200px;
+        height: 200px;
+      }
+    }
+
+    & .empty-content-last-icon {
+      & svg {
+        width: 110px;
+        height: 110px;
+        right: -25px;
+      }
+    }
+
+    & span {
+      font-size: 28px;
+    }
+  }
+}
