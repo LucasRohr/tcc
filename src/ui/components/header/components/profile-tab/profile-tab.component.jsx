@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { UserIcon } from 'app-icons'
-import { useLoggedUser } from 'app-hooks'
+import { useLoggedUser, useRoute } from 'app-hooks'
 import { Text } from '../../../text/text.component'
 import { Dropbox } from '../../../dropbox/dropbox.component'
 import { noopFunction } from 'app-helpers'
@@ -8,7 +8,8 @@ import { noopFunction } from 'app-helpers'
 import './profile-tab.style.scss'
 
 const ProfileTab = ({ clicked, selected, onClick }) => {
-  const { loggedUser } = useLoggedUser()
+  const { loggedUser, removeLoggedUser, updateLastAccess } = useLoggedUser()
+  const { goToProfile } = useRoute()
 
   const renderButtonBody = () => (
     <div className="header-profile-tab-container">
@@ -20,11 +21,16 @@ const ProfileTab = ({ clicked, selected, onClick }) => {
     </div>
   )
 
+  const logoutUser = () => {
+    updateLastAccess(loggedUser.currentAccount.id)
+    removeLoggedUser()
+  }
+
   const profileOptions = useMemo(
     () => [
       {
         label: 'Perfil',
-        onClick: noopFunction,
+        onClick: goToProfile,
       },
 
       {
@@ -34,7 +40,7 @@ const ProfileTab = ({ clicked, selected, onClick }) => {
 
       {
         label: 'Sair',
-        onClick: noopFunction,
+        onClick: logoutUser,
       },
     ],
     []

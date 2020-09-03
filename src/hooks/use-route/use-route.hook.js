@@ -84,6 +84,11 @@ const useRoute = () => {
     changeRoute(paths.heirInvites(), config)
   }
 
+  // Profile
+  const goToProfile = config => {
+    changeRoute(paths.profile(), config)
+  }
+
   // Generic
   const goTo = (path, config) => {
     if (config && config.redirectedFromLogin) {
@@ -114,6 +119,7 @@ const useRoute = () => {
     goToOwnerWarning,
     goToAccountsManagement,
     goToHeirInvites,
+    goToProfile,
     goToBegin,
     setShouldRedirectToOriginalRoute,
   }

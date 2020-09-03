@@ -1,0 +1,47 @@
+@import 'app-styles/variables.scss';
+
+.account-edit-form-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  & > h1 {
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 35px;
+    color: $gray;
+    margin-bottom: 25px;
+  }
+
+  & > .account-edit-form-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    & > .account-edit-form-wrapper {
+      width: 50%;
+      margin-top: 20px;
+    }
+
+    & > .account-edit-form-buttons-container {
+      width: 25%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-end;
+
+      & button {
+        width: 100%;
+
+        &:first-child {
+          margin-bottom: 16px;
+        }
+      }
+    }
+  }
+}
