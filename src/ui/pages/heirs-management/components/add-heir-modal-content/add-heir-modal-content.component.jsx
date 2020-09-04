@@ -1,6 +1,6 @@
 import React from 'react'
 import { Title, Text, Form, Button } from 'app-components'
-import { useModal } from 'app-hooks'
+import { useModal, useToastAlert } from 'app-hooks'
 import { useAddHeirModalContent } from './add-heir-modal-content.hook'
 
 import './add-heir-modal-content.style.scss'
@@ -8,6 +8,7 @@ import './add-heir-modal-content.style.scss'
 const AddHeirModalContent = () => {
   const { renderFields, buildApiObject, sendToApi, isValid } = useAddHeirModalContent()
   const { hideModal } = useModal()
+  const { showSuccessToastAlert } = useToastAlert()
 
   const sendInvite = async () => {
     const inviteObject = buildApiObject()
@@ -15,7 +16,7 @@ const AddHeirModalContent = () => {
     hideModal()
 
     if (result) {
-      return
+      showSuccessToastAlert('Convite enviado com sucesso.')
     }
   }
 

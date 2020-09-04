@@ -1,11 +1,12 @@
 import { useForm, useInput } from 'app-hooks'
 import { emailValidator } from 'app-validators'
-import { useOwner } from 'app-hooks'
+import { useOwner, useMessage } from 'app-hooks'
 import { useEffect } from 'react'
 
 const useAddHeirModalContent = () => {
   const { isValid, getForm } = useForm()
   const { inviteHeir } = useOwner()
+  const { sendSms } = useMessage()
 
   const email = useInput({
     name: 'email',
@@ -36,11 +37,14 @@ const useAddHeirModalContent = () => {
 
   const buildApiObject = () => ({
     email: email.value,
-    phone: phone.value,
   })
 
   const sendToApi = async apiObject => {
-    return await inviteHeir(apiObject)
+    const result = await inviteHeir(apiObject)
+
+    if (result) {
+      return await sendSms(phone.value)
+    }
   }
 
   return {
