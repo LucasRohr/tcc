@@ -43,13 +43,15 @@ const useAddHeirModalContent = () => {
   const sendToApi = async apiObject => {
     const result = await inviteHeir(apiObject)
 
-    const smsObject = {
-      telephone: phone.value,
-      type: NOTIFICATION_TYPES.HEIR_INVITE,
-      ownerName: loggedUser.name,
-    }
+    if (result) {
+      const smsObject = {
+        telephone: phone.value,
+        type: NOTIFICATION_TYPES.HEIR_INVITE,
+        ownerName: loggedUser.name,
+      }
 
-    return await sendSms(smsObject)
+      return await sendSms(smsObject)
+    }
   }
 
   return {

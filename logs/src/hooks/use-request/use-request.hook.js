@@ -42,7 +42,7 @@ const useRequest = path => {
   const handleErrorStatus = statusCode => {
     if (statusCode === UNAUTHORIZED_STATUS) {
       clearAllTimeouts()
-      tokenHelper.remove()
+      tokenHelper.delete()
     }
   }
 

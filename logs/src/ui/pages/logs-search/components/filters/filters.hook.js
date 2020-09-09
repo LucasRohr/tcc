@@ -1,5 +1,5 @@
 import { useInput, useForm } from 'app-hooks'
-import { INPUT_MASKS } from 'app-constants'
+import { INPUT_MASKS, API_DATE_FORMAT } from 'app-constants'
 import { fullDateValidator } from 'app-validators'
 import { fullDateFormatter } from 'app-formatters'
 import { DateHelper } from 'app-helpers'
@@ -13,7 +13,7 @@ const useLogFilters = () => {
     variant: 'larger',
   })
 
-  const initialDate = useInput({
+  const fromDate = useInput({
     name: 'initialDate',
     label: 'Data de início',
     variant: 'larger',
@@ -23,7 +23,7 @@ const useLogFilters = () => {
     canShowDatepickerIcon: true,
   })
 
-  const finalDate = useInput({
+  const toDate = useInput({
     name: 'finalDate',
     label: 'Data de fim',
     variant: 'larger',
@@ -33,16 +33,12 @@ const useLogFilters = () => {
     canShowDatepickerIcon: true,
   })
 
-  const fields = [filterText, initialDate, finalDate]
+  const fields = [filterText, fromDate, toDate]
 
   const buildApiObject = () => ({
     filterText: filterText.value,
-    fromDate: DateHelper.toISOString({
-      date: initialDate.value,
-    }),
-    toDate: DateHelper.toISOString({
-      date: finalDate.value,
-    }),
+    fromDate: fromDate.value ? new DateHelper({ date: fromDate.value }).format(API_DATE_FORMAT) : null,
+    toDate: toDate.value ? new DateHelper({ date: toDate.value }).format(API_DATE_FORMAT) : null,
   })
 
   const fieldsValues = fields.map(field => field.value)

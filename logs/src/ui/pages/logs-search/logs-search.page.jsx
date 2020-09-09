@@ -9,10 +9,10 @@ const FIRST_PAGE = 1
 
 const LogsSearch = () => {
   const [logs, setLogs] = useState([])
-  const [filters, setFilters] = useState(null)
+  const [filters, setFilters] = useState({ filterText: '', fromDate: null, toDate: null })
   const [paginationConfig, setPaginationConfig] = useState({
     total: null,
-    currentPage: FIRST_PAGE,
+    currentPage: FIRST_PAGE - 1,
     isFirstPage: false,
     isLastPage: false,
   })
@@ -22,30 +22,30 @@ const LogsSearch = () => {
   const setResultAndHandlePagination = result => {
     const resultPaginationConfig = {
       total: result.totalPages,
-      currentPage: result.currentPage,
-      isFirstPage: result.isFirstPage,
-      isLastPage: result.isLastPage,
+      currentPage: result.number + 1,
+      isFirstPage: result.first,
+      isLastPage: result.last,
     }
 
     setPaginationConfig(resultPaginationConfig)
-    setLogs(result.data)
+    setLogs(result.content)
   }
 
   const getLogs = async (page = FIRST_PAGE) => {
     const logsFilterObject = {
       ...filters,
-      page,
+      page: page - 1,
     }
 
     const result = await getApplicationLogs(logsFilterObject)
 
     if (result) {
-      setResultAndHandlePagination(logsFilterObject)
+      setResultAndHandlePagination(result)
     }
   }
 
   useEffect(() => {
-    getLogs(FIRST_PAGE)
+    getLogs(FIRST_PAGE - 1)
   }, [filters])
 
   return (

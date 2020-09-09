@@ -5,7 +5,7 @@ const useLogs = () => {
   const { get } = useRequest('/logs-service')
 
   const getApplicationLogs = async logsObject => {
-    const url = objectToUrl({ baseUrl: 'logs', data: logsObject })
+    const url = objectToUrl({ baseUrl: 'logs/logs-list', data: logsObject })
     return await get(url)
   }
 

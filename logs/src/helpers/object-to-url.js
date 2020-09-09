@@ -8,7 +8,7 @@ const objectToUrl = ({ baseUrl, data = {} }) => {
       const value = data[key] && data[key].hasOwnProperty.call(data[key], 'value') ? data[key].value : data[key]
       return { key, value }
     })
-    .filter(property => !!property.value)
+    .filter(property => property.value !== null)
 
   const urlObject = new URLSearchParams()
   dataProperties.forEach(property => {
