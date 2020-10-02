@@ -16,7 +16,7 @@ const removeToken = () => {
 }
 
 const useLoggedUser = () => {
-  const { get, put } = useRequest('/user')
+  const { get, post, put } = useRequest('/user-service/users')
   const [globalLoggedUser, setGlobalLoggedUser] = useGlobalLoggedUser()
   const { getPermissions } = useUser()
 
@@ -25,11 +25,22 @@ const useLoggedUser = () => {
     setGlobalLoggedUser(null)
   }
 
-  const fetchUserInfo = async () => {
+  const requestLoginToken = async (email, token) => {
+    const result = await post('login-token-send', { email, token })
+    return result !== undefined
+  }
+
+  const sendLoginToken = async loginToken => {
+    return await post('login-token-validation', { loginToken })
+  }
+
+  const fetchUserInfo = async userId => {
     isFirstLoad = false
 
+    const id = (globalLoggedUser && globalLoggedUser.id) || userId
+
     try {
-      const { user = {}, accounts } = await get('me', { useToast: false, useStateErrors: false })
+      const { user = {}, accounts } = await get(`user-info?user_id=${id}`, { useToast: false, useStateErrors: false })
 
       const currentAccount = user.accounts[0]
 
@@ -83,6 +94,8 @@ const useLoggedUser = () => {
     removeToken,
     saveToken,
     updateLastAccess,
+    requestLoginToken,
+    sendLoginToken,
   }
 }
 

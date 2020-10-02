@@ -1,22 +1,25 @@
-import { useForm, useInput } from 'app-hooks'
+import { useForm, useInput, useLoggedUser } from 'app-hooks'
 
 const useLoginConfirmation = () => {
   const { isValid, getForm } = useForm()
+  const { sendLoginToken } = useLoggedUser()
 
-  const loginCode = useInput({
-    name: 'loginCode',
+  const loginToken = useInput({
+    name: 'loginToken',
     type: 'text',
     label: 'Código de confirmação',
     variant: 'full',
   })
 
-  const fields = [loginCode]
+  const fields = [loginToken]
 
   const buildApiObject = () => ({
-    loginCode: loginCode.value,
+    loginToken: loginToken.value,
   })
 
-  const sendToApi = apiObject => apiObject
+  const sendToApi = async apiObject => {
+    return await sendLoginToken(apiObject.loginToken)
+  }
 
   return {
     renderFields: () => getForm(fields),

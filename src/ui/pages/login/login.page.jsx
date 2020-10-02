@@ -4,12 +4,13 @@ import { LogoIcon } from 'app-icons'
 import { Button, Title, Text, Form } from 'app-components'
 import { useLoginForm } from './login.hook'
 import { LoginConfirmation } from './components/index'
-import { tokenHelper, useRoute } from 'app-hooks'
+import { tokenHelper, useLoggedUser, useRoute } from 'app-hooks'
 
 const Login = () => {
   const [hasToConfirmCode, setHasToConfirmCode] = useState('')
 
   const { renderFields, buildApiObject, sendToApi, isValid } = useLoginForm()
+  const { requestLoginToken } = useLoggedUser()
   const { goToRegister } = useRoute()
 
   const sendLogin = async () => {
@@ -17,8 +18,12 @@ const Login = () => {
     const result = await sendToApi(loginObject)
 
     if (result && result.header) {
-      tokenHelper.save(result.header.authorization)
+      const [userAuthToken, userEmail] = result.header.authorization.split(', ')
+
+      tokenHelper.save(userAuthToken)
       setHasToConfirmCode(true)
+
+      await requestLoginToken(userEmail, userAuthToken)
     }
   }
 
