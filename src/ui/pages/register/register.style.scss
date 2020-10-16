@@ -68,6 +68,11 @@
   justify-content: center;
   align-items: center;
   background-color: $white;
+
+  & .input-error {
+    font-size: 22px;
+    margin-bottom: 18px;
+  }
 }
 
 .register-completed-left-content-body-container {

@@ -21,7 +21,11 @@ const usePermission = () => {
   }
 
   const hasRole = role => {
-    return loggedUser && isSameRole(loggedUser.currentAccount.type, role)
+    if (role) {
+      return loggedUser && isSameRole(loggedUser.currentAccount.type, role)
+    }
+
+    return true
   }
 
   const hasOwnerRole = () => {

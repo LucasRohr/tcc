@@ -11,6 +11,7 @@ import {
   HeirInvites,
   Profile,
 } from 'app-pages'
+import { ROLES } from './roles'
 
 const paths = {
   // Login
@@ -81,6 +82,7 @@ const routes = [
   {
     path: paths.heirs(),
     component: HeirsManagement,
+    role: ROLES.OWNER,
   },
 
   // Medias
@@ -99,6 +101,7 @@ const routes = [
   {
     path: paths.ownerWarning(),
     component: OwnerWarning,
+    role: ROLES.HEIR,
   },
 
   // Accounts Management

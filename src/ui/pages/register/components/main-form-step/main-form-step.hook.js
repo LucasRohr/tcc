@@ -3,6 +3,7 @@ import { useForm, useInput } from 'app-hooks'
 import { emailValidator, CPFValidator, fullDateValidator, fullNameValidator } from 'app-validators'
 import { fullNameFormatter, CPFFormatter, fullDateFormatter } from 'app-formatters'
 import { INPUT_MASKS } from 'app-constants'
+import { DateHelper } from 'app-helpers'
 
 const useMainFormStep = ({ currentFieldsData }) => {
   const { isValid, getForm, fillFields } = useForm()
@@ -48,12 +49,20 @@ const useMainFormStep = ({ currentFieldsData }) => {
 
   const fields = [name, email, cpf, birthday]
 
-  const buildApiObject = () => ({
-    name: name.value,
-    email: email.value,
-    cpf: cpf.value,
-    birthday: birthday.value,
-  })
+  const buildApiObject = () => {
+    const rawCpf = cpf.value.split('.').join('').replace('-', '')
+
+    const registerObject = {
+      name: name.value,
+      email: email.value,
+      cpf: rawCpf,
+      birthday: DateHelper.toISOString({
+        date: birthday.value,
+      }),
+    }
+
+    return registerObject
+  }
 
   return {
     isValid: () => isValid({ fields }),

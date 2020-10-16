@@ -10,7 +10,7 @@ const ACCOUNT_LABELS = {
   HEIR: 'Herdeiro',
 }
 
-const AccountStep = ({ firstAccountType, setRegisterObject, onConfirm, increaseStep, decreaseStep }) => {
+const AccountStep = ({ firstAccountType, setRegisterObject, onConfirm, decreaseStep }) => {
   const { isValid, renderAccountFormFields, buildApiObject } = useAccountStep()
 
   const renderFormContent = () => renderAccountFormFields()
@@ -18,8 +18,8 @@ const AccountStep = ({ firstAccountType, setRegisterObject, onConfirm, increaseS
   const updateFormAndContinue = async () => {
     const account = buildApiObject()
     setRegisterObject(prevRegisterObject => ({ ...prevRegisterObject, account }))
-    increaseStep()
-    onConfirm()
+
+    onConfirm(account)
   }
 
   const renderFormButtons = () => (
@@ -55,7 +55,6 @@ AccountStep.propTypes = {
   firstAccountType: PropTypes.string,
   setRegisterObject: PropTypes.func,
   onConfirm: PropTypes.func,
-  increaseStep: PropTypes.func,
   decreaseStep: PropTypes.func,
 }
 

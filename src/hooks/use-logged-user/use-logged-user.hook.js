@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import createGlobalState from 'react-create-global-state'
 import { useRequest, tokenHelper } from '../api'
 import { User } from 'app-models'
-import { useUser } from '../api'
 
 const [useGlobalLoggedUser, LoggedUserProvider] = createGlobalState()
 let isFirstLoad = true
@@ -16,46 +15,54 @@ const removeToken = () => {
 }
 
 const useLoggedUser = () => {
-  const { get, post, put } = useRequest('/user-service/users')
+  const { get, post, put } = useRequest('/user-service')
   const [globalLoggedUser, setGlobalLoggedUser] = useGlobalLoggedUser()
-  const { getPermissions } = useUser()
 
   const removeLoggedUser = () => {
     removeToken()
+    localStorage.removeItem('user_id')
     setGlobalLoggedUser(null)
   }
 
   const requestLoginToken = async (email, token) => {
-    const result = await post('login-token-send', { email, token })
+    const result = await post('users/login-token-send', { email, token })
     return result !== undefined
   }
 
   const sendLoginToken = async loginToken => {
-    return await post('login-token-validation', { loginToken })
+    return await post('users/login-token-validation', { loginToken })
   }
 
   const fetchUserInfo = async userId => {
     isFirstLoad = false
 
-    const id = (globalLoggedUser && globalLoggedUser.id) || userId
+    const id = globalLoggedUser?.id || userId || localStorage.getItem('user_id')
 
     try {
-      const { user = {}, accounts } = await get(`user-info?user_id=${id}`, { useToast: false, useStateErrors: false })
+      const response = await get(`users/user-info?user_id=${id}`, { useToast: false, useStateErrors: false })
 
-      const currentAccount = user.accounts[0]
+      if (response) {
+        localStorage.setItem('user_id', id)
 
-      const userModel = new User({
-        ...user,
-        accounts,
-        currentAccount,
-      })
+        const { name, email, birthday, cpf, accounts } = response
 
-      userModel.currentAccount.permissions = await getPermissions(currentAccount.id)
+        const currentAccount = accounts[0]
 
-      setGlobalLoggedUser(userModel)
+        const userModel = new User({
+          id,
+          name,
+          email,
+          birthday,
+          cpf,
+          accounts,
+          currentAccount,
+        })
 
-      const currentAccountId = accounts[0] && accounts[0].id
-      updateLastAccess(currentAccountId)
+        setGlobalLoggedUser(userModel)
+
+        const currentAccountId = accounts[0] && accounts[0].id
+        updateLastAccess(currentAccountId)
+      }
     } catch (error) {
       removeLoggedUser()
     }
@@ -81,7 +88,7 @@ const useLoggedUser = () => {
 
   const updateLastAccess = async accountId => {
     if (accountId) {
-      await put(`account/${accountId}/last-access`)
+      await put(`accounts/last-update?account_id=${accountId}`)
     }
   }
 
