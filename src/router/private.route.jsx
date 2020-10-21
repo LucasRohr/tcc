@@ -2,13 +2,12 @@ import React, { Fragment, useEffect } from 'react'
 import { Route } from 'react-router-dom'
 import { useLoggedUser, useRoute, usePermission, useToastAlert } from 'app-hooks'
 import { Header, Container, Toast } from 'app-components'
-import { PrivatePage, UserNotConfirmed } from 'app-pages'
-import { USER_STATUS } from 'app-constants'
+import { PrivatePage } from 'app-pages'
 
 const Page = ({ component: Component, role, permissions, ...props }) => {
   const { loggedUser } = useLoggedUser()
   const { goToLogin, goToBegin, setShouldRedirectToOriginalRoute } = useRoute()
-  const { hasRole, hasPermission } = usePermission()
+  const { hasRole } = usePermission()
   const { showErrorToastAlert } = useToastAlert()
 
   useEffect(() => {
@@ -19,26 +18,20 @@ const Page = ({ component: Component, role, permissions, ...props }) => {
 
   if (loggedUser === null || !loggedUser) return null
 
-  const invalidRole = role && !hasRole(role)
-  const invalidPermissions = !permissions.every(permission => hasPermission(permission))
+  const invalidRole = !hasRole(role)
 
-  if (invalidRole || invalidPermissions) {
+  if (invalidRole) {
     showErrorToastAlert('Você não tem permissão para acessar este recurso.')
     goToBegin()
     return null
-  }
-
-  if (loggedUser.status === USER_STATUS.WAITING_ACTIVATION) {
-    return <UserNotConfirmed {...props} />
   }
 
   setShouldRedirectToOriginalRoute(false)
 
   const checkRender = () => {
     const hasNoLoggedUser = loggedUser === null || !loggedUser
-    const hasInvalidRoleOrPermissions = invalidRole || invalidPermissions
 
-    if (hasNoLoggedUser || hasInvalidRoleOrPermissions) {
+    if (hasNoLoggedUser) {
       return null
     }
 

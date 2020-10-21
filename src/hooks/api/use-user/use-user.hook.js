@@ -1,7 +1,7 @@
 import { useRequest } from '../use-request/use-request.hook'
 
 const useUser = () => {
-  const { get, post, put } = useRequest('/user-service')
+  const { get, post, put } = useRequest('/user-service/users')
 
   const getPermissions = async accountId => {
     return await get(`permissions/${accountId}`)

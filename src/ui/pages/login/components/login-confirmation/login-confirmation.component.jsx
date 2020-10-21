@@ -3,16 +3,21 @@ import PropTypes from 'prop-types'
 import './login-confirmation.style.scss'
 import { useLoginConfirmation } from './login-confirmation.hook'
 import { Text, Form, Button } from 'app-components'
+import { useLoggedUser, useRoute } from 'app-hooks'
 
 const LoginConfirmation = ({ goBack }) => {
   const { renderFields, buildApiObject, sendToApi, isValid } = useLoginConfirmation()
+  const { fetchUserInfo } = useLoggedUser()
+  const { goToHome } = useRoute()
 
   const sendLogin = async () => {
     const confirmationObject = buildApiObject()
     const result = await sendToApi(confirmationObject)
 
     if (result) {
-      return null
+      const userId = result.id
+      await fetchUserInfo(userId)
+      goToHome()
     }
   }
 

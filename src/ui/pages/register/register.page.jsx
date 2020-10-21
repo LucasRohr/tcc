@@ -1,13 +1,11 @@
 import React, { useState, useMemo } from 'react'
-import { Text, Button, Title } from 'app-components'
+import { Text, Button, Title, ProgressBar, Error } from 'app-components'
 import { LogoIcon } from 'app-icons'
-import { useRoute } from 'app-hooks'
+import { useRoute, useUser } from 'app-hooks'
 import { ROLES } from 'app-constants'
 import { UserTypeStep, MainFormStep, PasswordStep, AccountStep, FinalStep } from './components'
 
 import './register.style.scss'
-import { ProgressBar } from 'ui/components/progress-bar/progress-bar.component'
-import { useUser } from 'hooks/api/index'
 
 const FIRST_STEP = 0
 
@@ -15,6 +13,7 @@ const Register = () => {
   const [completedRegister, setCompletedRegister] = useState(false)
   const [currentStep, setCurrentStep] = useState(FIRST_STEP)
   const [registerObject, setRegisterObject] = useState({ mainForm: {}, passwordForm: {}, account: '' })
+  const [error, setError] = useState('')
 
   const isCreatingHeirAccount = window.location.pathname.includes('herdeiro')
   const firstAccountType = isCreatingHeirAccount ? ROLES.HEIR : ROLES.OWNER
@@ -22,18 +21,23 @@ const Register = () => {
   const { goToLogin } = useRoute()
   const { registerUser } = useUser()
 
-  const registerUserWithAccount = async () => {
+  const registerUserWithAccount = async account => {
     const apiObject = {
       ...registerObject.mainForm,
       password: registerObject.passwordForm.password,
-      account: registerObject.account,
+      account,
       firstAccountType,
     }
+
+    setError('')
 
     const result = await registerUser(apiObject)
 
     if (result) {
       setCompletedRegister(true)
+      increaseStep()
+    } else {
+      setError('Já existe um usuário com o e-mail ou CPF informado.')
     }
   }
 
@@ -135,11 +139,14 @@ const Register = () => {
     return <StepComponent {...props} />
   }
 
+  const renderError = () => (error ? <Error error={error} /> : null)
+
   return (
     <div className="register-container">
       {renderLeftContent()}
       <div className="register-right-content-wrapper">
         {checkStepRender()}
+        {renderError()}
         <div className="register-right-content-bar-wraper">
           <ProgressBar currentStep={currentStep} totalSteps={registerSteps.length - 1} />
         </div>
