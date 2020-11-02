@@ -15,7 +15,7 @@ const HeirInvites = () => {
     const result = await getAllHeirInvites(loggedUser.id)
 
     if (result) {
-      setInvites(result.invites)
+      setInvites(result)
     }
   }
 

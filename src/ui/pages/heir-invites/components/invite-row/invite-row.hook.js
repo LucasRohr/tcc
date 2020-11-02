@@ -1,9 +1,8 @@
-import { ROLES } from 'app-constants'
 import { minLengthValidator } from 'app-validators'
-import { useInput, useAccount, useLoggedUser } from 'app-hooks'
+import { useInput, useLoggedUser, useHeir } from 'app-hooks'
 
 const useInviteRowForm = () => {
-  const { createAccount } = useAccount()
+  const { createHeirAccount } = useHeir()
 
   const { loggedUser } = useLoggedUser()
 
@@ -14,13 +13,14 @@ const useInviteRowForm = () => {
     validators: [value => minLengthValidator({ value, minLength: 2 })],
   })
 
-  const buildApiObject = () => ({
-    accountName: accountName.value,
-    type: ROLES.HEIR,
+  const buildApiObject = ownerId => ({
+    userId: loggedUser.id,
+    name: accountName.value,
+    ownerId,
   })
 
   const sendToApi = async apiObject => {
-    return await createAccount(loggedUser.id, apiObject)
+    return await createHeirAccount(apiObject)
   }
 
   return {
