@@ -9,25 +9,31 @@ import './invite-row.style.scss'
 const InviteRow = ({ invite, loadInvites }) => {
   const { renderCreateHeirInput, isValid, buildApiObject, sendToApi } = useInviteRowForm()
   const { goToHome } = useRoute()
-  const { setCurrentAccount } = useLoggedUser()
+  const { fetchUserInfo } = useLoggedUser()
   const { respondInvite } = useInvite()
   const { showSuccessToastAlert } = useToastAlert()
 
-  const acceptInviteAndCreatHeirAccount = async () => {
-    const inviteObject = buildApiObject()
-    const result = await sendToApi(inviteObject)
-    await respondInvite({ inviteId: invite.id, isAccepting: true })
+  const createHeir = async () => {
+    const heirObject = buildApiObject(invite.ownerId)
+    const result = await sendToApi(heirObject)
 
     if (result) {
-      const heirAccount = result.heirAccount
-      setCurrentAccount(heirAccount)
       goToHome()
+      fetchUserInfo()
       showSuccessToastAlert('Convite de herdeiro aceito com sucesso.')
     }
   }
 
+  const acceptInviteAndCreatHeirAccount = async () => {
+    const result = await respondInvite({ inviteId: invite.id, accepted: true })
+
+    if (result) {
+      await createHeir()
+    }
+  }
+
   const rejectInvite = async () => {
-    const result = await respondInvite({ inviteId: invite.id, isAccepting: false })
+    const result = await respondInvite({ inviteId: invite.id, accepted: false })
 
     if (result) {
       await loadInvites()

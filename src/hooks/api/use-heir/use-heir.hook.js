@@ -1,7 +1,12 @@
 import { useRequest } from '../use-request/use-request.hook'
 
 const useHeir = () => {
-  const { get, put, post } = useRequest('/heir')
+  const { get, put, post } = useRequest('/user-service/accounts/heir')
+
+  const createHeirAccount = async heirObject => {
+    const result = await post('heir-creation', heirObject)
+    return result !== undefined
+  }
 
   const getHeritages = async heirId => {
     return await get(`${heirId}/heir-heritages`)
@@ -22,6 +27,7 @@ const useHeir = () => {
   }
 
   return {
+    createHeirAccount,
     getHeritages,
     getReceivedMedias,
     updateHeirItems,

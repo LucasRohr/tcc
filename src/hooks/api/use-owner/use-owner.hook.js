@@ -1,19 +1,14 @@
 import { useRequest } from '../use-request/use-request.hook'
 
 const useOwner = () => {
-  const { get, post, put } = useRequest('/owner')
+  const { get, put } = useRequest('user-service/accounts/owner')
 
-  const getPageableOwnerHeirs = async (ownerId, page) => {
-    return await get(`${ownerId}/heirs?page=${page}`)
+  const getManagementOwnerHeirs = async ownerId => {
+    return await get(`heirs?owner_id=${ownerId}`)
   }
 
   const getAllOwnerHeirs = async ownerId => {
     return await get(`${ownerId}/heirs`)
-  }
-
-  const inviteHeir = async inviteObject => {
-    const result = await post('heir-invite', inviteObject)
-    return result !== undefined
   }
 
   const removeHeir = async removeObject => {
@@ -30,9 +25,8 @@ const useOwner = () => {
   }
 
   return {
-    inviteHeir,
     removeHeir,
-    getPageableOwnerHeirs,
+    getManagementOwnerHeirs,
     getAllOwnerHeirs,
     getHeritageMedias,
     getOwnerHeitsTotalNumber,

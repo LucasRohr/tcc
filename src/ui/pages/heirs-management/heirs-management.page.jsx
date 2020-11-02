@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { PageTitle, Button, Text, Pagination, EmptyContent } from 'app-components'
+import { PageTitle, Button, Text, EmptyContent } from 'app-components'
 import { PlusIcon } from 'app-icons'
 import { HeirsList, AddHeirModalContent } from './components'
 import { useModal, useOwner, useLoggedUser } from 'app-hooks'
@@ -8,34 +8,16 @@ import './heirs-management.style.scss'
 
 const HeirsManagement = () => {
   const [heirs, setHeirs] = useState([])
-  const [paginationConfig, setPaginationConfig] = useState({
-    total: null,
-    currentPage: 1,
-    isFirstPage: false,
-    isLastPage: false,
-  })
 
   const { showModal } = useModal()
-  const { getPageableOwnerHeirs } = useOwner()
+  const { getManagementOwnerHeirs } = useOwner()
   const { loggedUser } = useLoggedUser()
 
-  const setResultAndHandlePagination = result => {
-    const resultPaginationConfig = {
-      total: result.totalPages,
-      currentPage: result.currentPage,
-      isFirstPage: result.isFirstPage,
-      isLastPage: result.isLastPage,
-    }
-
-    setPaginationConfig(resultPaginationConfig)
-    setHeirs(result.data.heirs)
-  }
-
-  const getHeirs = async page => {
-    const result = await getPageableOwnerHeirs(loggedUser.currentAccount.id, page)
+  const getHeirs = async () => {
+    const result = await getManagementOwnerHeirs(loggedUser.currentAccount.id)
 
     if (result) {
-      setResultAndHandlePagination(result)
+      setHeirs(result)
     }
   }
 
@@ -75,13 +57,6 @@ const HeirsManagement = () => {
       </div>
 
       {renderContent()}
-
-      <Pagination
-        onChange={getHeirs}
-        paginationConfig={paginationConfig}
-        additionalClass="heirs-management-pagination-container"
-        showPagination={heirs && heirs.length}
-      />
     </div>
   )
 }
