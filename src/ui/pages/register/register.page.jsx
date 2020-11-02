@@ -1,7 +1,7 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Text, Button, Title, ProgressBar, Error } from 'app-components'
 import { LogoIcon } from 'app-icons'
-import { useRoute, useUser } from 'app-hooks'
+import { useRoute, useUser, useInvite } from 'app-hooks'
 import { ROLES } from 'app-constants'
 import { UserTypeStep, MainFormStep, PasswordStep, AccountStep, FinalStep } from './components'
 
@@ -9,17 +9,55 @@ import './register.style.scss'
 
 const FIRST_STEP = 0
 
-const Register = () => {
+const Register = ({ location }) => {
   const [completedRegister, setCompletedRegister] = useState(false)
   const [currentStep, setCurrentStep] = useState(FIRST_STEP)
-  const [registerObject, setRegisterObject] = useState({ mainForm: {}, passwordForm: {}, account: '' })
+  const [registerObject, setRegisterObject] = useState({ mainForm: {}, passwordForm: {}, account: '', ownerId: null })
   const [error, setError] = useState('')
 
-  const isCreatingHeirAccount = window.location.pathname.includes('herdeiro')
-  const firstAccountType = isCreatingHeirAccount ? ROLES.HEIR : ROLES.OWNER
-
+  const { updateInviteCode, checkInviteByCode, getInviteById } = useInvite()
   const { goToLogin } = useRoute()
   const { registerUser } = useUser()
+
+  const isCreatingHeirAccount = location.search.includes('invite')
+  const firstAccountType = isCreatingHeirAccount ? ROLES.HEIR : ROLES.OWNER
+
+  const checkLinkUsage = async code => {
+    const result = await checkInviteByCode(code)
+
+    if (result) {
+      goToLogin()
+    }
+  }
+
+  const getAccountInvite = async inviteId => {
+    const result = await getInviteById(inviteId)
+
+    if (result) {
+      setRegisterObject(prevObject => ({ ...prevObject, ownerId: result }))
+    }
+  }
+
+  const checkUserInvite = async () => {
+    if (isCreatingHeirAccount) {
+      const [codePart, invitePart] = location.search.split('&')
+
+      const inviteCode = codePart.substr(codePart.indexOf('=') + 1, codePart.length - 1)
+      const inviteId = invitePart.substr(invitePart.indexOf('=') + 1, invitePart.length - 1)
+
+      checkLinkUsage(inviteCode)
+
+      const codeObject = { id: inviteId, code: inviteCode }
+
+      await updateInviteCode(codeObject)
+
+      await getAccountInvite(inviteId)
+    }
+  }
+
+  useEffect(() => {
+    checkUserInvite()
+  }, [])
 
   const registerUserWithAccount = async account => {
     const apiObject = {
@@ -27,6 +65,7 @@ const Register = () => {
       password: registerObject.passwordForm.password,
       account,
       firstAccountType,
+      ownerId: registerObject.ownerId,
     }
 
     setError('')
