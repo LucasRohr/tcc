@@ -21,6 +21,10 @@ const HeirsManagement = () => {
     }
   }
 
+  const filterHeirs = (id) => {
+    setHeirs(heirs.filter(heir => heir.id !== id))
+  }
+
   useEffect(() => {
     getHeirs()
   }, [])
@@ -33,7 +37,7 @@ const HeirsManagement = () => {
 
   const renderContent = () => {
     if (heirs && heirs.length) {
-      return <HeirsList heirs={heirs} />
+        return <HeirsList heirs={heirs} filterHeirs={filterHeirs}/>
     }
 
     return (

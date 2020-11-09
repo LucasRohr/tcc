@@ -7,12 +7,12 @@ import { HeritagesManagementModalContent } from '../heritages-management-modal-c
 
 import './heir-row.style.scss'
 
-const HeirRow = ({ id, name, accountName, email, heritageItemsTotal }) => {
+const HeirRow = ({ id, name, accountName, email, heritageItemsTotal, filterHeirs }) => {
   const { showModal } = useModal()
 
   const renderRemoveHeirModal = () => {
     showModal({
-      content: <RemoveHeirModalContent heirId={id} />,
+      content: <RemoveHeirModalContent heirId={id} onRemoval={filterHeirs} />,
     })
   }
 

@@ -6,7 +6,7 @@ import { useModal, useLoggedUser, useOwner } from 'app-hooks'
 import './remove-heir-modal-content.style.scss'
 import { noopFunction } from 'app-helpers'
 
-const RemoveHeirModalContent = ({ heirId, onConfirm }) => {
+const RemoveHeirModalContent = ({ heirId, onRemoval }) => {
   const { hideModal } = useModal()
   const { loggedUser } = useLoggedUser()
   const { removeHeir } = useOwner()
@@ -16,11 +16,10 @@ const RemoveHeirModalContent = ({ heirId, onConfirm }) => {
       heirId,
       ownerId: loggedUser.currentAccount.id,
     }
-
-    await onConfirm()
-    const result = await removeHeir(removeObject)
-
+  
+    const result = await removeHeir(removeObject)  
     if (result) {
+      onRemoval(heirId)
       hideModal()
     }
   }
@@ -49,7 +48,7 @@ const RemoveHeirModalContent = ({ heirId, onConfirm }) => {
   )
 }
 
-RemoveHeirModalContent.propTypes = {
+RemoveHeirModalContent.defaultProps = {
   onConfirm: noopFunction,
 }
 
