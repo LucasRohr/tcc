@@ -4,14 +4,21 @@ import { HeirRow } from '../heir-row/heir-row.component'
 
 import './heirs-list.style.scss'
 
-const HeirsList = ({ heirs }) => {
+const HeirsList = ({ heirs, filterHeirs }) => {
   const rowElements = ['', 'nome', 'conta', 'e-mail', 'heranças', '']
 
   const renderHeader = () => rowElements.map(element => <div className="heirs-list-header-element">{element}</div>)
 
   const renderListContent = () =>
     heirs.map(({ id, name, accountName, email, heritageItemsTotal }) => (
-      <HeirRow id={id} name={name} email={email} heritageItemsTotal={heritageItemsTotal} accountName={accountName} />
+      <HeirRow 
+        id={id}
+        name={name}
+        email={email}
+        heritageItemsTotal={heritageItemsTotal}
+        accountName={accountName} 
+        filterHeirs={filterHeirs}
+      />
     ))
 
   return (
