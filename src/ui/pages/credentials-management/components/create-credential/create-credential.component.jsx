@@ -22,7 +22,7 @@ const CreateCredential = () => {
 
   const createCredential = async () => {
     const credentialObject = buildApiObject()
-    credentialObject.heirs = getSelectedHeirsId()
+    credentialObject.heirsIds = getSelectedHeirsId()
 
     const result = await sendToApi(credentialObject)
 

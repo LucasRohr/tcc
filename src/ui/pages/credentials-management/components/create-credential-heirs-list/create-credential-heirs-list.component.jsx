@@ -10,7 +10,7 @@ function CreateCredentialHeirsList({ onChange }) {
   const [heirs, setHeirs] = useState([])
   const [baseHeirs, setBaseHeirs] = useState([])
 
-  const { getAllOwnerHeirs } = useOwner()
+  const { getAllOwnerHeirsForCredential } = useOwner()
   const { loggedUser } = useLoggedUser()
 
   const filterItems = searchText => {
@@ -30,30 +30,7 @@ function CreateCredentialHeirsList({ onChange }) {
   const mapHeirs = heirsList => heirsList.map(heirItem => ({ item: heirItem, itemCheck: heirItem.hasMedia }))
 
   const getOwnerHeirs = async () => {
-    let result = await getAllOwnerHeirs(loggedUser.currentAccount.id)
-
-    result = {
-      heirs: [
-        {
-          id: 1,
-          name: 'Fulaninho de Tal',
-          account: 'conta herdeira 1',
-          email: 'cleitinho@gmail.com',
-        },
-        {
-          id: 2,
-          name: 'Cirilo brabo',
-          email: 'cirila1@gmail.com',
-          account: 'conta herdeira 2',
-        },
-        {
-          id: 3,
-          name: 'alfredo berimbau da silva',
-          email: 'cirila1@gmail.com',
-          account: 'conta herdeira 2',
-        },
-      ],
-    }
+    const result = await getAllOwnerHeirsForCredential(loggedUser.currentAccount.id)
 
     if (result) {
       const mappedResult = mapHeirs(result.heirs)

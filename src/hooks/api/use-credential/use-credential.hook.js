@@ -15,18 +15,13 @@ const useCredential = () => {
     return await get(`credentials/${credentialId}/auth`)
   }
 
-  const updateCredential = async (credentialId, updateObject) => {
-    const result = await put(`credentials/${credentialId}/edit`, updateObject)
-    return result !== undefined
-  }
-
   const removeCredential = async credentialId => {
     const result = await put(`credentials/${credentialId}/inactive`)
     return result !== undefined
   }
 
   const createCredential = async createObject => {
-    const result = await post(`credentials/create`, createObject)
+    const result = await post(`credentials/creation`, createObject)
     return result !== undefined
   }
 
@@ -47,7 +42,6 @@ const useCredential = () => {
     getHeirReceivedCredentials,
     getOwnerHeritageCredentials,
     getOwnerHeritageCredentialPassword,
-    updateCredential,
     removeCredential,
     createCredential,
     getAllHeirsForCredential,

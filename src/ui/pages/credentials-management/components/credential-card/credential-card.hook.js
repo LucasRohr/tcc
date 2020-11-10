@@ -4,7 +4,7 @@ import { minLengthValidator } from 'app-validators'
 
 const useCredentialCard = ({ initialData }) => {
   const { isValid, getForm, fillFields } = useForm()
-  const { updateCredential } = useCredential()
+  const { createCredential } = useCredential()
 
   const name = useInput({
     name: 'name',
@@ -63,11 +63,15 @@ const useCredentialCard = ({ initialData }) => {
       apiObject[field.name] = field.value
     })
 
+    apiObject.credentialId = initialData.id
+    apiObject.ownerId = initialData.ownerId
+    apiObject.heirsIds = initialData.heirsIds
+
     return apiObject
   }
 
   const sendToApi = async apiObject => {
-    return await updateCredential(initialData.id, apiObject)
+    return await createCredential(apiObject)
   }
 
   return {
