@@ -32,11 +32,11 @@ const CredentialCard = ({ credential, loadCredentials, isHeirAccount }) => {
 
   const getCredentialPassword = async () => {
     if (isFirstInteraction) {
-      const result = await getOwnerHeritageCredentialPassword(credential.id)
+      const result = await getOwnerHeritageCredentialPassword(loggedUser.currentAccount.id, credential.credentialId)
 
       if (result) {
         setIsFirstInteraction(false)
-        setCredentialPassword(result.auth)
+        setCredentialPassword(result)
       }
 
       return true

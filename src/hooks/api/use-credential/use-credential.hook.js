@@ -8,11 +8,11 @@ const useCredential = () => {
   }
 
   const getOwnerHeritageCredentials = async ownerId => {
-    return await get(`${ownerId}/owner-credentials`)
+    return await get(`credentials/owner-credentials?owner_id=${ownerId}`)
   }
 
-  const getOwnerHeritageCredentialPassword = async credentialId => {
-    return await get(`credentials/${credentialId}/auth`)
+  const getOwnerHeritageCredentialPassword = async (ownerId, credentialId) => {
+    return await get(`credentials/credential-auth?owner_id=${ownerId}&credential_id=${credentialId}`)
   }
 
   const removeCredential = async credentialId => {

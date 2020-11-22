@@ -42,8 +42,8 @@ const CredentialsManagement = () => {
 
     setCanShowContent(true)
 
-    if (result && result.credentials) {
-      setCredentials(result.credentials)
+    if (result && result.length) {
+      setCredentials(result)
     }
   }
 

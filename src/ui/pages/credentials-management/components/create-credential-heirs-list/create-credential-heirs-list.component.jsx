@@ -32,8 +32,8 @@ function CreateCredentialHeirsList({ onChange }) {
   const getOwnerHeirs = async () => {
     const result = await getAllOwnerHeirsForCredential(loggedUser.currentAccount.id)
 
-    if (result) {
-      const mappedResult = mapHeirs(result.heirs)
+    if (result && result.length) {
+      const mappedResult = mapHeirs(result)
       setHeirs(mappedResult)
       setBaseHeirs(mappedResult)
     }

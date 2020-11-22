@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Form, Button, Text, Title } from 'app-components'
 import { HelpIcon } from 'app-icons'
-import { useModal } from 'app-hooks'
+import { useLoggedUser, useModal } from 'app-hooks'
 import { useCreateCredential } from './create-credential.hook'
 import { CreateCredentialHeirsList } from '../create-credential-heirs-list/create-credential-heirs-list.component'
 
@@ -12,6 +12,7 @@ const CreateCredential = () => {
 
   const { getCreateCredentialFields, isValid, buildApiObject, sendToApi } = useCreateCredential()
   const { showModal, hideModal } = useModal()
+  const { loggedUser } = useLoggedUser()
 
   const getSelectedHeirsId = () => {
     const selectedHeirsFiltered = selectedHeirs.filter(heirItem => heirItem.itemCheck)
@@ -23,6 +24,7 @@ const CreateCredential = () => {
   const createCredential = async () => {
     const credentialObject = buildApiObject()
     credentialObject.heirsIds = getSelectedHeirsId()
+    credentialObject.ownerId = loggedUser.currentAccount.id
 
     const result = await sendToApi(credentialObject)
 
