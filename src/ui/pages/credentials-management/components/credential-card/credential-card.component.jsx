@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Button, Text, HeirsModal } from 'app-components'
 import { HeirsManagementIcon } from 'app-icons'
-import { useModal, useCredential, useLoggedUser, useToastAlert } from 'app-hooks'
+import { useModal, useCredential, useLoggedUser, useToastAlert, useTimeout } from 'app-hooks'
 import { noopFunction } from 'app-helpers'
 import { useCredentialCard } from './credential-card.hook'
 import { CredentialInfo } from '../credential-info/credential-info.component'
@@ -24,11 +24,20 @@ const CredentialCard = ({ credential, loadCredentials, isHeirAccount }) => {
     initialData: isEditing ? { ...credential, password: credentialPassword } : null,
   })
 
+  const { getDebounce } = useTimeout()
+  const debounce = useMemo(getDebounce, [])
+
   useEffect(() => {
     if (isEditing) {
       getCredentialPassword()
     }
   }, [isEditing])
+
+  const loadCredentialsWithDebounce = () => {
+    debounce(() => {
+      loadCredentials()
+    }, 3000)
+  }
 
   const getCredentialPassword = async () => {
     if (isFirstInteraction) {
@@ -48,11 +57,13 @@ const CredentialCard = ({ credential, loadCredentials, isHeirAccount }) => {
   const saveCredentialEdit = async () => {
     if (await isValid()) {
       const credentialObject = buildApiObject()
+      credentialObject.heirsIds = credential.heirsIds
+
       const result = await sendToApi(credentialObject)
 
       if (result) {
+        loadCredentialsWithDebounce()
         setViewMode()
-        loadCredentials()
       }
     }
   }
@@ -66,14 +77,14 @@ const CredentialCard = ({ credential, loadCredentials, isHeirAccount }) => {
   }
 
   const getAvailableHeirs = async () => {
-    const result = await getAllHeirsForCredential(loggedUser.currentAccount.id, credential.id)
+    const result = await getAllHeirsForCredential(loggedUser.currentAccount.id, credential.credentialId)
 
     if (result && result.length) {
       return result
     }
   }
 
-  const mapHeirs = heirsList => heirsList.map(heirItem => ({ item: heirItem, itemCheck: heirItem.hasCredential }))
+  const mapHeirs = heirsList => heirsList.map(heirItem => ({ item: heirItem, itemCheck: heirItem.hasItem }))
 
   const getSelectedHeirsId = selectedHeirs => {
     const selectedHeirsFiltered = selectedHeirs.filter(heirItem => heirItem.itemCheck)
@@ -83,10 +94,19 @@ const CredentialCard = ({ credential, loadCredentials, isHeirAccount }) => {
   }
 
   const saveCredentialHeirs = async selectedHeirs => {
-    const heirs = getSelectedHeirsId(selectedHeirs)
-    const result = await updateCredentialHeirs(credential.id, heirs)
+    const heirsIds = getSelectedHeirsId(selectedHeirs)
+    const { credentialId, credentialOwnerId } = credential
+
+    const credentialObject = {
+      credentialId,
+      heirsIds,
+      ownerId: credentialOwnerId,
+    }
+
+    const result = await updateCredentialHeirs(credentialObject)
 
     if (result) {
+      loadCredentialsWithDebounce()
       showSuccessToastAlert('Herdeiros atualizados com sucesso.')
     }
   }
@@ -99,7 +119,7 @@ const CredentialCard = ({ credential, loadCredentials, isHeirAccount }) => {
 
   const showRemoveCredentialModal = () => {
     showModal({
-      content: <RemoveCredentialModal credentialId={credential.id} />,
+      content: <RemoveCredentialModal credential={credential} loadCredentials={loadCredentialsWithDebounce} />,
     })
   }
 

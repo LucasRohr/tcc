@@ -1,21 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Title, Text, Button } from 'app-components'
-import { useModal, useCredential, useLoggedUser } from 'app-hooks'
+import { useModal, useCredential, useToastAlert } from 'app-hooks'
 
 import './remove-credential-modal.style.scss'
 
-const RemoveCredentialModal = ({ credentialId }) => {
+const RemoveCredentialModal = ({ credential, loadCredentials }) => {
   const { hideModal } = useModal()
   const { removeCredential } = useCredential()
-  const { loggedUser } = useLoggedUser()
+  const { showSuccessToastAlert } = useToastAlert()
 
   const removeOwnerCredential = async () => {
-    const result = await removeCredential(loggedUser.currentAccount.id, credentialId)
+    const removeObject = {
+      ownerId: credential.credentialOwnerId,
+      credentialId: credential.credentialId,
+    }
+
+    const result = await removeCredential(removeObject)
     hideModal()
 
     if (result) {
-      return
+      await loadCredentials()
+      showSuccessToastAlert('Credencial removida com sucesso.')
     }
   }
 

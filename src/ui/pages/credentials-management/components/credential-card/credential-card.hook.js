@@ -65,7 +65,6 @@ const useCredentialCard = ({ initialData }) => {
 
     apiObject.credentialId = initialData.credentialId
     apiObject.ownerId = initialData.credentialOwnerId
-    apiObject.heirsIds = initialData.heirsIds
 
     return apiObject
   }

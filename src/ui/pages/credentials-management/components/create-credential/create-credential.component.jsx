@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Form, Button, Text, Title } from 'app-components'
 import { HelpIcon } from 'app-icons'
-import { useLoggedUser, useModal } from 'app-hooks'
+import { Form, Button, Text, Title } from 'app-components'
+import { useLoggedUser, useModal, useToastAlert } from 'app-hooks'
 import { useCreateCredential } from './create-credential.hook'
 import { CreateCredentialHeirsList } from '../create-credential-heirs-list/create-credential-heirs-list.component'
 
@@ -9,10 +9,12 @@ import './create-credential.style.scss'
 
 const CreateCredential = () => {
   const [selectedHeirs, setSelectedHeirs] = useState([])
+  const [hasCreatedCredential, setHasCreatedCredential] = useState(false)
 
-  const { getCreateCredentialFields, isValid, buildApiObject, sendToApi } = useCreateCredential()
+  const { getCreateCredentialFields, isValid, cleanFields, buildApiObject, sendToApi } = useCreateCredential()
   const { showModal, hideModal } = useModal()
   const { loggedUser } = useLoggedUser()
+  const { showSuccessToastAlert } = useToastAlert()
 
   const getSelectedHeirsId = () => {
     const selectedHeirsFiltered = selectedHeirs.filter(heirItem => heirItem.itemCheck)
@@ -29,11 +31,19 @@ const CreateCredential = () => {
     const result = await sendToApi(credentialObject)
 
     if (result) {
-      return
+      setHasCreatedCredential(true)
+      setSelectedHeirs([])
+      cleanFields()
+
+      showSuccessToastAlert('Credencial criada com sucesso.')
+
+      setHasCreatedCredential(false)
     }
   }
 
-  const renderHeirsList = () => <CreateCredentialHeirsList onChange={setSelectedHeirs} />
+  const renderHeirsList = () => (
+    <CreateCredentialHeirsList onChange={setSelectedHeirs} hasCreatedCredential={hasCreatedCredential} />
+  )
 
   const renderHelpModal = () => {
     const renderContent = () => (

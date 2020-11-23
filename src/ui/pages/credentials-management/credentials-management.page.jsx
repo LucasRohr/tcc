@@ -51,6 +51,12 @@ const CredentialsManagement = () => {
     getCredentials()
   }, [])
 
+  useEffect(() => {
+    if (currentTab === TAB_OPTIONS[0].value) {
+      getCredentials()
+    }
+  }, [currentTab])
+
   const CONTENT_OPTIONS = useMemo(
     () => ({
       CREDENTIALS_LIST: {

@@ -15,8 +15,8 @@ const useCredential = () => {
     return await get(`credentials/credential-auth?owner_id=${ownerId}&credential_id=${credentialId}`)
   }
 
-  const removeCredential = async credentialId => {
-    const result = await put(`credentials/${credentialId}/inactive`)
+  const removeCredential = async removeObject => {
+    const result = await put(`credentials/credential-remove`, removeObject)
     return result !== undefined
   }
 
@@ -26,15 +26,15 @@ const useCredential = () => {
   }
 
   const getAllHeirsForCredential = async (ownerId, credentialId) => {
-    return await get(`credentials/${credentialId}/owner/${ownerId}/available-heirs`, {
+    return await get(`credentials/owner/available-heirs?owner_id=${ownerId}&credential_id=${credentialId}`, {
       useToast: false,
       useLoader: false,
       showDefaultErrorToast: false,
     })
   }
 
-  const updateCredentialHeirs = async (credentialId, heirs) => {
-    const result = await put(`credentials/${credentialId}/heirs-update`, heirs)
+  const updateCredentialHeirs = async updateObject => {
+    const result = await put(`credentials/heirs-update`, updateObject)
     return result !== undefined
   }
 

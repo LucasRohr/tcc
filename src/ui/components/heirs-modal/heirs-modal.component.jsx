@@ -16,36 +16,10 @@ const HeirsModal = ({ onConfirm, mapHeirs, getHeirs }) => {
   }
 
   const getAllOwnerHeirs = async () => {
-    let result = await getHeirs()
-
-    result = {
-      heirs: [
-        {
-          id: 1,
-          name: 'Fulaninho de Tal',
-          account: 'conta herdeira 1',
-          email: 'cleitinho@gmail.com',
-          hasMedia: false,
-        },
-        {
-          id: 2,
-          name: 'Cirilo brabo',
-          email: 'cirila1@gmail.com',
-          account: 'conta herdeira 2',
-          hasMedia: false,
-        },
-        {
-          id: 3,
-          name: 'alfredo berimbau da silva',
-          email: 'cirila1@gmail.com',
-          account: 'conta herdeira 2',
-          hasMedia: true,
-        },
-      ],
-    }
+    const result = await getHeirs()
 
     if (result) {
-      const mappedResult = mapHeirs(result.heirs)
+      const mappedResult = mapHeirs(result)
       setHeirs(mappedResult)
       setBaseHeirs(mappedResult)
     }

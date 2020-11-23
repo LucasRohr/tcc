@@ -6,12 +6,28 @@ import { UserIcon } from 'app-icons'
 
 import './create-credential-heirs-list.style.scss'
 
-function CreateCredentialHeirsList({ onChange }) {
+function CreateCredentialHeirsList({ hasCreatedCredential, onChange }) {
   const [heirs, setHeirs] = useState([])
   const [baseHeirs, setBaseHeirs] = useState([])
 
   const { getAllOwnerHeirsForCredential } = useOwner()
   const { loggedUser } = useLoggedUser()
+
+  const resetHeirsSelection = (heirs, setHeirs) => {
+    const deselectedHeirs = heirs.map(heir => {
+      heir.itemCheck = false
+      return heir
+    })
+
+    setHeirs(deselectedHeirs)
+  }
+
+  useEffect(() => {
+    if (hasCreatedCredential) {
+      resetHeirsSelection(heirs, setHeirs)
+      resetHeirsSelection(baseHeirs, setBaseHeirs)
+    }
+  }, [hasCreatedCredential])
 
   const filterItems = searchText => {
     const filteredHeirs = baseHeirs.filter(({ item }) => item.name.includes(searchText))
@@ -27,7 +43,7 @@ function CreateCredentialHeirsList({ onChange }) {
     required: false,
   })
 
-  const mapHeirs = heirsList => heirsList.map(heirItem => ({ item: heirItem, itemCheck: heirItem.hasMedia }))
+  const mapHeirs = heirsList => heirsList.map(heirItem => ({ item: heirItem, itemCheck: heirItem.hasItem }))
 
   const getOwnerHeirs = async () => {
     const result = await getAllOwnerHeirsForCredential(loggedUser.currentAccount.id)
