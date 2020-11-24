@@ -45,6 +45,12 @@ const useCreateCredential = () => {
 
   const fields = [name, login, password, link, description]
 
+  const cleanFields = () => {
+    fields.forEach(field => {
+      field.resetInput()
+    })
+  }
+
   const buildApiObject = () => {
     const apiObject = {}
 
@@ -64,6 +70,7 @@ const useCreateCredential = () => {
     isValid: () => isValid({ fields }),
     buildApiObject,
     sendToApi,
+    cleanFields,
   }
 }
 

@@ -6,12 +6,28 @@ import { UserIcon } from 'app-icons'
 
 import './create-credential-heirs-list.style.scss'
 
-function CreateCredentialHeirsList({ onChange }) {
+function CreateCredentialHeirsList({ hasCreatedCredential, onChange }) {
   const [heirs, setHeirs] = useState([])
   const [baseHeirs, setBaseHeirs] = useState([])
 
-  const { getAllOwnerHeirs } = useOwner()
+  const { getAllOwnerHeirsForCredential } = useOwner()
   const { loggedUser } = useLoggedUser()
+
+  const resetHeirsSelection = (heirs, setHeirs) => {
+    const deselectedHeirs = heirs.map(heir => {
+      heir.itemCheck = false
+      return heir
+    })
+
+    setHeirs(deselectedHeirs)
+  }
+
+  useEffect(() => {
+    if (hasCreatedCredential) {
+      resetHeirsSelection(heirs, setHeirs)
+      resetHeirsSelection(baseHeirs, setBaseHeirs)
+    }
+  }, [hasCreatedCredential])
 
   const filterItems = searchText => {
     const filteredHeirs = baseHeirs.filter(({ item }) => item.name.includes(searchText))
@@ -27,36 +43,13 @@ function CreateCredentialHeirsList({ onChange }) {
     required: false,
   })
 
-  const mapHeirs = heirsList => heirsList.map(heirItem => ({ item: heirItem, itemCheck: heirItem.hasMedia }))
+  const mapHeirs = heirsList => heirsList.map(heirItem => ({ item: heirItem, itemCheck: heirItem.hasItem }))
 
   const getOwnerHeirs = async () => {
-    let result = await getAllOwnerHeirs(loggedUser.currentAccount.id)
+    const result = await getAllOwnerHeirsForCredential(loggedUser.currentAccount.id)
 
-    result = {
-      heirs: [
-        {
-          id: 1,
-          name: 'Fulaninho de Tal',
-          account: 'conta herdeira 1',
-          email: 'cleitinho@gmail.com',
-        },
-        {
-          id: 2,
-          name: 'Cirilo brabo',
-          email: 'cirila1@gmail.com',
-          account: 'conta herdeira 2',
-        },
-        {
-          id: 3,
-          name: 'alfredo berimbau da silva',
-          email: 'cirila1@gmail.com',
-          account: 'conta herdeira 2',
-        },
-      ],
-    }
-
-    if (result) {
-      const mappedResult = mapHeirs(result.heirs)
+    if (result && result.length) {
+      const mappedResult = mapHeirs(result)
       setHeirs(mappedResult)
       setBaseHeirs(mappedResult)
     }

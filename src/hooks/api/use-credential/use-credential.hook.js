@@ -8,38 +8,33 @@ const useCredential = () => {
   }
 
   const getOwnerHeritageCredentials = async ownerId => {
-    return await get(`${ownerId}/owner-credentials`)
+    return await get(`credentials/owner-credentials?owner_id=${ownerId}`)
   }
 
-  const getOwnerHeritageCredentialPassword = async credentialId => {
-    return await get(`credentials/${credentialId}/auth`)
+  const getOwnerHeritageCredentialPassword = async (ownerId, credentialId) => {
+    return await get(`credentials/credential-auth?owner_id=${ownerId}&credential_id=${credentialId}`)
   }
 
-  const updateCredential = async (credentialId, updateObject) => {
-    const result = await put(`credentials/${credentialId}/edit`, updateObject)
-    return result !== undefined
-  }
-
-  const removeCredential = async credentialId => {
-    const result = await put(`credentials/${credentialId}/inactive`)
+  const removeCredential = async removeObject => {
+    const result = await put(`credentials/credential-remove`, removeObject)
     return result !== undefined
   }
 
   const createCredential = async createObject => {
-    const result = await post(`credentials/create`, createObject)
+    const result = await post(`credentials/creation`, createObject)
     return result !== undefined
   }
 
   const getAllHeirsForCredential = async (ownerId, credentialId) => {
-    return await get(`credentials/${credentialId}/owner/${ownerId}/available-heirs`, {
+    return await get(`credentials/owner/available-heirs?owner_id=${ownerId}&credential_id=${credentialId}`, {
       useToast: false,
       useLoader: false,
       showDefaultErrorToast: false,
     })
   }
 
-  const updateCredentialHeirs = async (credentialId, heirs) => {
-    const result = await put(`credentials/${credentialId}/heirs-update`, heirs)
+  const updateCredentialHeirs = async updateObject => {
+    const result = await put(`credentials/heirs-update`, updateObject)
     return result !== undefined
   }
 
@@ -47,7 +42,6 @@ const useCredential = () => {
     getHeirReceivedCredentials,
     getOwnerHeritageCredentials,
     getOwnerHeritageCredentialPassword,
-    updateCredential,
     removeCredential,
     createCredential,
     getAllHeirsForCredential,

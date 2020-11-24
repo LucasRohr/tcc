@@ -7,8 +7,8 @@ const useOwner = () => {
     return await get(`heirs?owner_id=${ownerId}`)
   }
 
-  const getAllOwnerHeirs = async ownerId => {
-    return await get(`${ownerId}/heirs`)
+  const getAllOwnerHeirsForCredential = async ownerId => {
+    return await get(`credential-heirs?owner_id=${ownerId}`)
   }
 
   const removeHeir = async removeObject => {
@@ -27,7 +27,8 @@ const useOwner = () => {
   return {
     removeHeir,
     getManagementOwnerHeirs,
-    getAllOwnerHeirs,
+    getAllOwnerHeirs: () => [],
+    getAllOwnerHeirsForCredential,
     getHeritageMedias,
     getOwnerHeitsTotalNumber,
   }

@@ -42,14 +42,20 @@ const CredentialsManagement = () => {
 
     setCanShowContent(true)
 
-    if (result && result.credentials) {
-      setCredentials(result.credentials)
+    if (result && result.length) {
+      setCredentials(result)
     }
   }
 
   useEffect(() => {
     getCredentials()
   }, [])
+
+  useEffect(() => {
+    if (currentTab === TAB_OPTIONS[0].value) {
+      getCredentials()
+    }
+  }, [currentTab])
 
   const CONTENT_OPTIONS = useMemo(
     () => ({
