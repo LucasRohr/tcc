@@ -1,9 +1,8 @@
-import { ROLES } from 'app-constants'
 import { minLengthValidator } from 'app-validators'
 import { useAccount, useInput, useLoggedUser } from 'app-hooks'
 
 const useOwnerModalContentForm = () => {
-  const { createAccount } = useAccount()
+  const { createOwnerAccount } = useAccount()
   const { loggedUser } = useLoggedUser()
 
   const accountName = useInput({
@@ -14,12 +13,12 @@ const useOwnerModalContentForm = () => {
   })
 
   const buildApiObject = () => ({
+    userId: loggedUser.id,
     accountName: accountName.value,
-    type: ROLES.OWNER,
   })
 
   const sendToApi = async apiObject => {
-    return await createAccount(loggedUser.id, apiObject)
+    return await createOwnerAccount(apiObject)
   }
 
   return {

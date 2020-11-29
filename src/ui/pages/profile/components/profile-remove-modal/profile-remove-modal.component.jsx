@@ -18,7 +18,7 @@ const ProfileRemoveModal = ({ isRemovingUser }) => {
   const userHasOneAccount = loggedUser.accounts.length === MIN_ACCOUNTS
 
   const removeCurrentAccount = async () => {
-    const result = await removeAccount(loggedUser.currentAccount.id)
+    const result = await removeAccount({ id: loggedUser.currentAccount.id })
     hideModal()
 
     if (result) {
@@ -28,7 +28,7 @@ const ProfileRemoveModal = ({ isRemovingUser }) => {
   }
 
   const removeCurrentUser = async () => {
-    const result = await removeUser(loggedUser.id)
+    const result = await removeUser({ id: loggedUser.id })
     hideModal()
 
     if (result) {

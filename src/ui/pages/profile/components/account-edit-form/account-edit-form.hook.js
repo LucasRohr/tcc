@@ -20,11 +20,12 @@ const useAccountEditForm = ({ initialData }) => {
   }, [initialData])
 
   const buildApiObject = () => ({
-    name: name.value,
+    accountId: loggedUser.currentAccount.id,
+    accountName: name.value,
   })
 
   const sendToApi = async apiObject => {
-    return await updateAccount(loggedUser.currentAccount.id, apiObject)
+    return await updateAccount(apiObject)
   }
 
   return {

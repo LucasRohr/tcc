@@ -19,7 +19,7 @@ const Profile = () => {
     const result = await getOwnerHeitsTotalNumber(loggedUser.currentAccount.id)
 
     if (result) {
-      setTotalHeirs(result.totalHeirs)
+      setTotalHeirs(result)
     }
   }
 
@@ -37,11 +37,11 @@ const Profile = () => {
         email={loggedUser.email}
         name={loggedUser.name}
         cpf={loggedUser.cpf}
-        accountsTotal={loggedUser.accounts.lenght}
+        accountsTotal={loggedUser.accounts.length}
         birthday={loggedUser.birthday}
       />
 
-      <AccountCard name={account.name} accountType={account.type} heirsTotal={totalHeirs} heirStatus={account.status} />
+      <AccountCard name={account.name} accountType={account.type} totalHeirs={totalHeirs} heirStatus={account.status} />
     </div>
   )
 }

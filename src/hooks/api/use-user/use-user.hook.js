@@ -12,22 +12,18 @@ const useUser = () => {
     return result !== undefined
   }
 
-  const updateUserInfo = async (userId, userObject) => {
-    const result = await put(`update/${userId}`, userObject)
+  const updateUserInfo = async userObject => {
+    const result = await put('profile-update', userObject)
     return result !== undefined
   }
 
-  const updatePassword = async (userId, passwordObject) => {
-    const result = await put(`update-auth/${userId}`, passwordObject)
+  const updatePassword = async passwordObject => {
+    const result = await put('password-update', passwordObject)
     return result !== undefined
   }
 
-  const getUserPassword = async userId => {
-    return await get(`${userId}/user-auth`)
-  }
-
-  const removeUser = async userId => {
-    const result = await put(`remove/${userId}`)
+  const removeUser = async removalObject => {
+    const result = await put('user-inactivation', removalObject)
     return result !== undefined
   }
 
@@ -36,7 +32,6 @@ const useUser = () => {
     registerUser,
     updateUserInfo,
     updatePassword,
-    getUserPassword,
     removeUser,
   }
 }

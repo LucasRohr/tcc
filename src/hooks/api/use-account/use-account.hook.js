@@ -1,33 +1,34 @@
 import { useRequest } from '../use-request/use-request.hook'
 
 const useAccount = () => {
-  const { get, post, put } = useRequest('/account-service')
+  const { get, post, put } = useRequest('/user-service/accounts')
 
   const getAllUserAccounts = async userId => {
-    return await get(`user/${userId}/accounts`)
+    return await get(`all-accounts?user_id=${userId}`)
   }
 
   const getAllOwnerHeirsAccounts = async ownerId => {
-    return await get(`owner/${ownerId}/heirs-accounts`)
+    return await get(`owner/heirs?owner_id=${ownerId}`)
   }
 
-  const createAccount = async (userId, accountObject) => {
-    return await post(`user/${userId}/account-creation`, accountObject)
+  const createOwnerAccount = async accountObject => {
+    return await post(`owner/owner-creation`, accountObject)
   }
 
-  const updateAccount = async (accountId, accountObject) => {
-    return await put(`update/${accountId}`, accountObject)
+  const updateAccount = async accountObject => {
+    const result = await put(`account-update`, accountObject)
+    return result !== undefined
   }
 
-  const removeAccount = async accountId => {
-    const result = await put(`remove/${accountId}`)
+  const removeAccount = async removalObject => {
+    const result = await put('account-inactivation', removalObject)
     return result !== undefined
   }
 
   return {
     getAllUserAccounts,
     getAllOwnerHeirsAccounts,
-    createAccount,
+    createOwnerAccount,
     updateAccount,
     removeAccount,
   }

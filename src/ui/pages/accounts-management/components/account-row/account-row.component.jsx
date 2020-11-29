@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { UserIcon, ExitIcon, DeleteIcon } from 'app-icons'
 import { Text, Button, RemoveHeirModalContent } from 'app-components'
 import { useLoggedUser, useRoute, useModal } from 'app-hooks'
-import { noopFunction } from 'app-helpers'
 import { HEIR_STATUS } from 'app-constants'
 
 import './account-row.style.scss'
@@ -15,7 +14,7 @@ const ROLE_LABELS = {
 
 const AccountRow = ({ account, isUserAccountsList, loadAccounts }) => {
   const { loggedUser, setCurrentAccount } = useLoggedUser()
-  const { goToHome } = useRoute()
+  const { goToHome, goToProfile } = useRoute()
   const { showModal } = useModal()
 
   const switchUserAccount = () => {
@@ -27,7 +26,7 @@ const AccountRow = ({ account, isUserAccountsList, loadAccounts }) => {
     const renderRowAction = () => {
       if (account.id === loggedUser.currentAccount.id) {
         return (
-          <Button variant="primary" onClick={noopFunction}>
+          <Button variant="primary" onClick={goToProfile}>
             Perfil
           </Button>
         )
@@ -60,7 +59,7 @@ const AccountRow = ({ account, isUserAccountsList, loadAccounts }) => {
 
   const renderRemoveHeirModal = () => {
     showModal({
-      content: <RemoveHeirModalContent heirId={account.id} onConfirm={loadAccounts} />,
+      content: <RemoveHeirModalContent heirId={account.id} onRemove={loadAccounts} />,
     })
   }
 
