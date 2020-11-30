@@ -7,7 +7,7 @@ import { HeritagesManagementModalContent } from '../heritages-management-modal-c
 
 import './heir-row.style.scss'
 
-const HeirRow = ({ id, name, accountName, email, heritageItemsTotal, filterHeirs }) => {
+const HeirRow = ({ id, userName, name, email, heritageItemsTotal, filterHeirs }) => {
   const { showModal } = useModal()
 
   const renderRemoveHeirModal = () => {
@@ -28,9 +28,9 @@ const HeirRow = ({ id, name, accountName, email, heritageItemsTotal, filterHeirs
         <UserIcon />
       </div>
 
-      <div>{name}</div>
+      <div>{userName}</div>
 
-      <div>{accountName}</div>
+      <div>{name}</div>
 
       <div>{email}</div>
 

@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { useUserEditForm } from './user-edit-form.hook'
 import { Title, Button } from 'app-components'
-import { useLoggedUser } from 'app-hooks'
+import { useLoggedUser, useTimeout } from 'app-hooks'
 
 import './user-edit-form.style.scss'
 
@@ -14,6 +14,9 @@ const CARD_CONTENTS = {
 const UserEditForm = ({ initialData, setCurrentCardContent }) => {
   const { renderEditForm, isValid, buildApiObject, sendToApi } = useUserEditForm({ initialData })
   const { fetchUserInfo } = useLoggedUser()
+
+  const { getDebounce } = useTimeout()
+  const debounce = useMemo(getDebounce, [])
 
   const showPasswordForm = () => {
     setCurrentCardContent(CARD_CONTENTS.PASSWORD_FORM)
@@ -30,7 +33,10 @@ const UserEditForm = ({ initialData, setCurrentCardContent }) => {
 
       if (result) {
         showDefaultContent()
-        fetchUserInfo()
+
+        debounce(() => {
+          fetchUserInfo()
+        }, 3000)
       }
     }
   }

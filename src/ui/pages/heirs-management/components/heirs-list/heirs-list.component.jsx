@@ -10,13 +10,13 @@ const HeirsList = ({ heirs, filterHeirs }) => {
   const renderHeader = () => rowElements.map(element => <div className="heirs-list-header-element">{element}</div>)
 
   const renderListContent = () =>
-    heirs.map(({ id, name, accountName, email, heritageItemsTotal }) => (
-      <HeirRow 
+    heirs.map(({ id, userName, name, email, heritageItemsTotal }) => (
+      <HeirRow
         id={id}
-        name={name}
+        userName={userName}
         email={email}
         heritageItemsTotal={heritageItemsTotal}
-        accountName={accountName} 
+        name={name}
         filterHeirs={filterHeirs}
       />
     ))

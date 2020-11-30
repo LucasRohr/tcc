@@ -21,7 +21,8 @@ const useOwner = () => {
   }
 
   const getOwnerHeitsTotalNumber = async ownerId => {
-    return await get(`${ownerId}/heirs-total`)
+    const result = await getManagementOwnerHeirs(ownerId)
+    return result ? result.length : 0
   }
 
   return {

@@ -17,9 +17,13 @@ const AccountsList = ({ accounts, isUserAccountsList, loadAccounts }) => {
     const hasAccounts = accounts && accounts.length
 
     if (hasAccounts) {
-      return accounts.map(account => (
-        <AccountRow account={account} isUserAccountsList={isUserAccountsList} loadAccounts={loadAccounts} />
-      ))
+      return accounts.map(account => {
+        if (!isUserAccountsList) {
+          account.type = ROLES.HEIR
+        }
+
+        return <AccountRow account={account} isUserAccountsList={isUserAccountsList} loadAccounts={loadAccounts} />
+      })
     }
 
     return (

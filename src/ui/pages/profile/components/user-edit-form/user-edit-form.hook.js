@@ -51,6 +51,7 @@ const useUserEditForm = ({ initialData }) => {
   }, [initialData])
 
   const buildApiObject = () => ({
+    id: loggedUser.id,
     name: name.value,
     email: email.value,
     cpf: cpf.value,
@@ -60,7 +61,7 @@ const useUserEditForm = ({ initialData }) => {
   })
 
   const sendToApi = async apiObject => {
-    return await updateUserInfo(loggedUser.id, apiObject)
+    return await updateUserInfo(apiObject)
   }
 
   return {

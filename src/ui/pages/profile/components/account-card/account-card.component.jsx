@@ -23,7 +23,9 @@ const CARD_CONTENTS = {
   EDIT_FORM: 'EDIT_FORM',
 }
 
-const AccountCard = ({ name, accountType, heirStatus, heirsTotal }) => {
+const ONE_HEIR = 1
+
+const AccountCard = ({ name, accountType, heirStatus, totalHeirs }) => {
   const [currentCardContent, setCurrentCardContent] = useState(CARD_CONTENTS.DEFAULT)
 
   const { showModal } = useModal()
@@ -34,9 +36,9 @@ const AccountCard = ({ name, accountType, heirStatus, heirsTotal }) => {
         return (
           <Text className="profile-account-card-account" variant="sans-serif">
             <Text className="profile-account-card-text--highlight" variant="sans-serif">
-              {heirsTotal}
+              {totalHeirs}
             </Text>{' '}
-            herdeiros
+            {totalHeirs === ONE_HEIR ? 'herdeiro' : 'herdeiros'}
           </Text>
         )
       }
@@ -113,7 +115,7 @@ const AccountCard = ({ name, accountType, heirStatus, heirsTotal }) => {
         },
       },
     }),
-    []
+    [name, accountType, heirStatus, totalHeirs]
   )
 
   const renderContent = () => {
@@ -129,7 +131,7 @@ const AccountCard = ({ name, accountType, heirStatus, heirsTotal }) => {
 AccountCard.propTypes = {
   email: PropTypes.string,
   accountType: PropTypes.string,
-  heirsTotal: PropTypes.number,
+  totalHeirs: PropTypes.number,
   heirStatus: PropTypes.string,
 }
 

@@ -23,7 +23,7 @@ const AccountEditForm = ({ initialData, setCurrentCardContent }) => {
 
       if (result) {
         showDefaultContent()
-        fetchUserInfo()
+        await fetchUserInfo()
       }
     }
   }

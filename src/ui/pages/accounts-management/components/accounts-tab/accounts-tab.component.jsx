@@ -12,10 +12,10 @@ const AccountsTab = ({ isUserTab }) => {
   const getUserAccounts = async () => {
     const result = isUserTab
       ? await getAllUserAccounts(loggedUser.id)
-      : getAllOwnerHeirsAccounts(loggedUser.currentAccount.id)
+      : await getAllOwnerHeirsAccounts(loggedUser.currentAccount.id)
 
     if (result) {
-      setAccounts(result.accounts)
+      setAccounts(result)
     }
   }
 

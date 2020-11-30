@@ -18,6 +18,8 @@ const CARD_CONTENTS = {
   PASSWORD_FORM: 'PASSWORD_FORM',
 }
 
+const MIN_ACCOUNTS_TOTAL = 1
+
 const UserCard = ({ email, cpf, name, accountsTotal, birthday }) => {
   const [currentCardContent, setCurrentCardContent] = useState(CARD_CONTENTS.DEFAULT)
 
@@ -42,8 +44,8 @@ const UserCard = ({ email, cpf, name, accountsTotal, birthday }) => {
         <Text className="profile-user-card-account" variant="sans-serif">
           <Text className="profile-user-card-text--highlight" variant="sans-serif">
             {accountsTotal}
-          </Text>{' '}
-          contas criadas
+          </Text>
+          {accountsTotal === MIN_ACCOUNTS_TOTAL ? ' conta' : ' contas'}
         </Text>
       </div>
 
@@ -104,7 +106,7 @@ const UserCard = ({ email, cpf, name, accountsTotal, birthday }) => {
         },
       },
     }),
-    []
+    [email, cpf, name, accountsTotal, birthday]
   )
 
   const renderContent = () => {
