@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import './tabs.style.scss'
 
-const Tabs = ({ options, currentTab, setCurrentTab }) => {
+const Tabs = ({ className, options, currentTab, setCurrentTab }) => {
   const handleTabChange = event => {
     setCurrentTab(event.target.value)
   }
@@ -26,7 +26,7 @@ const Tabs = ({ options, currentTab, setCurrentTab }) => {
       </Fragment>
     ))
 
-  return <div className="tabs-container">{renderOptions()}</div>
+  return <div className={`tabs-container ${className}`}>{renderOptions()}</div>
 }
 
 Tabs.propTypes = {

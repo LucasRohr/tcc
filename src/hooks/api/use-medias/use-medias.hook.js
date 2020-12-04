@@ -1,30 +1,42 @@
 import { useRequest } from '../use-request/use-request.hook'
 
-const MEDIA_OPTIONS = {
-  IMAGE: '/image-service',
-  VIDEO: '/video-service',
-  DOCUMENT: '/document-service',
-}
+const useMedia = () => {
+  const { get, post, put } = useRequest('/file-service')
 
-const useMedia = ({ mediaType }) => {
-  const { get, del } = useRequest(MEDIA_OPTIONS[mediaType])
-
-  const getAllHeirsForMedia = async (ownerId, mediaId) => {
-    return await get(`medias/${mediaId}/owner/${ownerId}/available-heirs`, {
+  const getAllHeirsForMedia = async (ownerId, mediaId) =>
+    await get(`file-owner-heirs?owner_id=${ownerId}&file_id=${mediaId}`, {
       useToast: false,
       useLoader: false,
       showDefaultErrorToast: false,
     })
+
+  const uploadMediaContent = async ({ mediaContent, mediaInfo, multiple }) => {
+    const formData = new FormData()
+
+    formData.append('file-info', mediaInfo)
+    formData.append('file-content', mediaContent)
+
+    const uploadEndpoint = multiple ? 'multiple-media-upload' : 'single-media-upload'
+
+    const result = await post(uploadEndpoint, formData)
+    return result !== undefined
   }
 
   const removeMedia = async (ownerId, mediaId) => {
-    const result = await del(`${ownerId}/media-remove/${mediaId}`)
+    const result = await put(`${ownerId}/media-remove/${mediaId}`)
+    return result !== undefined
+  }
+
+  const updateMediaHeirs = async mediaObject => {
+    const result = await put(`file-heirs-update`, mediaObject)
     return result !== undefined
   }
 
   return {
+    uploadMediaContent,
     getAllHeirsForMedia,
     removeMedia,
+    updateMediaHeirs,
   }
 }
 

@@ -46,11 +46,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid $primary;
   margin-bottom: 8px;
   padding: 16px 30px;
+  padding-bottom: 30px;
   border-radius: $border-radius;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  border-bottom: 2px solid $clear-gray;
+  margin-bottom: 30px;
 
   & > div {
     &:first-child {
@@ -58,7 +59,7 @@
       width: fit-content;
 
       & > span {
-        font-size: 24px;
+        font-size: 28px;
         font-weight: bold;
         margin-left: 20px;
       }
@@ -73,19 +74,13 @@
 
 .media-group-header-icon {
   & svg {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     fill: $primary;
   }
 }
 
-.media-group-content-collapsed {
-  @include content-mixin();
-  height: 0;
-  padding: 0;
-}
-
-.media-group-content-expanded {
+.media-group-content {
   @include content-mixin();
   transition: transform 0.2s ease;
   transform: scaleY(1);
@@ -102,15 +97,15 @@
 
 .media-group-header-add-media-button {
   @include flex-mixin();
-  margin-right: 50px;
-  padding: 10px;
+  padding: 16px 24px;
+  font-size: 26px;
 }
 
 .media-group-header-add-media-icon {
   & svg {
-    width: 14px;
-    height: 14px;
+    width: 22px;
+    height: 22px;
     fill: $white;
-    margin-left: 6px;
+    margin-left: 16px;
   }
 }
