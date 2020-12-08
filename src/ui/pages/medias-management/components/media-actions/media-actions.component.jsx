@@ -10,13 +10,13 @@ import { RemoveMediaModal } from '../remove-media-modal/remove-media-modal.compo
 
 import './media-actions.style.scss'
 
-const MediaActions = ({ media, selectMedia }) => {
+const MediaActions = ({ media, selectMedia, loadMedias }) => {
   const { showModal } = useModal()
   const { loggedUser } = useLoggedUser()
 
   const showRemoveMediaModal = () => {
     showModal({
-      content: <RemoveMediaModal mediaId={media.id} mediaType={selectMedia.type} />,
+      content: <RemoveMediaModal mediaId={media.id} mediaType={selectMedia.type} loadMedias={loadMedias} />,
     })
   }
 
@@ -46,6 +46,7 @@ const MediaActions = ({ media, selectMedia }) => {
 MediaActions.propTypes = {
   media: PropTypes.object,
   selectMedia: PropTypes.func,
+  loadMedias: PropTypes.func,
 }
 
 export { MediaActions }

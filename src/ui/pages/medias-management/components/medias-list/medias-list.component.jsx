@@ -10,7 +10,9 @@ const MediasList = ({ paginationConfig, getMedias, medias, mediaType, selectMedi
   const emptyListMainMessage = `Não existem ${HERITAGE_TYPES[mediaType].label.toLowerCase()} para visualização`
 
   const renderMediasList = () =>
-    medias.map(media => <MediaRow media={media} mediaType={mediaType} selectMedia={selectMedia} />)
+    medias.map(media => (
+      <MediaRow media={media} mediaType={mediaType} selectMedia={selectMedia} loadMedias={getMedias} />
+    ))
 
   const renderContent = () => {
     if (medias && medias.length) {

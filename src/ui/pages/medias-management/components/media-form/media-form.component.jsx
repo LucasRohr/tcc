@@ -10,6 +10,7 @@ import './media-form.style.scss'
 
 const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType, loadMedias }) => {
   const [uploadOption, setUploadOption] = useState(UPLOAD_OPTIONS.SINGLE)
+  const [heirs, setHeirs] = useState([])
 
   const { isValid, renderInputFields, renderMediaField, buildApiObject, sendToApi } = useMediaForm({
     initialData: selectedMedia,
@@ -24,17 +25,10 @@ const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType, loadMedias }) 
 
   const rightContainerClass = selectedMedia ? 'media-form-edit-right-container' : 'media-form-right-container'
 
-  const getMediaHeirsIds = async heirs => {
-    const selectedHeirs = heirs.filter(heirItem => heirItem.isChecked)
-    const heirsIds = selectedHeirs.map(heirItem => heirItem.item.id)
-
-    return heirsIds
-  }
-
   const mapHeirs = heirsList => heirsList.map(heirItem => ({ item: heirItem, itemCheck: heirItem.hasMedia }))
 
   const getAvailableHeirs = async () => {
-    const result = await getAllHeirsForMedia(loggedUser.currentAccount.id, selectedMedia.id)
+    const result = await getAllHeirsForMedia(loggedUser.currentAccount.id)
 
     if (result && result.length) {
       return result
@@ -50,18 +44,23 @@ const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType, loadMedias }) 
 
   const saveMediaHeirs = async selectedHeirs => {
     const heirsIds = getSelectedHeirsId(selectedHeirs)
-    const { id } = selectedMedia
 
-    const mediaObject = {
-      id,
-      selectedHeirsIds: heirsIds,
-    }
+    if (selectedMedia) {
+      const { id } = selectedMedia
 
-    const result = await updateMediaHeirs(mediaObject)
+      const mediaObject = {
+        id,
+        selectedHeirsIds: heirsIds,
+      }
 
-    if (result) {
-      loadMedias()
-      showSuccessToastAlert('Herdeiros atualizados com sucesso.')
+      const result = await updateMediaHeirs(mediaObject)
+
+      if (result) {
+        loadMedias()
+        showSuccessToastAlert('Herdeiros atualizados com sucesso.')
+      }
+    } else {
+      setHeirs(heirsIds)
     }
   }
 
@@ -78,8 +77,9 @@ const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType, loadMedias }) 
   const onConfirm = async () => {
     if (await isValid()) {
       const mediaObject = buildApiObject()
-      const heirsId = getMediaHeirsIds()
-      const apiObject = { ...mediaObject, heirsIds: heirsId }
+      const ownerId = loggedUser.currentAccount.id
+
+      const apiObject = { ...mediaObject, heirsIds: heirs, ownerId, type: mediaType }
 
       const result = await sendToApi(apiObject)
 

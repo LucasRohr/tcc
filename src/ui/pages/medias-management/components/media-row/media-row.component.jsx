@@ -8,7 +8,7 @@ import { ROLES } from 'app-constants'
 
 import './media-row.style.scss'
 
-const MediaRow = ({ media, mediaType, selectMedia }) => {
+const MediaRow = ({ media, mediaType, selectMedia, loadMedias }) => {
   const [isClosed, setIsClosed] = useState(false)
 
   const { loggedUser } = useLoggedUser()
@@ -48,7 +48,7 @@ const MediaRow = ({ media, mediaType, selectMedia }) => {
 
       DOCUMENT: renderDocumentAsset(),
     }),
-    []
+    [media]
   )
 
   const renderMediaAsset = () => MEDIA_ASSETS[mediaType]
@@ -71,7 +71,7 @@ const MediaRow = ({ media, mediaType, selectMedia }) => {
         </div>
 
         <div>
-          <MediaActions media={media} selectMedia={selectMedia} />
+          <MediaActions media={media} selectMedia={selectMedia} loadMedias={loadMedias} />
           {renderRowDropdown()}
         </div>
       </div>
@@ -85,6 +85,7 @@ MediaRow.propTypes = {
   media: PropTypes.object,
   mediaType: PropTypes.string.isRequired,
   selectMedia: PropTypes.func,
+  loadMedias: PropTypes.func,
 }
 
 export { MediaRow }

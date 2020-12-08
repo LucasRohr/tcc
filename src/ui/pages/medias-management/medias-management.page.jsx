@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { useLoggedUser, useOwner, useHeir, useRoute, useToastAlert } from 'app-hooks'
+import { useLoggedUser, useMedia, useRoute, useToastAlert } from 'app-hooks'
 import { ROLES, HEIR_STATUS, HERITAGE_TYPES } from 'app-constants'
 import { PageTitle, Tabs } from 'app-components'
 import { MediaGroup } from './components'
@@ -12,6 +12,7 @@ const TAB_OPTIONS = [
     name: 'imagesList',
     value: 'IMAGES_LIST',
     label: 'Imagens',
+    fileType: HERITAGE_TYPES.IMAGE.key,
   },
 
   {
@@ -19,6 +20,7 @@ const TAB_OPTIONS = [
     name: 'videosList',
     value: 'VIDEOS_LIST',
     label: 'Vídeos',
+    fileType: HERITAGE_TYPES.VIDEO.key,
   },
 
   {
@@ -26,6 +28,7 @@ const TAB_OPTIONS = [
     name: 'documentsList',
     value: 'DOCUMENTS_LIST',
     label: 'Documentos',
+    fileType: HERITAGE_TYPES.DOCUMENT.key,
   },
 ]
 
@@ -42,8 +45,8 @@ const MediasManagement = () => {
   })
 
   const { loggedUser } = useLoggedUser()
-  const { getHeritageMedias } = useOwner()
-  const { getReceivedMedias } = useHeir()
+  const { getOwnerMedias, getHeirMedias } = useMedia()
+
   const { goToHome } = useRoute()
   const { showErrorToastAlert } = useToastAlert()
 
@@ -63,9 +66,16 @@ const MediasManagement = () => {
 
   const getMedias = async (page = FIRST_PAGE) => {
     const isOwner = currentAccountType === ROLES.OWNER
-    const accountId = loggedUser.currentAccount.id
+    const ownerId = isOwner ? loggedUser.currentAccount.id : loggedUser.currentAccount.ownerId
+    const fileType = TAB_OPTIONS.find(option => option.value === currentTab).fileType
 
-    const result = isOwner ? await getHeritageMedias(page, accountId) : await getReceivedMedias(page, accountId)
+    const requestObject = { page: page - 1, ownerId, fileType }
+
+    if (!isOwner) {
+      requestObject.heirId = loggedUser.currentAccount.id
+    }
+
+    const result = isOwner ? await getOwnerMedias(requestObject) : await getHeirMedias(requestObject)
 
     if (result) {
       setResultAndHandlePagination(result)
@@ -81,6 +91,10 @@ const MediasManagement = () => {
       goToHome()
     }
   }
+
+  useEffect(() => {
+    getMedias()
+  }, [currentTab])
 
   useEffect(() => {
     checkHeirStatus()
@@ -108,7 +122,7 @@ const MediasManagement = () => {
 
       DOCUMENTS_LIST: renderMediaGroup(HERITAGE_TYPES.DOCUMENT.key),
     }),
-    []
+    [medias]
   )
 
   return (

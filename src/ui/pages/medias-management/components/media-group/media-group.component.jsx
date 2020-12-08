@@ -14,7 +14,7 @@ const CONTENTS = {
   MEDIA_FORM: 'MEDIA_FORM',
 }
 
-const MediaGroup = ({ mediaType, mediasList }) => {
+const MediaGroup = ({ paginationConfig, mediaType, mediasList, getMedias }) => {
   const [selectedMedia, setSelectedMedia] = useState(null)
   const [currentGroupContent, setCurrentGroupContent] = useState(CONTENTS.MEDIAS)
   const { loggedUser } = useLoggedUser()
@@ -34,13 +34,13 @@ const MediaGroup = ({ mediaType, mediasList }) => {
       MEDIAS: {
         key: 'MEDIAS',
         component: MediasList,
-        props: { medias: mediasList, mediaType, selectMedia },
+        props: { medias: mediasList, mediaType, selectMedia, paginationConfig, getMedias },
       },
 
       MEDIA_FORM: {
         key: 'MEDIA_FORM',
         component: MediaForm,
-        props: { selectedMedia, onFormButtonClick, mediaType },
+        props: { selectedMedia, onFormButtonClick, mediaType, loadMedias: getMedias },
       },
     }),
     [mediasList, selectedMedia]
@@ -102,8 +102,10 @@ const MediaGroup = ({ mediaType, mediasList }) => {
 }
 
 MediaGroup.propTypes = {
+  paginationConfig: PropTypes.object.isRequired,
   mediaType: PropTypes.string.isRequired,
   mediasList: PropTypes.arrayOf(PropTypes.object),
+  getMedias: PropTypes.func,
 }
 
 export { MediaGroup }

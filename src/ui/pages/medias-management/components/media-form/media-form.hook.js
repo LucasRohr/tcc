@@ -5,7 +5,7 @@ import { HERITAGE_TYPES, UPLOAD_OPTIONS } from 'app-constants'
 
 const useMediaForm = ({ initialData, mediaType, uploadOption }) => {
   const { isValid, getForm, fillFields, cleanFields } = useForm()
-  const { uploadMediaContent } = useMedia()
+  const { uploadMediaContent, updateMediaInfo } = useMedia()
 
   const name = useInput({
     name: 'name',
@@ -57,12 +57,17 @@ const useMediaForm = ({ initialData, mediaType, uploadOption }) => {
 
   const sendToApi = async mediaInfo => {
     const multiple = UPLOAD_OPTIONS[uploadOption.key].multiple
+
+    if (initialData) {
+      return await updateMediaInfo({ mediaInfo, mediaContent: getMedia() })
+    }
+
     return await uploadMediaContent({ mediaInfo, mediaContent: getMedia(), multiple })
   }
 
   return {
     mediaContent: getMedia(),
-    isValid: () => isValid({ allFields }),
+    isValid: () => isValid({ fields: allFields }),
     renderInputFields: () => getForm(inputFields),
     renderMediaField: () => media.getInputComponent(),
     buildApiObject,
