@@ -30,13 +30,13 @@ const useMedia = () => {
     return result !== undefined
   }
 
-  const updateMediaInfo = async ({ mediaContent, mediaInfo }) => {
+  const updateMedia = async ({ mediaContent, mediaInfo }) => {
     const formData = new FormData()
 
     formData.append('file-info', new Blob([JSON.stringify(mediaInfo)], { type: 'application/json' }))
     formData.append('file-content', mediaContent)
 
-    const result = await post('file-info-update', formData, { 'Content-Type': undefined })
+    const result = await put('file-update', formData, { 'Content-Type': undefined })
     return result !== undefined
   }
 
@@ -62,7 +62,7 @@ const useMedia = () => {
 
   return {
     uploadMediaContent,
-    updateMediaInfo,
+    updateMedia,
     getAllHeirsForMedia,
     removeMedia,
     updateMediaHeirs,

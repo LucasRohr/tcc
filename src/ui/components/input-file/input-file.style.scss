@@ -73,7 +73,10 @@
 
 .media-miniature-preview {
   width: 65px;
-  height: 80%;
+  height: 100%;
+  border: 2px solid $primary-light;
+  padding: 6px;
+  border-radius: 6px;
 }
 
 .media {

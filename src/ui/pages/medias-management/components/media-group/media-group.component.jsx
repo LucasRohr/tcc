@@ -43,7 +43,7 @@ const MediaGroup = ({ paginationConfig, mediaType, mediasList, getMedias }) => {
         props: { selectedMedia, onFormButtonClick, mediaType, loadMedias: getMedias },
       },
     }),
-    [mediasList, selectedMedia]
+    [mediasList, selectedMedia, getMedias]
   )
 
   const renderHeader = () => {

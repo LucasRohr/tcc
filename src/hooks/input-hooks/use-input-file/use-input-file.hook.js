@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useMemo } from 'react'
 import { inputFileValidations } from './input-file-validations'
 import { InputFile } from 'app-components'
 import { MEDIA_CONFIG } from 'app-constants'
+import { useTimeout } from 'app-hooks'
+import { convertBase64toBlob } from 'app-helpers'
 
 const useInputFile = ({ name, label, onChange = () => {}, accept, mediaType, defaultValue, icon, multiple }) => {
   const [file, setFile] = useState(null)
@@ -20,7 +22,11 @@ const useInputFile = ({ name, label, onChange = () => {}, accept, mediaType, def
   const [blobUrlList, setBlobUrlList] = useState(null)
 
   const [wasUpdated, setWasUpdated] = useState(false)
+
   const ref = useRef()
+  const { getDebounce } = useTimeout()
+
+  const debounce = useMemo(getDebounce, [])
 
   const scrollTo = () => {
     if (ref.current) {
@@ -28,12 +34,26 @@ const useInputFile = ({ name, label, onChange = () => {}, accept, mediaType, def
     }
   }
 
-  useEffect(() => {
-    if (!withDefaultValue && defaultValue) {
+  const setDefaultValueStates = () => {
+    const fileBlob = convertBase64toBlob(defaultValue)
+
+    debounce(() => {
       setWithDefaultValue(true)
       setWasUpdated(false)
+      setFile(fileBlob)
+      setBlobUrl(fileBlob)
+    }, 500)
+  }
+
+  useEffect(() => {
+    if (!withDefaultValue && defaultValue) {
+      setDefaultValueStates()
     }
   }, [defaultValue])
+
+  const setInitialValue = value => {
+    setFile(value)
+  }
 
   const isFileValid = async fileParam => {
     const validationFile = fileParam || file
@@ -128,6 +148,7 @@ const useInputFile = ({ name, label, onChange = () => {}, accept, mediaType, def
     getInputComponent,
     scrollTo,
     file,
+    setInitialValue,
     filesList,
     error,
     blobUrl,

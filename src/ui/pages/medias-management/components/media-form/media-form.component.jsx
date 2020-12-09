@@ -20,12 +20,12 @@ const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType, loadMedias }) 
 
   const { showModal } = useModal()
   const { loggedUser } = useLoggedUser()
-  const { getAllHeirsForMedia, updateMediaHeirs } = useMedia()
+  const { getAllHeirsForMedia } = useMedia()
   const { showSuccessToastAlert } = useToastAlert()
 
   const rightContainerClass = selectedMedia ? 'media-form-edit-right-container' : 'media-form-right-container'
 
-  const mapHeirs = heirsList => heirsList.map(heirItem => ({ item: heirItem, itemCheck: heirItem.hasMedia }))
+  const mapHeirs = heirsList => heirsList.map(heirItem => ({ item: heirItem, itemCheck: heirItem.hasItem }))
 
   const getAvailableHeirs = async () => {
     const result = await getAllHeirsForMedia(loggedUser.currentAccount.id)
@@ -43,30 +43,14 @@ const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType, loadMedias }) 
   }
 
   const saveMediaHeirs = async selectedHeirs => {
-    const heirsIds = getSelectedHeirsId(selectedHeirs)
-
-    if (selectedMedia) {
-      const { id } = selectedMedia
-
-      const mediaObject = {
-        id,
-        selectedHeirsIds: heirsIds,
-      }
-
-      const result = await updateMediaHeirs(mediaObject)
-
-      if (result) {
-        loadMedias()
-        showSuccessToastAlert('Herdeiros atualizados com sucesso.')
-      }
-    } else {
-      setHeirs(heirsIds)
-    }
+    setHeirs(selectedHeirs)
   }
 
   const showMediaHeirsModal = () => {
     showModal({
-      content: <HeirsModal onConfirm={saveMediaHeirs} getHeirs={getAvailableHeirs} mapHeirs={mapHeirs} />,
+      content: (
+        <HeirsModal onConfirm={saveMediaHeirs} defaultHeirs={heirs} getHeirs={getAvailableHeirs} mapHeirs={mapHeirs} />
+      ),
     })
   }
 
@@ -78,13 +62,22 @@ const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType, loadMedias }) 
     if (await isValid()) {
       const mediaObject = buildApiObject()
       const ownerId = loggedUser.currentAccount.id
+      const heirsIds = getSelectedHeirsId(heirs)
 
-      const apiObject = { ...mediaObject, heirsIds: heirs, ownerId, type: mediaType }
+      const apiObject = { ...mediaObject, heirsIds, ownerId, type: mediaType }
+
+      if (selectedMedia) {
+        apiObject.id = selectedMedia.id
+      }
 
       const result = await sendToApi(apiObject)
 
       if (result) {
         onFormButtonClick()
+        loadMedias()
+
+        const toastMessage = selectedMedia ? 'Mídia atualizada com sucesso.' : 'Mídia criada com sucesso.'
+        showSuccessToastAlert(toastMessage)
       }
     }
   }

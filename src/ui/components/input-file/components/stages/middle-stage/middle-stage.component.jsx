@@ -4,8 +4,12 @@ import SITUATION_OPTIONS from './components'
 
 import './middle-stage.style.scss'
 
-const MiddleStage = ({ situation, removeFile, multiple, hasFiles, name }) => {
+const MiddleStage = ({ situation, defaultValue, removeFile, multiple, hasFiles, name }) => {
   const renderMiddle = () => {
+    if (defaultValue) {
+      return <div className="file-initial-description">Mídia carregada</div>
+    }
+
     if (Object.keys(SITUATION_OPTIONS).includes(situation)) {
       const Component = SITUATION_OPTIONS[situation]
       return <Component removeFile={removeFile} multiple={multiple} name={name} hasFiles={hasFiles} />
