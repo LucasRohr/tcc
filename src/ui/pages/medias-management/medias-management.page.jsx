@@ -39,7 +39,7 @@ const MediasManagement = () => {
   const [medias, setMedias] = useState([])
   const [paginationConfig, setPaginationConfig] = useState({
     total: null,
-    currentPage: FIRST_PAGE - 1,
+    currentPage: FIRST_PAGE,
     isFirstPage: false,
     isLastPage: false,
   })
@@ -69,7 +69,9 @@ const MediasManagement = () => {
     const ownerId = isOwner ? loggedUser.currentAccount.id : loggedUser.currentAccount.ownerId
     const fileType = TAB_OPTIONS.find(option => option.value === currentTab).fileType
 
-    const requestObject = { page: page - 1, ownerId, fileType }
+    const requestPage = page || page === 0 ? page - 1 : paginationConfig.currentPage - 1
+
+    const requestObject = { page: requestPage, ownerId, fileType }
 
     if (!isOwner) {
       requestObject.heirId = loggedUser.currentAccount.id

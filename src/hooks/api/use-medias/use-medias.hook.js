@@ -60,6 +60,10 @@ const useMedia = () => {
     return await get(url)
   }
 
+  const getMediaForDownload = async fileId => {
+    return await get(`file-to-download?file_id=${fileId}`)
+  }
+
   return {
     uploadMediaContent,
     updateMedia,
@@ -68,6 +72,7 @@ const useMedia = () => {
     updateMediaHeirs,
     getOwnerMedias,
     getHeirMedias,
+    getMediaForDownload,
   }
 }
 
