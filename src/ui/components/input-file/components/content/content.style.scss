@@ -14,6 +14,11 @@
     }
   }
 
+  & .file-start-content {
+    display: flex;
+    align-items: center;
+  }
+
   & .show-file {
     max-height: 100%;
 

@@ -1,21 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Title, Text, Button } from 'app-components'
-import { useModal, useMedia, useLoggedUser } from 'app-hooks'
+import { useModal, useMedia, useToastAlert } from 'app-hooks'
 
 import './remove-media-modal.style.scss'
 
-const RemoveMediaModal = ({ mediaId, mediaType }) => {
+const RemoveMediaModal = ({ mediaId, mediaType, loadMedias }) => {
   const { hideModal } = useModal()
   const { removeMedia } = useMedia({ mediaType })
-  const { loggedUser } = useLoggedUser()
+  const { showSuccessToastAlert } = useToastAlert()
 
   const removeOwnerMedia = async () => {
-    const result = await removeMedia(loggedUser.currentAccount.id, mediaId)
+    const result = await removeMedia(mediaId)
     hideModal()
 
     if (result) {
-      return
+      await loadMedias()
+      showSuccessToastAlert('Mídia removida com sucesso.')
     }
   }
 
@@ -46,6 +47,7 @@ const RemoveMediaModal = ({ mediaId, mediaType }) => {
 RemoveMediaModal.propTypes = {
   mediaId: PropTypes.number,
   mediaType: PropTypes.string,
+  loadMedias: PropTypes.func,
 }
 
 export { RemoveMediaModal }

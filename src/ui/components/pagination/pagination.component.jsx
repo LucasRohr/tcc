@@ -95,6 +95,7 @@ Pagination.propTypes = {
 Pagination.defaultProps = {
   onChange: noopFunction,
   additionalClass: '',
+  showPagination: true,
 }
 
 export { Pagination }

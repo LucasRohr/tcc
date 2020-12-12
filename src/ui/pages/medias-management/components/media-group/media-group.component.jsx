@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { HERITAGE_TYPES, ROLES } from 'app-constants'
 import { Text, Button } from 'app-components'
-import { PlusIcon, DropdownIcon } from 'app-icons'
+import { PlusIcon } from 'app-icons'
 import { useLoggedUser } from 'app-hooks'
 import { MediasList } from '../medias-list/medias-list.component'
 import { MediaForm } from '../media-form/media-form.component'
@@ -14,9 +14,8 @@ const CONTENTS = {
   MEDIA_FORM: 'MEDIA_FORM',
 }
 
-const MediaGroup = ({ mediaType, mediasList }) => {
+const MediaGroup = ({ paginationConfig, mediaType, mediasList, getMedias }) => {
   const [selectedMedia, setSelectedMedia] = useState(null)
-  const [isClosed, setIsClosed] = useState(false)
   const [currentGroupContent, setCurrentGroupContent] = useState(CONTENTS.MEDIAS)
   const { loggedUser } = useLoggedUser()
 
@@ -35,27 +34,16 @@ const MediaGroup = ({ mediaType, mediasList }) => {
       MEDIAS: {
         key: 'MEDIAS',
         component: MediasList,
-        props: { medias: mediasList, mediaType, selectMedia },
+        props: { medias: mediasList, mediaType, selectMedia, paginationConfig, getMedias },
       },
 
       MEDIA_FORM: {
         key: 'MEDIA_FORM',
         component: MediaForm,
-        props: { selectedMedia, onFormButtonClick, mediaType },
+        props: { selectedMedia, onFormButtonClick, mediaType, loadMedias: getMedias },
       },
     }),
-    [mediasList, selectedMedia]
-  )
-
-  const applyConditionalClass = (positive, negative) => (isClosed ? negative : positive)
-
-  const conditionalArrowClass = useMemo(() => applyConditionalClass('media-group-arrow-down', 'media-group-arrow-up'), [
-    isClosed,
-  ])
-
-  const conditionalContentClass = useMemo(
-    () => applyConditionalClass('media-group-content-collapsed', 'media-group-content-expanded'),
-    [isClosed]
+    [mediasList, selectedMedia, getMedias]
   )
 
   const renderHeader = () => {
@@ -65,7 +53,6 @@ const MediaGroup = ({ mediaType, mediasList }) => {
     const onAddClick = () => {
       setCurrentGroupContent(GROUP_CONTENTS.MEDIA_FORM.key)
       setSelectedMedia(null)
-      setIsClosed(true)
     }
 
     const renderAddButton = () => {
@@ -90,11 +77,7 @@ const MediaGroup = ({ mediaType, mediasList }) => {
           <Text variant="sans-serif">{mediaName}</Text>
         </div>
 
-        <div>
-          {renderAddButton()}
-
-          <DropdownIcon onClick={() => setIsClosed(!isClosed)} className={conditionalArrowClass} />
-        </div>
+        <div>{renderAddButton()}</div>
       </div>
     )
   }
@@ -104,7 +87,7 @@ const MediaGroup = ({ mediaType, mediasList }) => {
     const props = GROUP_CONTENTS[currentGroupContent].props
 
     return (
-      <div className={conditionalContentClass}>
+      <div className="media-group-content">
         <ContentComponent {...props} />
       </div>
     )
@@ -119,8 +102,10 @@ const MediaGroup = ({ mediaType, mediasList }) => {
 }
 
 MediaGroup.propTypes = {
+  paginationConfig: PropTypes.object.isRequired,
   mediaType: PropTypes.string.isRequired,
   mediasList: PropTypes.arrayOf(PropTypes.object),
+  getMedias: PropTypes.func,
 }
 
 export { MediaGroup }

@@ -52,7 +52,7 @@ const Content = ({
       situation = SITUATION_FILE.ERROR
     }
 
-    if (defaultValue && firstRender && withDefaultValue) {
+    if ((defaultValue && firstRender) || withDefaultValue) {
       contentClassAdditional = 'show-file'
       if (classType !== CLASS_TYPE.SUCCESS) {
         setClassType(CLASS_TYPE.SUCCESS)
@@ -91,6 +91,7 @@ const Content = ({
           <MiddleStage
             situation={situation}
             removeFile={removeFile}
+            defaultValue={defaultValue}
             multiple={multiple}
             name={name}
             hasFiles={hasFilesList || hasInvalidFiles}

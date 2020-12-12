@@ -16,10 +16,6 @@ const useOwner = () => {
     return result !== undefined
   }
 
-  const getHeritageMedias = async ownerId => {
-    return await get(`${ownerId}/medias`)
-  }
-
   const getOwnerHeitsTotalNumber = async ownerId => {
     const result = await getManagementOwnerHeirs(ownerId)
     return result ? result.length : 0
@@ -30,7 +26,6 @@ const useOwner = () => {
     getManagementOwnerHeirs,
     getAllOwnerHeirs: () => [],
     getAllOwnerHeirsForCredential,
-    getHeritageMedias,
     getOwnerHeitsTotalNumber,
   }
 }

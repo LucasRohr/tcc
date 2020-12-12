@@ -65,7 +65,7 @@ const Login = () => {
         <div className="login-register-container">
           <div>
             <LogoIcon className="login-logo-icon" />
-            <Title variant="serif">Herança Digital Segura</Title>
+            <Title variant="serif">Herança Digital</Title>
           </div>
 
           {renderContentBody()}

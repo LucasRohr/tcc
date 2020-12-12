@@ -17,10 +17,6 @@ const useHeir = () => {
     return result !== undefined
   }
 
-  const getReceivedMedias = async heirId => {
-    return await get(`${heirId}/medias`)
-  }
-
   const validateDigitalDeathCertificate = async certificateObject => {
     const result = await post('certificate-validation', certificateObject)
     return result !== undefined
@@ -29,7 +25,6 @@ const useHeir = () => {
   return {
     createHeirAccount,
     getHeritages,
-    getReceivedMedias,
     updateHeirItems,
     validateDigitalDeathCertificate,
   }

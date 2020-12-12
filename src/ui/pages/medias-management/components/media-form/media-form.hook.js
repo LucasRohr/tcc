@@ -1,10 +1,11 @@
 import { useEffect } from 'react'
-import { useForm, useInput, useInputFile } from 'app-hooks'
+import { useForm, useInput, useInputFile, useMedia } from 'app-hooks'
 import { minLengthValidator } from 'app-validators'
 import { HERITAGE_TYPES, UPLOAD_OPTIONS } from 'app-constants'
 
 const useMediaForm = ({ initialData, mediaType, uploadOption }) => {
   const { isValid, getForm, fillFields, cleanFields } = useForm()
+  const { uploadMediaContent, updateMedia } = useMedia()
 
   const name = useInput({
     name: 'name',
@@ -24,11 +25,11 @@ const useMediaForm = ({ initialData, mediaType, uploadOption }) => {
   })
 
   const media = useInputFile({
-    name: 'media',
+    name: 'file',
     label: UPLOAD_OPTIONS[uploadOption.key].multiple ? 'Mídias' : 'Mídia',
     accept: HERITAGE_TYPES[mediaType].extensions,
+    defaultValue: initialData?.file,
     mediaType: HERITAGE_TYPES[mediaType].key,
-    defaultValue: initialData ? initialData.file : null,
     multiple: UPLOAD_OPTIONS[uploadOption.key].multiple,
   })
 
@@ -52,12 +53,21 @@ const useMediaForm = ({ initialData, mediaType, uploadOption }) => {
     description: description.value,
   })
 
-  const sendToApi = async apiObject => {
-    return apiObject
+  const getMedia = () => (UPLOAD_OPTIONS[uploadOption.key].multiple ? media.filesList : media.file)
+
+  const sendToApi = async mediaInfo => {
+    const multiple = UPLOAD_OPTIONS[uploadOption.key].multiple
+
+    if (initialData) {
+      return await updateMedia({ mediaInfo, mediaContent: getMedia() })
+    }
+
+    return await uploadMediaContent({ mediaInfo, mediaContent: getMedia(), multiple })
   }
 
   return {
-    isValid: () => isValid({ allFields }),
+    mediaContent: getMedia(),
+    isValid: () => isValid({ fields: allFields }),
     renderInputFields: () => getForm(inputFields),
     renderMediaField: () => media.getInputComponent(),
     buildApiObject,
