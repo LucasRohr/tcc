@@ -12,7 +12,7 @@ const HeirRow = ({ id, userName, name, email, heritageItemsTotal, filterHeirs })
 
   const renderRemoveHeirModal = () => {
     showModal({
-      content: <RemoveHeirModalContent heirId={id} onRemoval={filterHeirs} />,
+      content: <RemoveHeirModalContent heirId={id} onRemove={filterHeirs} />,
     })
   }
 

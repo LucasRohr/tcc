@@ -8,7 +8,7 @@ import { noopFunction } from 'app-helpers'
 import './profile-tab.style.scss'
 
 const ProfileTab = ({ clicked, selected, onClick }) => {
-  const { loggedUser, removeLoggedUser, updateLastAccess } = useLoggedUser()
+  const { loggedUser, removeLoggedUser, updateAccountChange } = useLoggedUser()
   const { goToProfile } = useRoute()
 
   const renderButtonBody = () => (
@@ -22,7 +22,7 @@ const ProfileTab = ({ clicked, selected, onClick }) => {
   )
 
   const logoutUser = () => {
-    updateLastAccess(loggedUser.currentAccount.id)
+    updateAccountChange(loggedUser.currentAccount.id)
     removeLoggedUser()
   }
 

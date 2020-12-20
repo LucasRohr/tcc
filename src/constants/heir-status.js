@@ -13,6 +13,11 @@ const HEIR_STATUS = {
     key: 'ACCEPTED',
     label: 'Aceito',
   },
+
+  DISINHERITED: {
+    key: 'DISINHERITED',
+    label: 'Herança removida',
+  },
 }
 
 export { HEIR_STATUS }

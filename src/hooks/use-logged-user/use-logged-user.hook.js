@@ -61,7 +61,7 @@ const useLoggedUser = () => {
         setGlobalLoggedUser(userModel)
 
         const currentAccountId = accounts[0] && accounts[0].id
-        updateLastAccess(currentAccountId)
+        updateAccountChange(currentAccountId)
       }
     } catch (error) {
       removeLoggedUser()
@@ -79,16 +79,17 @@ const useLoggedUser = () => {
     }
   }, [])
 
-  const setCurrentAccount = account => {
+  const setCurrentAccount = async account => {
     const loggedUser = { ...globalLoggedUser }
 
     loggedUser.currentAccount = account
     setGlobalLoggedUser(loggedUser)
+    await updateAccountChange(account.id)
   }
 
-  const updateLastAccess = async accountId => {
+  const updateAccountChange = async accountId => {
     if (accountId) {
-      await put(`accounts/last-update?account_id=${accountId}`)
+      await put(`accounts/last-update?account_id=${accountId}`, {}, { useToast: false, useLoader: false })
     }
   }
 
@@ -100,7 +101,7 @@ const useLoggedUser = () => {
     fetchUserInfo,
     removeToken,
     saveToken,
-    updateLastAccess,
+    updateAccountChange,
     requestLoginToken,
     sendLoginToken,
   }

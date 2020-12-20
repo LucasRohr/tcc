@@ -1,6 +1,0 @@
-const NOTIFICATION_STATUS = {
-  NEW: 'NEW',
-  READ: 'READ',
-}
-
-export { NOTIFICATION_STATUS }
