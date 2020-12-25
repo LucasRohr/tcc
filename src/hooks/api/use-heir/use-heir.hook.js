@@ -13,7 +13,7 @@ const useHeir = () => {
   }
 
   const updateHeirItems = async (heirId, items) => {
-    const result = await put(`${heirId}/items-update`, { items })
+    const result = await put(`items-update?heir_id=${heirId}`, items)
     return result !== undefined
   }
 

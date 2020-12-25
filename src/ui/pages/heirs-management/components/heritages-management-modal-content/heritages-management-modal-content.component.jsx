@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { SelectItemsModalContent } from 'app-components'
-import { useHeir, useToastAlert } from 'app-hooks'
+import { useHeir, useModal, useToastAlert } from 'app-hooks'
 import { HERITAGE_TYPES } from 'app-constants'
 
 import './heritages-management-modal-content.style.scss'
@@ -12,6 +12,8 @@ const HeritagesManagementModalContent = ({ heirId }) => {
 
   const { getHeritages, updateHeirItems } = useHeir()
   const { showSuccessToastAlert } = useToastAlert()
+
+  const { hideModal } = useModal()
 
   const mapHeritages = heritagesList => heritagesList.map(heritageItem => ({ item: heritageItem, itemCheck: true }))
 
@@ -26,15 +28,28 @@ const HeritagesManagementModalContent = ({ heirId }) => {
   }
 
   const setHeirsItems = async () => {
-    const mappedHeritages = heritages.map(heritage => ({
-      heritage: heritage.item,
-      heirHasItem: heritage.itemCheck,
-    }))
+    const mappedFiles = heritages
+      .filter(asset => !asset.itemCheck && asset.item.type !== "CREDENTIAL")
+      .map(heritageFile => heritageFile.item.id)
+    /*
+    const mappedCredentials = heritages
+      .filter(item => !item.check && item.type === "CREDENTIAL")
+      .map(heritageCredential => heritageCredential.id)
 
-    const result = await updateHeirItems(heirId, mappedHeritages)
+    /*
+    const mappedHeritages = heritages
+      .filter(item => !item.check)
+      .map(heritage => ({
+        heritage: heritage.item,
+        heirHasItem: heritage.itemCheck,
+    }))
+    */
+
+    const result = await updateHeirItems(heirId, mappedFiles)
 
     if (result) {
       showSuccessToastAlert('Itens de herdeiro atualizados com sucesso.')
+      hideModal()
     }
   }
 
@@ -51,6 +66,7 @@ const HeritagesManagementModalContent = ({ heirId }) => {
       iconsEnum={HERITAGE_TYPES}
       modalTitle="Pesquise pelos itens"
       emptyContentText="Este herdeiro ainda não possui heranças atribuídas."
+      hideModalOnConfirm
     />
   )
 }

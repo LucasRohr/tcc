@@ -17,6 +17,7 @@ const SelectItemsModalContent = ({
   iconsEnum: ICONS_ENUM,
   modalTitle,
   emptyContentText,
+  hideModalOnConfirm,
 }) => {
   const { hideModal } = useModal()
 
