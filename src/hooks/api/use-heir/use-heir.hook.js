@@ -9,7 +9,7 @@ const useHeir = () => {
   }
 
   const getHeritages = async heirId => {
-    return await get(`${heirId}/heir-heritages`)
+    return await get(`heir-heritages?heir_id=${heirId}`)
   }
 
   const updateHeirItems = async (heirId, items) => {

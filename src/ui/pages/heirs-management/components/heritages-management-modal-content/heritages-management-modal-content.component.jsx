@@ -18,8 +18,8 @@ const HeritagesManagementModalContent = ({ heirId }) => {
   const getHeirHeritages = async () => {
     const result = await getHeritages(heirId)
 
-    if (result && result.heritages.length) {
-      const mappedHeritages = mapHeritages(result.heritages)
+    if (result && result.length) {
+      const mappedHeritages = mapHeritages(result)
       setHeritages(mappedHeritages)
       setBaseHeritages(mappedHeritages)
     }
