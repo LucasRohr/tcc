@@ -21,8 +21,9 @@ const HeirsManagement = () => {
     }
   }
 
-  const filterHeirs = (id) => {
+  const filterHeirs = async id => {
     setHeirs(heirs.filter(heir => heir.id !== id))
+    await getHeirs()
   }
 
   useEffect(() => {
@@ -37,7 +38,7 @@ const HeirsManagement = () => {
 
   const renderContent = () => {
     if (heirs && heirs.length) {
-        return <HeirsList heirs={heirs} filterHeirs={filterHeirs}/>
+      return <HeirsList heirs={heirs} filterHeirs={filterHeirs} />
     }
 
     return (

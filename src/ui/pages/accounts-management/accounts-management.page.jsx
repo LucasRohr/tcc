@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { PageTitle, Button, Text, Tabs } from 'app-components'
+import { PageTitle, Button, Text, Tabs, CreateOwnerModalContent } from 'app-components'
 import { useLoggedUser, useModal, useRoute } from 'app-hooks'
 import { ROLES } from 'app-constants'
 import { PlusIcon, HeirsManagementIcon } from 'app-icons'
-import { AccountsTab, CreateOwnerModalContent } from './components'
+import { AccountsTab } from './components'
 
 import './accounts-management.style.scss'
 
