@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { SelectItemsModalContent } from 'app-components'
-import { useHeir, useModal, useToastAlert } from 'app-hooks'
+import { useHeir, useModal, useToastAlert, useLoggedUser } from 'app-hooks'
 import { HERITAGE_TYPES } from 'app-constants'
 
 import './heritages-management-modal-content.style.scss'
@@ -10,6 +10,7 @@ const HeritagesManagementModalContent = ({ heirId }) => {
   const [heritages, setHeritages] = useState([])
   const [baseHeritages, setBaseHeritages] = useState([])
 
+  const { loggedUser } = useLoggedUser()
   const { getHeritages, updateHeirItems } = useHeir()
   const { showSuccessToastAlert } = useToastAlert()
 
@@ -31,21 +32,21 @@ const HeritagesManagementModalContent = ({ heirId }) => {
     const mappedFiles = heritages
       .filter(asset => !asset.itemCheck && asset.item.type !== "CREDENTIAL")
       .map(heritageFile => heritageFile.item.id)
-    /*
+
     const mappedCredentials = heritages
-      .filter(item => !item.check && item.type === "CREDENTIAL")
-      .map(heritageCredential => heritageCredential.id)
+      .filter(asset => !asset.itemCheck && asset.item.type === "CREDENTIAL")
+      .map(heritageCredential => ({
+        ownerId: loggedUser.accounts[0].id,
+        credentialId: heritageCredential.item.id,
+        heirsIds: heritageCredential.item.credentialHeirsIds.filter(id => id !== heirId)
+      }))
 
-    /*
-    const mappedHeritages = heritages
-      .filter(item => !item.check)
-      .map(heritage => ({
-        heritage: heritage.item,
-        heirHasItem: heritage.itemCheck,
-    }))
-    */
+    const updateRequest = {
+      fileHeirIds: mappedFiles,
+      credentialsUpdateRequests: mappedCredentials
+    }
 
-    const result = await updateHeirItems(heirId, mappedFiles)
+    const result = await updateHeirItems(heirId, updateRequest)
 
     if (result) {
       showSuccessToastAlert('Itens de herdeiro atualizados com sucesso.')
