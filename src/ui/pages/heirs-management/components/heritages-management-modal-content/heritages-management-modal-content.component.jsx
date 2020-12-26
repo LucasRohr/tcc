@@ -30,11 +30,11 @@ const HeritagesManagementModalContent = ({ heirId }) => {
 
   const setHeirsItems = async () => {
     const mappedFiles = heritages
-      .filter(asset => !asset.itemCheck && asset.item.type !== "CREDENTIAL")
+      .filter(asset => !asset.itemCheck && asset.item.type !== HERITAGE_TYPES.CREDENTIAL.key)
       .map(heritageFile => heritageFile.item.id)
 
     const mappedCredentials = heritages
-      .filter(asset => !asset.itemCheck && asset.item.type === "CREDENTIAL")
+      .filter(asset => !asset.itemCheck && asset.item.type === HERITAGE_TYPES.CREDENTIAL.key)
       .map(heritageCredential => ({
         ownerId: loggedUser.accounts[0].id,
         credentialId: heritageCredential.item.id,
