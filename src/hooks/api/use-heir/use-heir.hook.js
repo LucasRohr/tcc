@@ -9,11 +9,11 @@ const useHeir = () => {
   }
 
   const getHeritages = async heirId => {
-    return await get(`${heirId}/heir-heritages`)
+    return await get(`heir-heritages?heir_id=${heirId}`)
   }
 
-  const updateHeirItems = async (heirId, items) => {
-    const result = await put(`${heirId}/items-update`, { items })
+  const updateHeirItems = async (heirId, updateRequest) => {
+    const result = await put(`items-update?heir_id=${heirId}`, updateRequest)
     return result !== undefined
   }
 
