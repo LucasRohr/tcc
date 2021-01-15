@@ -38,7 +38,7 @@ const useRequest = path => {
   }
 
   const handleException = error => {
-    throw new RequestError(error.response.data)
+    throw new RequestError(error)
   }
 
   const handleErrorStatus = statusCode => {
@@ -92,7 +92,7 @@ const useRequest = path => {
       return returnHeader ? { header: result.headers, data: result.data } : result.data
     } catch (apiError) {
       if (apiError.response && showDefaultErrorToast) {
-        handleErrorStatus(apiError.response && apiError.response.status)
+        handleErrorStatus(apiError && apiError.status)
         handleErrorMessage(apiError, useToast, useStateErrors)
       } else {
         showErrorToastAlert(DEFAULT_EXCEPTION)
