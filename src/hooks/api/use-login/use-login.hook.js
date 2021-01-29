@@ -4,7 +4,7 @@ const useLogin = () => {
   const { post } = useRequest('/auth')
 
   const login = async loginObject => {
-    return await post('', loginObject, { returnHeader: true, returnError: true })
+    return await post('', loginObject, { returnHeader: true })
   }
 
   return {

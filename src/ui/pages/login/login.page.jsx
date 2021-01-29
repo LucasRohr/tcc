@@ -20,10 +20,10 @@ const Login = () => {
     const loginObject = buildApiObject()
     const result = await sendToApi(loginObject)
 
-    if (result?.error) {
+    if (!result) {
       setErrorMessage('Dados de login inválidos, tente novamente')
     } else {
-      const [userAuthToken, userEmail] = result.header.authorization.split(', ')
+      const [userAuthToken, userEmail] = result?.header?.authorization?.split(', ')
 
       tokenHelper.save(userAuthToken)
       setHasToConfirmCode(true)
