@@ -27,29 +27,32 @@ const Home = () => {
     [loggedUser.currentAccount]
   )
 
-  const defaultOptions = useMemo(() => [
-    {
-      title: 'Gerenciamento de Mídias',
-      description:
-        accountType === ROLES.OWNER
-          ? 'Gerencie e adicione mídias da sua herança digital, como imagens e documentos'
-          : 'Gerencie as mídias passadas para você por esta conta',
-      onClick: goToMediasManagement,
-      icon: <MediasIcon />,
-      disabled: isInvalidHeir,
-    },
+  const defaultOptions = useMemo(
+    () => [
+      {
+        title: 'Gerenciamento de Mídias',
+        description:
+          accountType === ROLES.OWNER
+            ? 'Gerencie e adicione mídias da sua herança digital, como imagens e documentos'
+            : 'Gerencie as mídias passadas para você por esta conta',
+        onClick: goToMediasManagement,
+        icon: <MediasIcon />,
+        disabled: isInvalidHeir,
+      },
 
-    {
-      title: 'Credenciais',
-      description:
-        accountType === ROLES.OWNER
-          ? 'Gerencie credenciais de serviços importantes em sua herança, como logins e senhas'
-          : 'Tenha acesso às credenciais herdadas por você e atribuídas nesta conta',
-      onClick: goToCredentialsManagement,
-      icon: <CredentialsIcon />,
-      disabled: isInvalidHeir,
-    },
-  ])
+      {
+        title: 'Credenciais',
+        description:
+          accountType === ROLES.OWNER
+            ? 'Gerencie credenciais de serviços importantes em sua herança, como logins e senhas'
+            : 'Tenha acesso às credenciais herdadas por você e atribuídas nesta conta',
+        onClick: goToCredentialsManagement,
+        icon: <CredentialsIcon />,
+        disabled: isInvalidHeir,
+      },
+    ],
+    [loggedUser]
+  )
 
   const ownerOptions = useMemo(
     () => [
@@ -62,7 +65,7 @@ const Home = () => {
         icon: <HeirsManagementIcon />,
       },
     ],
-    []
+    [loggedUser]
   )
 
   const heirOptions = useMemo(
@@ -76,7 +79,7 @@ const Home = () => {
         icon: <AlertIcon />,
       },
     ],
-    []
+    [loggedUser]
   )
 
   const renderCards = () => {
