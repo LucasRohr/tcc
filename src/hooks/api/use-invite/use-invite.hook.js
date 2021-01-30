@@ -22,7 +22,7 @@ const useInvite = () => {
   }
 
   const getInviteById = async inviteId => {
-    return await get(`invite-owner?invite_id=${inviteId}`, { useLoader: false })
+    return await get(`invite-by-id?invite_id=${inviteId}`, { useLoader: false })
   }
 
   const inviteHeir = async inviteObject => {
