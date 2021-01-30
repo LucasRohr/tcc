@@ -23,9 +23,9 @@
 
 .service-card-container {
   @include service-card-container-mixin();
+  transition: 0.4s;
 
   &:hover {
-    transition: 0.3s;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
 
     & .service-card-icon-container {

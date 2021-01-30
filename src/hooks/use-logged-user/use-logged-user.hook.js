@@ -30,7 +30,7 @@ const useLoggedUser = () => {
   }
 
   const sendLoginToken = async loginToken => {
-    return await post('users/login-token-validation', { loginToken })
+    return await post('users/login-token-validation', { loginToken }, { returnError: true })
   }
 
   const fetchUserInfo = async userId => {

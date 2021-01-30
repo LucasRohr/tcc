@@ -8,6 +8,7 @@ const useLoginConfirmation = () => {
     name: 'loginToken',
     type: 'text',
     label: 'Código de confirmação',
+    maxLength: 6,
     variant: 'full',
   })
 

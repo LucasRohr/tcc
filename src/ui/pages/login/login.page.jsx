@@ -8,17 +8,22 @@ import { tokenHelper, useLoggedUser, useRoute } from 'app-hooks'
 
 const Login = () => {
   const [hasToConfirmCode, setHasToConfirmCode] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
 
   const { renderFields, buildApiObject, sendToApi, isValid } = useLoginForm()
   const { requestLoginToken } = useLoggedUser()
   const { goToRegister } = useRoute()
 
   const sendLogin = async () => {
+    setErrorMessage('')
+
     const loginObject = buildApiObject()
     const result = await sendToApi(loginObject)
 
-    if (result && result.header) {
-      const [userAuthToken, userEmail] = result.header.authorization.split(', ')
+    if (!result) {
+      setErrorMessage('Dados de login inválidos, tente novamente')
+    } else {
+      const [userAuthToken, userEmail] = result?.header?.authorization?.split(', ')
 
       tokenHelper.save(userAuthToken)
       setHasToConfirmCode(true)
@@ -49,7 +54,7 @@ const Login = () => {
             <span>
               Ainda não utiliza nosso serviço?
               <br />
-              Cadastra-se agora!
+              Cadastre-se agora!
             </span>
           </Text>
 
@@ -89,6 +94,7 @@ const Login = () => {
       <div className="login-form-container">
         <Text variant="sans-serif">Login</Text>
         <Form onSubmit={sendLogin} buttons={renderFormButton} content={renderFields} isValid={isValid} />
+        {errorMessage ? <Text className="login-error-message">{errorMessage}</Text> : null}
       </div>
     )
   }
