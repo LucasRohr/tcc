@@ -1,8 +1,8 @@
-import { EXCEPTIONS, DEFAULT_EXCEPTION } from 'app-constants'
+import { DEFAULT_EXCEPTION } from 'app-constants'
 
 export class RequestError {
   constructor({ message, code }) {
-    this.message = EXCEPTIONS[code]
+    this.message = message
     this.code = code
 
     if (!this.message) {

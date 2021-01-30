@@ -38,7 +38,7 @@ const useRequest = path => {
   }
 
   const handleException = error => {
-    throw new RequestError(error.response.data)
+    throw new RequestError(error)
   }
 
   const handleErrorStatus = statusCode => {
@@ -53,6 +53,7 @@ const useRequest = path => {
 
   const handleErrorInfo = (error, useToast, useStateErrors) => {
     const message = error.message
+
     if (useToast) {
       showErrorToastAlert(message)
     }
@@ -80,6 +81,7 @@ const useRequest = path => {
     url,
     data,
     returnHeader = false,
+    returnError = false,
     showDefaultErrorToast = true,
     ...config
   }) => {
@@ -91,9 +93,15 @@ const useRequest = path => {
       const result = useLoader ? await withLoading(instance.request(config)) : await instance.request(config)
       return returnHeader ? { header: result.headers, data: result.data } : result.data
     } catch (apiError) {
+      if (returnError) {
+        return { error: apiError?.response?.data }
+      }
+
       if (apiError.response && showDefaultErrorToast) {
-        handleErrorStatus(apiError.response && apiError.response.status)
-        handleErrorMessage(apiError, useToast, useStateErrors)
+        const { data } = apiError.response
+
+        handleErrorStatus(data?.status)
+        handleErrorMessage(data, useToast, useStateErrors)
       } else {
         showErrorToastAlert(DEFAULT_EXCEPTION)
       }

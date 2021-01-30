@@ -8,6 +8,7 @@ import { UserTypeStep, MainFormStep, PasswordStep, AccountStep, FinalStep } from
 import './register.style.scss'
 
 const FIRST_STEP = 0
+const DEFAULT_ERROR_MESSAGE = 'Já existe um usuário com este mesmo e-mail cadastrado.'
 
 const Register = ({ location }) => {
   const [completedRegister, setCompletedRegister] = useState(false)
@@ -72,11 +73,11 @@ const Register = ({ location }) => {
 
     const result = await registerUser(apiObject)
 
-    if (result) {
+    if (!result || result?.error) {
+      setError(result?.error?.message ?? DEFAULT_ERROR_MESSAGE)
+    } else {
       setCompletedRegister(true)
       increaseStep()
-    } else {
-      setError('Já existe um usuário com o e-mail ou CPF informado.')
     }
   }
 
