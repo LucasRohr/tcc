@@ -12,3 +12,9 @@
     flex: 1;
   }
 }
+
+@media (max-width: 780px) {
+  .private-page {
+    padding: 16px;
+  }
+}

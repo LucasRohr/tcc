@@ -49,3 +49,59 @@
     }
   }
 }
+
+@media (max-width: 930px) {
+  .invite-row-container {
+    width: 100%;
+
+    & > .invite-row-header-container {
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    & .heir-invite-row-buttons-container {
+      & button {
+        width: 42%;
+      }
+    }
+
+    & > .invite-row-form {
+      & > div:first-child {
+        & > div {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .invite-row-container {
+    & .heir-invite-row-buttons-container {
+      & button {
+        width: 46%;
+        font-size: 18;
+        padding: 14px 12px;
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .invite-row-container {
+    & .heir-invite-row-buttons-container {
+      flex-direction: column;
+
+      & button {
+        width: 100%;
+        margin-top: 14px;
+      }
+    }
+
+    & > .invite-row-form {
+      & > .form-buttons {
+        margin-top: 6px;
+      }
+    }
+  }
+}

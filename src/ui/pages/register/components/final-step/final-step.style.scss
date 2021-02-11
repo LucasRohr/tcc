@@ -20,3 +20,35 @@
     margin-bottom: 120px;
   }
 }
+
+@media (max-width: 900px) {
+  .register-final-step-container {
+    width: 60%;
+    align-self: center;
+    align-items: center;
+
+    & > span {
+      text-align: center;
+      font-size: 30px;
+      line-height: 32px;
+      max-width: 80%;
+      margin-top: 10%;
+    }
+
+    & > button {
+      margin-top: 40px;
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .register-final-step-container {
+    width: 90%;
+    padding-top: 20%;
+
+    & > span {
+      max-width: 100%;
+    }
+  }
+}

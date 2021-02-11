@@ -40,3 +40,36 @@
     }
   }
 }
+
+@media (max-width: 950px) {
+  .accounts-management-container {
+    & > .accounts-management-header-container {
+      & .accounts-management-actions-container {
+        width: 30%;
+      }
+    }
+  }
+}
+
+@media (max-width: 780px) {
+  .accounts-management-container {
+    & > .accounts-management-header-container {
+      flex-direction: column;
+
+      & .accounts-management-actions-container {
+        width: 70%;
+        margin-top: 30px;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .accounts-management-container {
+    & > .accounts-management-header-container {
+      & .accounts-management-actions-container {
+        width: 100%;
+      }
+    }
+  }
+}

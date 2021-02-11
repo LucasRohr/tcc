@@ -26,7 +26,7 @@ const AccountRow = ({ account, isUserAccountsList, loadAccounts }) => {
     const renderRowAction = () => {
       if (account.id === loggedUser.currentAccount.id) {
         return (
-          <Button variant="primary" onClick={goToProfile}>
+          <Button className="account-row-action-profile-button" variant="primary" onClick={goToProfile}>
             Perfil
           </Button>
         )

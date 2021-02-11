@@ -44,6 +44,7 @@
   font-weight: 300;
   transition-duration: 0.2s;
   transition-property: color, font-size, margin-top;
+  max-width: 90%;
 }
 
 .input-container-medium {
@@ -215,4 +216,16 @@
 .text-area-label {
   @include common-label();
   top: 30%;
+}
+
+@media (max-width: 650px) {
+  .input {
+    font-size: 15px;
+    line-height: 16px;
+    padding: 24px 54px 10px 24px;
+  }
+
+  .input-label {
+    font-size: 16px;
+  }
 }

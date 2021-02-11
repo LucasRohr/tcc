@@ -6,6 +6,7 @@ import {
   LoadingProvider,
   ToastAlertProvider,
   ModalProvider,
+  WindowSizeProvider,
 } from 'app-hooks'
 
 const AppContext = React.createContext()
@@ -19,6 +20,7 @@ const AppProvider = ({ children }) =>
     LoadingProvider,
     ToastAlertProvider,
     ModalProvider,
+    WindowSizeProvider,
     AppContext.Provider,
   ].reduce((acc, Provider) => <Provider>{acc}</Provider>, children)
 

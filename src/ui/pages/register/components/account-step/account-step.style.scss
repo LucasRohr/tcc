@@ -33,3 +33,48 @@
   justify-content: space-between;
   align-items: center;
 }
+
+@media (max-width: 800px) {
+  .register-account-form-body-container {
+    width: 100%;
+  }
+
+  .register-account-form-buttons-container {
+    width: 100%;
+    max-width: 100%;
+
+    & > button {
+      width: 45%;
+    }
+  }
+
+  .register-account-form-title-container {
+    & > h1 {
+      margin-top: 15px;
+      margin-bottom: 0;
+      font-size: 32px;
+    }
+
+    & > span {
+      font-size: 24px;
+      text-align: right;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .register-account-form-title-container {
+    margin-top: 30px;
+
+    & > h1 {
+      margin-top: 15px;
+      margin-bottom: 0;
+      font-size: 28px;
+    }
+
+    & > span {
+      font-size: 22px;
+      text-align: right;
+    }
+  }
+}

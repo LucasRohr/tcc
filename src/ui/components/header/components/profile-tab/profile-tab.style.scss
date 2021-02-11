@@ -8,7 +8,7 @@
   padding-left: 30px;
   cursor: pointer;
 
-  & > div {
+  & > div:first-child {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -66,5 +66,32 @@
 .header-user-icon {
   & svg {
     fill: $white;
+  }
+}
+
+@media (max-width: 950px) {
+  .header-profile-tab-container {
+    & > div:first-child {
+      display: none;
+    }
+  }
+
+  .header-user-icon {
+    margin-right: 0;
+
+    & svg {
+      width: 45px;
+      height: 45px;
+    }
+  }
+
+  .header-profile-tab-container {
+    padding-left: 15px;
+  }
+
+  .profile-tab-drop {
+    & > .dropbox-button {
+      padding-right: 0;
+    }
   }
 }

@@ -4,7 +4,7 @@ import { LogoIcon } from 'app-icons'
 import { Button, Title, Text, Form } from 'app-components'
 import { useLoginForm } from './login.hook'
 import { LoginConfirmation } from './components/index'
-import { tokenHelper, useLoggedUser, useRoute } from 'app-hooks'
+import { tokenHelper, useLoggedUser, useRoute, useWindowSize } from 'app-hooks'
 
 const Login = () => {
   const [hasToConfirmCode, setHasToConfirmCode] = useState('')
@@ -13,6 +13,8 @@ const Login = () => {
   const { renderFields, buildApiObject, sendToApi, isValid } = useLoginForm()
   const { requestLoginToken } = useLoggedUser()
   const { goToRegister } = useRoute()
+
+  const { isMobileResolution } = useWindowSize()
 
   const sendLogin = async () => {
     setErrorMessage('')
@@ -80,7 +82,7 @@ const Login = () => {
   }
 
   const renderFormButton = () => (
-    <Button type="submit" variant="primary">
+    <Button className="login-form-button" type="submit" variant="primary">
       Login
     </Button>
   )
@@ -99,10 +101,46 @@ const Login = () => {
     )
   }
 
+  const renderMobileHeader = () => {
+    if (isMobileResolution) {
+      return (
+        <div className="login-modile-header">
+          <LogoIcon className="login-logo-icon" />
+          <Title variant="serif">Herança Digital</Title>
+        </div>
+      )
+    }
+
+    return null
+  }
+
+  const renderMobileRegisterMessage = () => {
+    if (isMobileResolution && !hasToConfirmCode) {
+      return (
+        <div className="login-modile-register">
+          <Text variant="sans-serif">Ainda não utiliza nosso serviço?</Text>
+
+          <div onClick={goToRegister}>
+            <Text variant="sans-serif">Cadastre-se agora!</Text>
+          </div>
+        </div>
+      )
+    }
+
+    return null
+  }
+
   return (
     <div className="login-container">
       {renderLeftContent()}
-      <div className="login-right-content-wrapper">{checkFormRender()}</div>
+
+      <div className="login-right-content-wrapper">
+        {renderMobileHeader()}
+
+        <div className="login-right-content">{checkFormRender()}</div>
+
+        {renderMobileRegisterMessage()}
+      </div>
     </div>
   )
 }

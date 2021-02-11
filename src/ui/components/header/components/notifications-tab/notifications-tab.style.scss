@@ -124,3 +124,24 @@
   @include notification-unread-mixin();
   opacity: 0.5;
 }
+
+@media (max-width: 700px) {
+  .notifications-dropbox-wrapper {
+    & > button:first-child {
+      margin-right: 5px;
+      width: 46px;
+      height: 46px;
+
+      & svg {
+        width: 22px;
+        height: 22px;
+      }
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  .notifications-scroll-area {
+    min-width: 0;
+  }
+}

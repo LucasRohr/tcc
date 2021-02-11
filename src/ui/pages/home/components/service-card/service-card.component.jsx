@@ -12,7 +12,10 @@ const ServiceCard = ({ title, description, icon, onClick, disabled }) => {
       <Text variant="sans-serif">{title}</Text>
 
       <div className="service-card-content">
-        <Text variant="serif">{description}</Text>
+        <div className="service-card-description-wrapper">
+          <Text variant="serif">{description}</Text>
+        </div>
+
         <div className="service-card-icon-container">{icon}</div>
       </div>
     </div>
