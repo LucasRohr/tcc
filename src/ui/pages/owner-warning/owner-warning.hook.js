@@ -1,8 +1,9 @@
-import { useInput, useHeir } from 'app-hooks'
+import { useInput, useHeir, useLoggedUser } from 'app-hooks'
 import { digitalCertificateCodeValidator } from 'app-validators'
 
 const useOwnerWarningForm = () => {
   const { validateDigitalDeathCertificate } = useHeir()
+  const { loggedUser } = useLoggedUser()
 
   const certificateCode = useInput({
     name: 'certificateCode',
@@ -13,7 +14,8 @@ const useOwnerWarningForm = () => {
   })
 
   const buildApiObject = () => ({
-    certificateCode: certificateCode.value,
+    certificateHashCode: certificateCode.value,
+    heirId: loggedUser.currentAccount.id,
   })
 
   const sendToApi = async apiObject => {

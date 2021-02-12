@@ -10,13 +10,13 @@ const Profile = () => {
   const [totalHeirs, setTotalHeirs] = useState(0)
 
   const { loggedUser } = useLoggedUser()
-  const { getOwnerHeitsTotalNumber } = useOwner()
+  const { getOwnerHeirsTotalNumber } = useOwner()
 
   const account = loggedUser.currentAccount
   const isOwner = account.type === ROLES.OWNER
 
   const getHeirsTotal = async () => {
-    const result = await getOwnerHeitsTotalNumber(loggedUser.currentAccount.id)
+    const result = await getOwnerHeirsTotalNumber(loggedUser.currentAccount.id)
 
     if (result) {
       setTotalHeirs(result)

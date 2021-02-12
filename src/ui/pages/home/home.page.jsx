@@ -23,7 +23,15 @@ const Home = () => {
   )
 
   const isInvalidHeir = useMemo(
-    () => accountType === ROLES.HEIR && loggedUser.currentAccount.status !== HEIR_STATUS.ACTIVE.key,
+    () => accountType === ROLES.HEIR && (
+        loggedUser.currentAccount.status !== HEIR_STATUS.ACTIVE.key 
+        || loggedUser.currentAccount.status !== HEIR_STATUS.ACCEPTED.key
+      ),
+    [loggedUser.currentAccount]
+  )
+
+  const hasOwnerPassedAway = useMemo(
+    () => !loggedUser.currentAccount.isOwnerAlive,
     [loggedUser.currentAccount]
   )
 
@@ -37,7 +45,7 @@ const Home = () => {
             : 'Gerencie as mídias passadas para você por esta conta',
         onClick: goToMediasManagement,
         icon: <MediasIcon />,
-        disabled: isInvalidHeir,
+        disabled: isInvalidHeir && !hasOwnerPassedAway,
       },
 
       {
@@ -48,7 +56,7 @@ const Home = () => {
             : 'Tenha acesso às credenciais herdadas por você e atribuídas nesta conta',
         onClick: goToCredentialsManagement,
         icon: <CredentialsIcon />,
-        disabled: isInvalidHeir,
+        disabled: isInvalidHeir && !hasOwnerPassedAway,
       },
     ],
     [loggedUser]
@@ -77,6 +85,7 @@ const Home = () => {
         description: 'Entre em contato conosco para comunicar o falecimento do proprietário da herança',
         onClick: goToOwnerWarning,
         icon: <AlertIcon />,
+        disabled: hasOwnerPassedAway,
       },
     ],
     [loggedUser]
@@ -129,10 +138,14 @@ const Home = () => {
         <Title variant="sans-serif">Olá</Title>
         <Text variant="serif">
           Esta é a tela inicial do sistema, por ela você pode acessar todos os nossos serviços.
-          <br />
-          <br />A herança destinada para esta conta herdeira ainda não está disponível, portanto, no momento, você pode
-          apenas avisar sobre o falecimento do proprietário dela.
         </Text>
+        {!hasOwnerPassedAway && (
+          <Text variant="serif">
+            <br />
+            A herança destinada para esta conta herdeira ainda não está disponível, portanto, no momento, você pode
+            apenas avisar sobre o falecimento do proprietário dela.
+          </Text>
+        )}
 
         <Button onClick={hideModal} className="home-help-button" variant="primary">
           Entendi

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useOwnerWarningForm } from './owner-warning.hook'
-import { useToastAlert, useRoute } from 'app-hooks'
+import { useToastAlert, useRoute, useLoggedUser } from 'app-hooks'
 import { PageTitle, Text, Title, Form, Button } from 'app-components'
 import { WarningIcon, ArrowBackIcon } from 'app-icons'
 import cerificateCodeImage from 'app-images/certificate-code.png'
@@ -12,12 +12,16 @@ const OwnerWarning = () => {
 
   const { showSuccessToastAlert } = useToastAlert()
   const { goToHome } = useRoute()
+  const { loggedUser } = useLoggedUser()
+
+  const currentAccount = loggedUser.currentAccount
 
   const sendCertificateCode = async () => {
     const validationObject = buildApiObject()
     const result = await sendToApi(validationObject)
 
     if (result) {
+      currentAccount.isOwnerAlive = false 
       goToHome()
       showSuccessToastAlert(
         'Certidão validada com sucesso! A Herança Digital agora está disponível para você e demais herdeiros.'
