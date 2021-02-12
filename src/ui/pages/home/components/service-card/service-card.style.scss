@@ -90,7 +90,8 @@
 }
 
 @media (max-width: 1650px) {
-  .service-card-container {
+  .service-card-container,
+  .service-card-container-disabled {
     width: 70%;
     height: auto;
   }
@@ -120,7 +121,8 @@
 }
 
 @media (max-width: 900px) {
-  .service-card-container {
+  .service-card-container,
+  .service-card-container-disabled {
     width: 100%;
     height: auto;
   }

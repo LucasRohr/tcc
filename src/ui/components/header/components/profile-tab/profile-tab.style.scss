@@ -95,3 +95,15 @@
     }
   }
 }
+
+@media (max-width: 650px) {
+  .header-profile-tab-content {
+    width: 100%;
+  }
+
+  .profile-tab-drop {
+    & .dropbox-invisible-status::before {
+      bottom: 3px;
+    }
+  }
+}
