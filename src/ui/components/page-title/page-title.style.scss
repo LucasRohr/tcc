@@ -8,6 +8,7 @@
 
   & > h1 {
     font-size: 34px;
+    line-height: 36px;
     font-weight: bold;
     margin-left: 24px;
   }
@@ -24,5 +25,30 @@
   &:hover {
     transition: 0.2s;
     transform: scale(1.1);
+  }
+}
+
+@media (max-width: 1100px) {
+  .page-title-container {
+    & > h1 {
+      font-size: 30px;
+      line-height: 32px;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .page-title-container {
+    & > h1 {
+      font-size: 24px;
+      line-height: 26px;
+    }
+  }
+
+  .page-title-arrow-back-icon {
+    & svg {
+      width: 24px;
+      height: 24px;
+    }
   }
 }

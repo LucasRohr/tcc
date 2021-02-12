@@ -63,8 +63,6 @@ const UserCard = ({ email, cpf, name, accountsTotal, birthday }) => {
 
   const renderRightContent = () => (
     <div className="profile-user-card-right-content">
-      <UserIcon className="profile-user-card-icon" />
-
       <div className="profile-user-card-buttons-container">
         <Button onClick={showRemoveUserModal} variant="alert">
           Deletar usuário
@@ -116,7 +114,12 @@ const UserCard = ({ email, cpf, name, accountsTotal, birthday }) => {
     return <CardComponent {...props} />
   }
 
-  return <div className="profile-user-card-container">{renderContent()}</div>
+  return (
+    <div className="profile-user-card-container">
+      <UserIcon className="profile-user-card-icon" />
+      {renderContent()}
+    </div>
+  )
 }
 
 UserCard.defaultProps = {

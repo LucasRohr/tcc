@@ -54,3 +54,33 @@
     line-height: 30px;
   }
 }
+
+@media (max-width: 700px) {
+  .accounts-list-empty-content {
+    margin-bottom: 30px;
+
+    & .empty-content-first-icon {
+      & svg {
+        width: 30%;
+      }
+    }
+
+    & .empty-content-middle-icon {
+      & svg {
+        width: 100%;
+      }
+    }
+
+    & .empty-content-last-icon {
+      & svg {
+        width: 30%;
+      }
+    }
+
+    & span {
+      font-size: 20px;
+      line-height: 22px;
+      text-align: center;
+    }
+  }
+}

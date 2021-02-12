@@ -136,3 +136,226 @@
     }
   }
 }
+
+@media (max-width: 1150px) {
+  .owner-warning-container {
+    & .owner-warning-explanation-container {
+      & > .owner-warning-explanation-text-container {
+        max-width: 75%;
+
+        & > span {
+          font-size: 23px;
+          line-height: 28px;
+
+          & > span {
+            font-size: 23px;
+            line-height: 28px;
+          }
+        }
+      }
+
+      & .owner-warning-explanation-icon {
+        margin-right: 30px;
+
+        & svg {
+          width: 120px;
+          height: 120px;
+        }
+      }
+    }
+
+    & .owner-warning-code-container {
+      margin-top: 50px;
+
+      & > span {
+        max-width: 52%;
+        font-size: 22px;
+        line-height: 26px;
+      }
+
+      & .owner-warning-code-arrow-icon {
+        transform: rotate(180deg);
+
+        & svg {
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      & .owner-warning-code-image-container {
+        width: 35%;
+        margin-left: 55px;
+      }
+    }
+
+    & .owner-warning-code-send-container {
+      margin-top: 40px;
+
+      & > .owner-warning-code-send-advice {
+        & > h1 {
+          font-size: 23px;
+          line-height: 26px;
+        }
+
+        & > span {
+          font-size: 23px;
+          line-height: 26px;
+        }
+      }
+
+      & > .owner-warning-form {
+        width: 42%;
+
+        & .owner-warning-form-button {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 880px) {
+  .owner-warning-container {
+    & .owner-warning-explanation-container {
+      flex-direction: column-reverse;
+
+      & > .owner-warning-explanation-text-container {
+        max-width: 100%;
+        margin-top: 30px;
+
+        & > span {
+          font-size: 23px;
+          line-height: 28px;
+          text-align: justify;
+
+          & > span {
+            font-size: 23px;
+            line-height: 28px;
+            text-align: justify;
+          }
+        }
+      }
+
+      & .owner-warning-explanation-icon {
+        & svg {
+          width: 130px;
+          height: 130px;
+        }
+      }
+    }
+
+    & .owner-warning-code-container {
+      align-items: center;
+      flex-direction: column;
+      margin-top: 40px;
+
+      & > span {
+        max-width: 100%;
+        font-size: 22px;
+        line-height: 26px;
+        margin-bottom: 26px;
+      }
+
+      & .owner-warning-code-arrow-icon {
+        transform: rotate(270deg);
+        margin-bottom: 26px;
+
+        & svg {
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      & .owner-warning-code-image-container {
+        width: 80%;
+        margin-left: 0px;
+      }
+    }
+
+    & .owner-warning-code-send-container {
+      flex-direction: column;
+      margin-top: 40px;
+
+      & > .owner-warning-code-send-advice {
+        width: 100%;
+        max-width: 100%;
+
+        & > h1 {
+          font-size: 23px;
+          line-height: 26px;
+        }
+
+        & > span {
+          font-size: 23px;
+          line-height: 26px;
+        }
+      }
+
+      & > .owner-warning-form {
+        width: 100%;
+        max-width: 100%;
+
+        & .owner-warning-form-button {
+          font-size: 18px;
+        }
+
+        & .form-body {
+          width: 100%;
+          max-width: 100%;
+          min-width: 0;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .owner-warning-container {
+    & .owner-warning-explanation-container {
+      padding: 30px 33px;
+
+      & > .owner-warning-explanation-text-container {
+        & > span {
+          font-size: 19px;
+          line-height: 24px;
+
+          & > span {
+            font-size: 19px;
+            line-height: 24px;
+          }
+        }
+      }
+    }
+
+    & .owner-warning-code-container {
+      & > span {
+        font-size: 18px;
+        line-height: 22px;
+      }
+
+      & .owner-warning-code-image-container {
+        width: 100%;
+      }
+    }
+
+    & .owner-warning-code-send-container {
+      & > .owner-warning-code-send-advice {
+        & > h1 {
+          font-size: 20px;
+          line-height: 23px;
+        }
+
+        & > span {
+          font-size: 19px;
+          line-height: 24px;
+        }
+      }
+
+      & > .owner-warning-form {
+        & .owner-warning-form-button {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}

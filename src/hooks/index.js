@@ -14,3 +14,4 @@ export {
   LoggedUserProvider,
   useGlobalLoggedUser,
 } from './use-logged-user/use-logged-user.hook'
+export { useWindowSize, WindowSizeProvider } from './use-window-size/use-window-size.hook'

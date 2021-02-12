@@ -45,3 +45,37 @@
     }
   }
 }
+
+@media (max-width: 850px) {
+  .account-edit-form-container {
+    & > h1 {
+      font-size: 18px;
+      line-height: 20px;
+      margin-bottom: 18px;
+    }
+
+    & > .account-edit-form-content {
+      align-items: flex-start;
+      flex-direction: column;
+
+      & > .account-edit-form-wrapper {
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      & > .account-edit-form-buttons-container {
+        width: 100%;
+        height: 100%;
+        margin-top: 25px;
+
+        & button {
+          width: 100%;
+
+          &:first-child {
+            margin-bottom: 16px;
+          }
+        }
+      }
+    }
+  }
+}

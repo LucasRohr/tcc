@@ -57,7 +57,7 @@ const ProfileTab = ({ clicked, selected, onClick }) => {
   )
 
   return (
-    <Dropbox clicked={clicked} toggleOpen={onClick} isOpen={selected}>
+    <Dropbox additionalClass="profile-tab-drop" clicked={clicked} toggleOpen={onClick} isOpen={selected}>
       <Dropbox.Button>{renderButtonBody()}</Dropbox.Button>
       <Dropbox.Content children={renderContent()} />
     </Dropbox>

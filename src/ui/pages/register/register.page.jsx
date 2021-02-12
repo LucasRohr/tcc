@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Text, Button, Title, ProgressBar, Error } from 'app-components'
 import { LogoIcon } from 'app-icons'
-import { useRoute, useUser, useInvite } from 'app-hooks'
+import { useRoute, useUser, useInvite, useWindowSize } from 'app-hooks'
 import { ROLES } from 'app-constants'
 import { UserTypeStep, MainFormStep, PasswordStep, AccountStep, FinalStep } from './components'
 
@@ -19,6 +19,7 @@ const Register = ({ location }) => {
   const { updateInviteCode, checkInviteByCode, getInviteById } = useInvite()
   const { goToLogin } = useRoute()
   const { registerUser } = useUser()
+  const { isMobileResolution } = useWindowSize()
 
   const isCreatingHeirAccount = location.search.includes('invite')
   const firstAccountType = isCreatingHeirAccount ? ROLES.HEIR : ROLES.OWNER
@@ -181,15 +182,50 @@ const Register = ({ location }) => {
 
   const renderError = () => (error ? <Error error={error} /> : null)
 
+  const renderMobileHeader = () => {
+    if (isMobileResolution) {
+      return (
+        <div className="register-modile-header">
+          <LogoIcon className="register-logo-icon" />
+          <Title variant="serif">Herança Digital</Title>
+        </div>
+      )
+    }
+
+    return null
+  }
+
+  const renderMobileLoginMessage = () => {
+    if (isMobileResolution) {
+      return (
+        <div className="register-modile-login">
+          <Text variant="sans-serif">Já possui uma conta?</Text>
+
+          <div onClick={goToLogin}>
+            <Text variant="sans-serif">Faça seu login!</Text>
+          </div>
+        </div>
+      )
+    }
+
+    return null
+  }
+
   return (
     <div className="register-container">
       {renderLeftContent()}
       <div className="register-right-content-wrapper">
-        {checkStepRender()}
+        {renderMobileHeader()}
+
+        <div className="register-form-wrapper">{checkStepRender()}</div>
+
         {renderError()}
+
         <div className="register-right-content-bar-wraper">
           <ProgressBar currentStep={currentStep} totalSteps={registerSteps.length - 1} />
         </div>
+
+        {renderMobileLoginMessage()}
       </div>
     </div>
   )

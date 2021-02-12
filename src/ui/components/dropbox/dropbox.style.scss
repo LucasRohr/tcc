@@ -102,3 +102,10 @@
     }
   }
 }
+
+@media (max-width: 650px) {
+  .dropbox-content {
+    width: 100%;
+    top: 76px;
+  }
+}

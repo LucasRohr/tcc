@@ -64,3 +64,16 @@
     transform: rotate(45deg);
   }
 }
+
+@media (max-width: 650px) {
+  .toast-message {
+    width: 100%;
+    color: $white;
+    font-size: 16px;
+  }
+
+  .toast-close-button {
+    width: 18px;
+    height: 18px;
+  }
+}

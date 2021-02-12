@@ -50,3 +50,86 @@
     padding: 16px 18px;
   }
 }
+
+@media (max-width: 1130px) {
+  .disinherited-card-container {
+    width: 100%;
+    padding: 30px;
+    margin-top: 100px;
+
+    & > .disinherited-card-title {
+      font-size: 25px;
+      line-height: 28px;
+    }
+
+    & > .disinherited-card-description {
+      font-size: 23px;
+      line-height: 26px;
+    }
+
+    & .disinherited-card-owner-button-icon {
+      & svg {
+        width: 22px;
+        height: 22px;
+      }
+    }
+
+    & button {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 22px;
+      padding: 16px 18px;
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .disinherited-card-container {
+    & > .disinherited-card-buttons {
+      flex-direction: column;
+      margin-top: 0;
+    }
+
+    & button {
+      width: 70%;
+      margin-top: 20px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .disinherited-card-container {
+    width: 100%;
+    padding: 30px;
+    margin-top: 70px;
+
+    & > .disinherited-card-title {
+      font-size: 21px;
+      line-height: 24px;
+    }
+
+    & > .disinherited-card-description {
+      font-size: 21px;
+      line-height: 24px;
+    }
+
+    & .disinherited-card-owner-button-icon {
+      & svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    & button {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 22px;
+      padding: 16px 18px;
+      margin-top: 20px;
+      text-align: left;
+    }
+  }
+}

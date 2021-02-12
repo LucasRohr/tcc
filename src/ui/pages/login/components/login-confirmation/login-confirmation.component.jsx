@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { Text, Form, Button } from 'app-components'
-import { useLoggedUser, useRoute } from 'app-hooks'
+import { useLoggedUser, useRoute, useWindowSize } from 'app-hooks'
 
 import { useLoginConfirmation } from './login-confirmation.hook'
 
@@ -14,6 +14,7 @@ const LoginConfirmation = ({ goBack }) => {
   const { renderFields, buildApiObject, sendToApi, isValid } = useLoginConfirmation()
   const { fetchUserInfo } = useLoggedUser()
   const { goToHome } = useRoute()
+  const { isMobileResolution } = useWindowSize()
 
   const sendLogin = async () => {
     setErrorMessage('')
@@ -42,11 +43,25 @@ const LoginConfirmation = ({ goBack }) => {
     </div>
   )
 
+  const renderBottomContent = () => {
+    if (isMobileResolution) {
+      return (
+        <Text className="login-confirmation-message" variant="serif">
+          Um e-mail de confirmação com um código para login foi enviado para você. Acesse-o e insira no campo acima.
+        </Text>
+      )
+    }
+
+    return null
+  }
+
   return (
     <div className="login-confirmation-form-container">
       <Text variant="sans-serif">Digite o código de login recebido</Text>
       <Form onSubmit={sendLogin} buttons={renderFormButton} content={renderFields} isValid={isValid} />
       {errorMessage ? <Text className="login-confirmation-error-message">{errorMessage}</Text> : null}
+
+      {renderBottomContent()}
     </div>
   )
 }

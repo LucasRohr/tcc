@@ -1,0 +1,3 @@
+const MAX_MOBILE_WIDTH = 1100
+
+export { MAX_MOBILE_WIDTH }

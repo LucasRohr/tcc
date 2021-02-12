@@ -45,3 +45,44 @@
     }
   }
 }
+
+@media (max-width: 750px) {
+  .invites-list-container {
+    & > .invites-list-empty-content {
+      margin-top: 50px;
+      margin-bottom: 30px;
+
+      & .empty-content-icons-container {
+        margin-bottom: 50px;
+      }
+
+      & .empty-content-first-icon {
+        & svg {
+          width: 35%;
+          height: 110px;
+          left: -35px;
+        }
+      }
+
+      & .empty-content-middle-icon {
+        & svg {
+          width: 100%;
+          height: 200px;
+        }
+      }
+
+      & .empty-content-last-icon {
+        & svg {
+          width: 35%;
+          height: 110px;
+          right: -25px;
+        }
+      }
+
+      & span {
+        font-size: 20px;
+        line-height: 22px;
+      }
+    }
+  }
+}

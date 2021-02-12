@@ -90,3 +90,123 @@
     }
   }
 }
+
+@media (max-width: 1100px) {
+  .account-row-container {
+    width: 100%;
+
+    & > .account-row-info-container {
+      & > span {
+        font-size: 16px;
+      }
+
+      & .account-row-heir-highlighted-text {
+        font-size: 16px;
+
+        & > span {
+          font-size: 16px;
+        }
+
+        & .account-row-heir-user-name {
+          font-size: 16px;
+        }
+      }
+    }
+
+    & > .account-row-heir-pendent-message {
+      font-size: 16px;
+      line-height: 18px;
+    }
+  }
+}
+
+@media (max-width: 550px) {
+  .account-row-container {
+    & > .account-row-info-container {
+      & > .account-row-user-icon {
+        margin-right: 14px;
+
+        & svg {
+          width: 34px;
+          height: 34px;
+        }
+      }
+
+      & > span {
+        font-size: 16px;
+      }
+
+      & .account-row-heir-highlighted-text {
+        font-size: 16px;
+
+        & > span {
+          font-size: 16px;
+        }
+
+        & .account-row-heir-user-name {
+          font-size: 16px;
+        }
+      }
+    }
+
+    & > .account-row-remove-heir-icon {
+      & svg {
+        width: 30px;
+        height: 30px;
+        fill: $red;
+      }
+    }
+
+    & > .account-row-action-access-account-button {
+      padding: 10px;
+      margin-left: 12px;
+
+      & > .account-row-action-button-icon {
+        margin-left: 18px;
+        display: none;
+
+        & svg {
+          width: 24px;
+          height: 24px;
+          fill: $primary;
+        }
+      }
+    }
+
+    & > .account-row-action-profile-button {
+      padding: 10px 14px;
+      margin-left: 12px;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .account-row-container {
+    & > .account-row-info-container {
+      & > .account-row-user-icon {
+        margin-right: 10px;
+
+        & svg {
+          width: 32px;
+          height: 32px;
+        }
+      }
+
+      & > span {
+        font-size: 14px;
+      }
+
+      & .account-row-heir-highlighted-text {
+        font-size: 14px;
+
+        & > span {
+          font-size: 14px;
+        }
+
+        & .account-row-heir-user-name {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}

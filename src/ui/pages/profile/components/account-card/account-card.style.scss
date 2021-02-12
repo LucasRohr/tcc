@@ -72,3 +72,53 @@
     }
   }
 }
+
+@media (max-width: 850px) {
+  .profile-account-card-container {
+    height: auto;
+    flex-direction: column;
+    padding: 30px 20px;
+
+    & span {
+      font-size: 18px;
+      line-height: 20px;
+    }
+
+    & .profile-account-card-text--highlight {
+      font-size: 18px;
+      line-height: 22px;
+    }
+
+    & > .profile-account-card-info-container {
+      width: 100%;
+
+      & > .profile-account-card-text--light {
+        font-size: 18px;
+        line-height: 20px;
+        margin-left: 20px;
+      }
+
+      & > .profile-account-card-content {
+        padding: 25px 20px;
+        margin: 22px 0;
+
+        & > span {
+          margin-bottom: 16px;
+        }
+      }
+    }
+
+    & > .profile-account-card-right-content {
+      width: 100%;
+      display: flex;
+
+      & button {
+        width: 100%;
+
+        &:first-child {
+          margin-bottom: 16px;
+        }
+      }
+    }
+  }
+}
