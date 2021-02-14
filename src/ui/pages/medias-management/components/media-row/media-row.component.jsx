@@ -17,7 +17,7 @@ const MediaRow = ({ media, mediaType, selectMedia, loadMedias }) => {
 
   const applyConditionalClass = (positive, negative) => (isClosed ? negative : positive)
 
-  const conditionalArrowClass = useMemo(() => applyConditionalClass('media-row-arrow-down', 'media-row-arrow-up'), [
+  const conditionalArrowClass = useMemo(() => applyConditionalClass('media-row-arrow-up', 'media-row-arrow-down'), [
     isClosed,
   ])
 
@@ -55,7 +55,7 @@ const MediaRow = ({ media, mediaType, selectMedia, loadMedias }) => {
 
   const renderMediaDescription = () => (
     <div className={conditionalContentClass}>
-      <Text>Descrição: {media.description || 'Nenhuma descrição adicionada.'}</Text>
+      <Text>Descrição: {media.description ?? 'Nenhuma descrição adicionada.'}</Text>
     </div>
   )
 

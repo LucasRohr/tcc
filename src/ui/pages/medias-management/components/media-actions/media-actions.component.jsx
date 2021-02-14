@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import download from 'downloadjs'
 import { CircleButton } from 'app-components'
 import { DeleteIcon, DownloadIcon, EditIcon } from 'app-icons'
-import { noopFunction } from 'app-helpers'
 import { useModal, useLoggedUser, useMedia } from 'app-hooks'
 import { HERITAGE_TYPES, ROLES } from 'app-constants'
 import { RemoveMediaModal } from '../remove-media-modal/remove-media-modal.component'
@@ -49,7 +48,7 @@ const MediaActions = ({ media, selectMedia, loadMedias }) => {
       )
     }
 
-    return <CircleButton variant="secondary" onClick={noopFunction} icon={<DownloadIcon />} />
+    return <CircleButton variant="secondary" onClick={downloadFile} icon={<DownloadIcon />} />
   }
 
   return <div className="media-actions-container">{renderActions()}</div>

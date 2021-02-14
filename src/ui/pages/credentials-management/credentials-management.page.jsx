@@ -28,7 +28,7 @@ const CredentialsManagement = () => {
   const [canShowContent, setCanShowContent] = useState(false)
 
   const { loggedUser } = useLoggedUser()
-  const { getOwnerHeritageCredentials, getHeirReceivedCredentials } = useCredential()
+  const { getOwnerHeritageCredentials, getHeirHeritageCredentials } = useCredential()
 
   const currentAccountType = loggedUser.currentAccount.type
   const isOwnerAccount = currentAccountType === ROLES.OWNER
@@ -38,7 +38,7 @@ const CredentialsManagement = () => {
 
     const result = isOwnerAccount
       ? await getOwnerHeritageCredentials(accountId)
-      : await getHeirReceivedCredentials(accountId)
+      : await getHeirHeritageCredentials(accountId)
 
     setCanShowContent(true)
 

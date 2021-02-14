@@ -66,12 +66,15 @@ const MediasManagement = () => {
 
   const getMedias = async (page = FIRST_PAGE) => {
     const isOwner = currentAccountType === ROLES.OWNER
-    const ownerId = isOwner ? loggedUser.currentAccount.id : loggedUser.currentAccount.ownerId
     const fileType = TAB_OPTIONS.find(option => option.value === currentTab).fileType
 
     const requestPage = page || page === 0 ? page - 1 : paginationConfig.currentPage - 1
 
-    const requestObject = { page: requestPage, ownerId, fileType }
+    const requestObject = { page: requestPage, fileType }
+
+    if (isOwner) {
+      requestObject.ownerId = loggedUser.currentAccount.id
+    }
 
     if (!isOwner) {
       requestObject.heirId = loggedUser.currentAccount.id

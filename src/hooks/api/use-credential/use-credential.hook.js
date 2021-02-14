@@ -3,16 +3,18 @@ import { useRequest } from '../use-request/use-request.hook'
 const useCredential = () => {
   const { get, put, post } = useRequest('/credential-service')
 
-  const getHeirReceivedCredentials = async heirId => {
-    return await get(`${heirId}/heir-credentials`)
-  }
-
   const getOwnerHeritageCredentials = async ownerId => {
     return await get(`credentials/owner-credentials?owner_id=${ownerId}`)
   }
 
-  const getOwnerHeritageCredentialPassword = async (ownerId, credentialId) => {
-    return await get(`credentials/credential-auth?owner_id=${ownerId}&credential_id=${credentialId}`)
+  const getHeirHeritageCredentials = async heirId => {
+    return await get(`credentials/heir-credentials?heir_id=${heirId}`)
+  }
+
+  const getOwnerHeritageCredentialPassword = async (accountId, credentialId, isOwner) => {
+    return await get(
+      `credentials/credential-auth?account_id=${accountId}&credential_id=${credentialId}&is_owner=${isOwner}`
+    )
   }
 
   const removeCredential = async removeObject => {
@@ -39,8 +41,8 @@ const useCredential = () => {
   }
 
   return {
-    getHeirReceivedCredentials,
     getOwnerHeritageCredentials,
+    getHeirHeritageCredentials,
     getOwnerHeritageCredentialPassword,
     removeCredential,
     createCredential,

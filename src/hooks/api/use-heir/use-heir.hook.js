@@ -18,7 +18,7 @@ const useHeir = () => {
   }
 
   const validateDigitalDeathCertificate = async certificateObject => {
-    const result = await post('certificate-validation', certificateObject)
+    const result = await put('certificate-validation', certificateObject)
     return result !== undefined
   }
 

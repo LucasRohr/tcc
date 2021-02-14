@@ -9,6 +9,7 @@ import { CredentialInfo } from '../credential-info/credential-info.component'
 import { RemoveCredentialModal } from '../remove-credential-modal/remove-credential-modal.component'
 
 import './credential-card.style.scss'
+import { ROLES } from 'app-constants'
 
 const CredentialCard = ({ credential, loadCredentials, isHeirAccount }) => {
   const [isEditing, setIsEditing] = useState(false)
@@ -41,7 +42,13 @@ const CredentialCard = ({ credential, loadCredentials, isHeirAccount }) => {
 
   const getCredentialPassword = async () => {
     if (isFirstInteraction) {
-      const result = await getOwnerHeritageCredentialPassword(loggedUser.currentAccount.id, credential.credentialId)
+      const isOwner = loggedUser.currentAccount.type === ROLES.OWNER
+
+      const result = await getOwnerHeritageCredentialPassword(
+        loggedUser.currentAccount.id,
+        credential.credentialId,
+        isOwner
+      )
 
       if (result) {
         setIsFirstInteraction(false)
