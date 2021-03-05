@@ -23,8 +23,6 @@ const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType, loadMedias }) 
   const { getAllHeirsForMedia } = useMedia()
   const { showSuccessToastAlert } = useToastAlert()
 
-  const rightContainerClass = selectedMedia ? 'media-form-edit-right-container' : 'media-form-right-container'
-
   const mapHeirs = heirsList => heirsList.map(heirItem => ({ item: heirItem, itemCheck: heirItem.hasItem }))
 
   const getAvailableHeirs = async () => {
@@ -117,22 +115,26 @@ const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType, loadMedias }) 
 
   return (
     <div className="media-form-container">
-      <div className="media-form-fields-container">
-        {renderFormFields()}
-        <Button className="media-form-heirs-button" onClick={showMediaHeirsModal} variant="light">
-          <Text>Selecionar herdeiros</Text>
-          <HeirsManagementIcon className="media-form-heirs-icon" />
-        </Button>
+      <div className="media-upper-container">
+        <div className="media-upper-forms-container">
+          {renderFormFields()}
+          <Button className="media-form-heirs-button" onClick={showMediaHeirsModal} variant="light">
+            <Text>Selecionar herdeiros</Text>
+            <HeirsManagementIcon className="media-form-heirs-icon" />
+          </Button>
+        </div>
+        {!selectedMedia ? (
+          <div className="media-switch-container">
+            <Switch
+              firstOption={UPLOAD_OPTIONS.SINGLE}
+              secondOption={UPLOAD_OPTIONS.MULTIPLE}
+              onChange={setUploadOption}
+            />
+          </div>
+        ) : null}
       </div>
 
-      <div className={rightContainerClass}>
-        {!selectedMedia ? (
-          <Switch
-            firstOption={UPLOAD_OPTIONS.SINGLE}
-            secondOption={UPLOAD_OPTIONS.MULTIPLE}
-            onChange={setUploadOption}
-          />
-        ) : null}
+      <div className="media-form-lower-container">
         {renderFormButtons()}
       </div>
     </div>

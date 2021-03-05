@@ -1,16 +1,9 @@
 @import 'app-styles/variables.scss';
 
-@mixin media-form-right-container-mixin {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
 .media-form-container {
   width: 90%;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: space-between;
   border: 1px solid $primary-light;
@@ -18,12 +11,22 @@
   padding: 32px 65px;
 }
 
-.media-form-fields-container {
-  width: 46%;
+.media-upper-container {
+  // width: 46%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+
+  .media-upper-forms-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.media-switch-container {
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .media-form-heirs-button {
@@ -47,6 +50,11 @@
   }
 }
 
+.media-form-lower-container {
+  display: flex;
+  align-items: flex-end;
+}
+
 .media-form-buttons-container {
   width: fit-content;
   display: flex;
@@ -63,19 +71,57 @@
   }
 }
 
-.media-form-right-container {
-  @include media-form-right-container-mixin();
-}
-
-.media-form-edit-right-container {
-  @include media-form-right-container-mixin();
-  justify-content: flex-end;
-}
-
 .media-form-multiple-info {
   font-size: 24px;
   text-align: left;
   line-height: 28px;
   margin-bottom: 28px;
   color: $gray;
+}
+
+@media (max-width: 700px) {
+  .media-form-container {
+    width: 100%;
+    padding: 32px;
+  }
+
+  .media-upper-container {
+    flex-direction: column;
+
+    & > div {
+      width: 100%
+    }
+
+    & > .media-switch-container {
+      order: 1;
+      // width: 100%;
+      margin-bottom: 50px;
+    }
+
+    & > .media-upper-forms-container {
+      order: 2;
+    }
+  }
+
+  .media-form-lower-container {
+    display: flex;
+    width: 100%;
+    margin-top: 50px;
+  }
+  
+  .media-form-buttons-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+    & button {
+      padding: 12px 45px;
+      font-size: 20px;
+  
+      &:first-child {
+        margin-right: 0;
+      }
+    }
+  }
 }
