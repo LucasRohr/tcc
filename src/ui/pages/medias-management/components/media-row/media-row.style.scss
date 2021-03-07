@@ -127,3 +127,9 @@
   @include drop-arrow-mixin();
   transform: rotate(-180deg);
 }
+
+@media (max-width: 700px) {
+  .media-row-wrapper {
+    width: 100%;
+  }
+}
