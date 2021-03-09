@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import download from 'downloadjs'
 import { CircleButton } from 'app-components'
 import { DeleteIcon, DownloadIcon, EditIcon, SeeMoreIcon } from 'app-icons'
-import { useModal, useLoggedUser, useMedia } from 'app-hooks'
+import { useModal, useLoggedUser, useMedia, useWindowSize } from 'app-hooks'
 import { HERITAGE_TYPES, ROLES } from 'app-constants'
 import { RemoveMediaModal } from '../remove-media-modal/remove-media-modal.component'
 
@@ -13,8 +13,8 @@ const MediaActions = ({ media, selectMedia, loadMedias }) => {
   const { showModal } = useModal()
   const { loggedUser } = useLoggedUser()
   const { getMediaForDownload } = useMedia()
+  const { isMobileResolution } = useWindowSize()
 
-  const [isMobile, setIsMobile] = useState(true)
   const [isDropdownShown, setIsDropdownShown] = useState(false)
 
   const showRemoveMediaModal = () => {
@@ -56,7 +56,7 @@ const MediaActions = ({ media, selectMedia, loadMedias }) => {
       return (
         <>
           <CircleButton variant="secondary" onClick={() => selectMedia(media)} icon={<EditIcon />} />
-          {isMobile ? (
+          {isMobileResolution ? (
             <>
               <SeeMoreIcon onClick={() => setIsDropdownShown(!isDropdownShown)} className="media-actions-see-more-icon" />
               {isDropdownShown && renderMobileDropdown()}
