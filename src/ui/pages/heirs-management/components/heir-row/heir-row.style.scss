@@ -41,6 +41,10 @@
       flex-grow: 0;
       flex-basis: 200px;
       color: $black;
+
+      & svg {
+        display: none;
+      }
     }
 
     &:nth-child(3) {
@@ -83,6 +87,97 @@
         transition: 0.3s;
         transform: scale(1.1);
       }
+
+      & > span:first-child {
+        display: none;
+      }
+    }
+
+    & > .heir-row-heading {
+      display: none;
     }
   }
+}
+
+@media (max-width: 1100px) {
+  .heir-row-container {
+    width: 100%;
+    height: unset;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    // padding: 14px 12px;
+    
+    & > div {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 21px;
+      flex-basis: auto;
+      font-size: 18px;
+  
+      &:first-child {
+        display: none;
+      }
+  
+      &:nth-child(2) {
+        flex-basis: auto;
+        margin-bottom: 14px;
+
+        & svg {
+          display: unset;
+          height: 41px;
+          width: 41px;
+          fill: $primary;
+        }
+      }
+
+      &:nth-child(3) {
+        flex-basis: auto;
+      }  
+      &:nth-child(4) {
+        flex-basis: auto;
+      }  
+      &:nth-child(5) {
+        flex-basis: auto;
+        font-size: 25px;
+
+        & span {
+          font-size: 18px;
+        }
+      }
+  
+      &:last-child {
+        flex-basis: unset;
+        color: $red;
+        flex-direction: row-reverse; 
+        
+        &:hover {
+          transition: unset;
+          transform: unset;
+        }
+        
+        & svg {
+          display: none;
+        }
+        
+        & > span:first-child {
+          display: unset;
+          font-size: 25px; 
+          color: inherit;
+          cursor: pointer;
+        }
+      }
+
+      & > .heir-row-heading {
+        display: unset;
+        color: $primary;
+        font-weight: 600;
+        margin-right: 1em;
+      }
+    }
+  }
+
 }
