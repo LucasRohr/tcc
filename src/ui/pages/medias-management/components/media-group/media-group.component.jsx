@@ -61,7 +61,7 @@ const MediaGroup = ({ paginationConfig, mediaType, mediasList, getMedias }) => {
       if (isOwner) {
         return (
           <Button onClick={onAddClick} className="media-group-header-add-media-button">
-            <Text>Adicionar</Text>
+            <Text className="media-group-header-add-text">Adicionar</Text>
             <PlusIcon className="media-group-header-add-media-icon" />
           </Button>
         )

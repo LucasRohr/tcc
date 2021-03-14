@@ -28,15 +28,36 @@ const HeirRow = ({ id, userName, name, email, heritageItemsTotal, filterHeirs })
         <UserIcon />
       </div>
 
-      <div>{userName}</div>
+      <div>
+        <UserIcon />
+        {userName}
+      </div>
 
-      <div>{name}</div>
+      <div>
+        <span className="heir-row-heading">
+          Conta
+        </span>
+        {name}
+      </div>
 
-      <div>{email}</div>
+      <div>
+        <span className="heir-row-heading">
+          E-mail
+        </span>
+        {email}
+      </div>
 
-      <div onClick={showHeritagesManagementModal}>{heritageItemsTotal || 0}</div>
+      <div 
+        onClick={showHeritagesManagementModal}
+      >
+        <span className="heir-row-heading">
+          Heranças
+        </span>
+        {heritageItemsTotal || 0}
+      </div>
 
       <div onClick={renderRemoveHeirModal}>
+        <span>Remover</span>
         <DeleteIcon />
       </div>
     </div>

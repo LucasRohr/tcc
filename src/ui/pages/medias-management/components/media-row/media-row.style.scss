@@ -127,3 +127,19 @@
   @include drop-arrow-mixin();
   transform: rotate(-180deg);
 }
+
+@media (max-width: 700px) {
+  .media-row-wrapper {
+    width: 100%;
+  }
+
+  .media-row-container > div:first-child > span {
+    font-size: 16px;
+    margin-left: 10px;
+    word-break: break-all;
+  }
+
+  .media-row-image-asset-container {
+    width: 50px;
+  }
+}

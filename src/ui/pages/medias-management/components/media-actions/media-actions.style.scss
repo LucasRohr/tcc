@@ -23,3 +23,25 @@
     transform: scale(1.1);
   }
 }
+
+.media-actions-see-more-icon {
+  cursor: pointer;
+}
+
+.media-actions-mobile-dropdown {
+  position: absolute;
+  background-color: white;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  top: 100px;
+  right: 0;
+  padding: 0 10px;
+  font-size: 20px;
+
+  ul li {
+    padding: 20px;
+    display: flex;
+    &:not(:last-child) {
+      border-bottom: 1px solid $light-gray;
+    }
+  }
+}

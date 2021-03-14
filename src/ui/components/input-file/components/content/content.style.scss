@@ -103,3 +103,12 @@
     fill: $primary;
   }
 }
+
+@media (max-width: 700px) {
+  .input-file-content.show-file {
+    flex-direction: column;
+    height: unset;
+    max-height: unset;
+    padding: 4px;
+  }
+}

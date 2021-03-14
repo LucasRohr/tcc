@@ -118,3 +118,9 @@
     fill: $primary-light;
   }
 }
+
+@media (max-width: 700px) {
+  .file-dropzone {
+    max-height: unset;
+  }
+}

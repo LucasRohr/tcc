@@ -67,7 +67,7 @@ const MediaRow = ({ media, mediaType, selectMedia, loadMedias }) => {
       <div className="media-row-container">
         <div>
           {renderMediaAsset()}
-          <Text variant="sans-serif">{media.name}</Text>
+          <Text className="media-row-name" variant="sans-serif">{media.name}</Text>
         </div>
 
         <div>
