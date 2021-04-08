@@ -1,7 +1,9 @@
-import { useInput } from 'app-hooks'
+import { useInput, useForm } from 'app-hooks'
 import { minLengthValidator } from 'app-validators'
 
-const useAccountStep = () => {
+const useAccountStep = (props) => {
+  const { getForm } = useForm()
+
   const account = useInput({
     name: 'account ',
     label: 'Nome da sua conta',
@@ -9,11 +11,29 @@ const useAccountStep = () => {
     validators: [value => minLengthValidator({ value, minLength: 2 })],
   })
 
+  const cryptoPassword = useInput({
+    name: 'cryptoPassword',
+    label: 'Senha de segurança',
+    variant: 'full',
+    validators: [value => minLengthValidator({ value, minLength: 2 })],
+    usePassword: true
+  })
+
+  const fields = [account, cryptoPassword]
+
+  // TODO integrar cryptoPassword com a API
   const buildApiObject = () => account.value
 
+  /*
+  const buildApiObject = () -> {
+    account: account.value,
+    cryptoPassword: cryptoPassword.value
+  }
+  */
+
   return {
-    isValid: () => account.isValid(),
-    renderAccountFormFields: () => account.getInputComponent(),
+    isValid: () => account.isValid({ fields }),
+    renderAccountFormFields: () => getForm(fields),
     buildApiObject,
   }
 }

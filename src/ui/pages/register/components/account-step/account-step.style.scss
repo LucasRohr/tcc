@@ -1,3 +1,5 @@
+@import 'app-styles/variables.scss';
+
 @mixin flex-mixin {
   display: flex;
   flex-direction: column;
@@ -22,6 +24,25 @@
   }
 }
 
+.register-account-form-body-wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+
+  & > button {
+    width: 60px;
+    height: 60px;
+    padding: 15px;
+    align-self: flex-end;
+    margin-bottom: 204px;
+    margin-right: 20px;
+
+    & svg {
+      fill: white;
+    }
+  }
+}
+
 .register-account-form-body-container {
   width: 60%;
   margin: 80px 0;
@@ -32,6 +53,25 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.register-account-help-container {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  & > h1 {
+    font-size: 22px;
+    line-height: 26px;
+    margin-bottom: 22px;
+  }
+
+  & > span {
+    font-size: 22px;
+    line-height: 26px;
+  }
 }
 
 @media (max-width: 800px) {
@@ -60,6 +100,10 @@
       text-align: right;
     }
   }
+
+  .register-account-help-container {
+    width: 100%;
+  }
 }
 
 @media (max-width: 500px) {
@@ -75,6 +119,15 @@
     & > span {
       font-size: 22px;
       text-align: right;
+    }
+  }
+
+  .register-account-form-body-wrapper {
+    flex-direction: column;
+
+    & > button {
+      margin-bottom: 0px;
+      margin-top: 20px;
     }
   }
 }
