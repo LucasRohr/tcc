@@ -7,7 +7,7 @@ import { UserTypeStep, MainFormStep, PasswordStep, AccountStep, FinalStep } from
 
 import './register.style.scss'
 
-const FIRST_STEP = 3
+const FIRST_STEP = 0
 const DEFAULT_ERROR_MESSAGE = 'Já existe um usuário com este mesmo e-mail cadastrado.'
 
 const Register = ({ location }) => {
