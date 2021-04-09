@@ -1,7 +1,7 @@
 import { useInput, useForm } from 'app-hooks'
 import { minLengthValidator } from 'app-validators'
 
-const useAccountStep = (props) => {
+const useAccountStep = () => {
   const { getForm, isValid } = useForm()
 
   const account = useInput({
