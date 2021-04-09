@@ -55,25 +55,6 @@
   align-items: center;
 }
 
-.register-account-help-container {
-  width: 500px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-
-  & > h1 {
-    font-size: 22px;
-    line-height: 26px;
-    margin-bottom: 22px;
-  }
-
-  & > span {
-    font-size: 22px;
-    line-height: 26px;
-  }
-}
-
 @media (max-width: 800px) {
   .register-account-form-body-container {
     width: 100%;
@@ -99,10 +80,6 @@
       font-size: 24px;
       text-align: right;
     }
-  }
-
-  .register-account-help-container {
-    width: 100%;
   }
 }
 

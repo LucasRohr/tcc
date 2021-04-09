@@ -2,7 +2,7 @@ import { useInput, useForm } from 'app-hooks'
 import { minLengthValidator } from 'app-validators'
 
 const useAccountStep = (props) => {
-  const { getForm } = useForm()
+  const { getForm, isValid } = useForm()
 
   const account = useInput({
     name: 'account ',
@@ -32,7 +32,7 @@ const useAccountStep = (props) => {
   */
 
   return {
-    isValid: () => account.isValid({ fields }),
+    isValid: () => isValid({ fields }),
     renderAccountFormFields: () => getForm(fields),
     buildApiObject,
   }

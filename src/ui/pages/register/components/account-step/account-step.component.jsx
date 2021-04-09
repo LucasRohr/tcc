@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useModal } from 'app-hooks'
 import { HelpIcon } from 'app-icons'
-import { Button, Title, Text, Form } from 'app-components'
+import { Button, Title, Text, Form, CryptoPasswordModalContent } from 'app-components'
 import { useAccountStep } from './account-step.hook'
 
 import './account-step.style.scss'
@@ -39,20 +39,7 @@ const AccountStep = ({ firstAccountType, setRegisterObject, onConfirm, decreaseS
 
   const renderHelpModal = () => {
     const renderContent = () => (
-      <div className="register-account-help-container">
-        <Title variant="sans-serif">O que é a senha de segurança?</Title>
-        <Text variant="serif">
-          Esta senha tem a funcionalidade de aprimorar a criptografia de seus dados que é realizada por toda a plataforma.
-          <br />
-          <br />Ao inserir este dado, você está garantindo uma proteção ainda mais completa de seus bens digitais.
-          <br />
-          <br />Recomendamos que ela seja diferente de usa senha de usuário.
-        </Text>
-
-        <Button onClick={hideModal} className="home-help-button" variant="primary">
-          Entendi
-        </Button>
-      </div>
+      <CryptoPasswordModalContent onClick={hideModal} />
     )
 
     showModal({
@@ -69,7 +56,7 @@ const AccountStep = ({ firstAccountType, setRegisterObject, onConfirm, decreaseS
 
       <div className="register-account-form-body-wrapper">
         <Button onClick={renderHelpModal}>
-          <HelpIcon className="register-account-help-icon"/>
+          <HelpIcon />
         </Button>
         <Form
           className="register-account-form-body-container"

@@ -25,6 +25,19 @@
     & > .account-edit-form-wrapper {
       width: 50%;
       margin-top: 20px;
+
+      & > button {
+        width: 60px;
+        height: 60px;
+        padding: 15px;
+        align-self: flex-end;
+        margin-bottom: 18px;
+        margin-left: 20px;
+
+        & svg {
+          fill: white;
+        }
+      }
     }
 
     & > .account-edit-form-buttons-container {
