@@ -21,15 +21,10 @@ const useAccountStep = () => {
 
   const fields = [account, cryptoPassword]
 
-  // TODO integrar cryptoPassword com a API
-  const buildApiObject = () => account.value
-
-  /*
-  const buildApiObject = () -> {
+  const buildApiObject = () => ({
     account: account.value,
     cryptoPassword: cryptoPassword.value
-  }
-  */
+  })
 
   return {
     isValid: () => isValid({ fields }),

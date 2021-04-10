@@ -25,14 +25,14 @@ const useAccountEditForm = ({ initialData }) => {
   useEffect(() => {
     if (initialData) {
       name.setInitialValue(initialData.name)
-      // cryptoPassword.setInitialValue(initialData.cryptoPassword)
+      cryptoPassword.setInitialValue(initialData.cryptoPassword)
     }
   }, [initialData])
 
   const buildApiObject = () => ({
     accountId: loggedUser.currentAccount.id,
     accountName: name.value,
-    // cryptoPassword: cryptoPassword.value
+    cryptoPassword: cryptoPassword.value
   })
 
   const sendToApi = async apiObject => {

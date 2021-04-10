@@ -26,7 +26,7 @@ const useOwnerModalContentForm = () => {
   const buildApiObject = () => ({
     userId: loggedUser.id,
     accountName: accountName.value,
-    // cryptoPassword: cryptoPassword.value
+    cryptoPassword: cryptoPassword.value
   })
 
   const sendToApi = async apiObject => {
