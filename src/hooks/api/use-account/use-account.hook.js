@@ -25,12 +25,18 @@ const useAccount = () => {
     return result !== undefined
   }
 
+  const validateCryptoPassword = async validationObject => {
+    const result = await put('crypto-password-validation', validationObject)
+    return result !== undefined
+  }
+
   return {
     getAllUserAccounts,
     getAllOwnerHeirsAccounts,
     createOwnerAccount,
     updateAccount,
     removeAccount,
+    validateCryptoPassword
   }
 }
 

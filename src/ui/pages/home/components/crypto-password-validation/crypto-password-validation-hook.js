@@ -1,7 +1,8 @@
-import { useForm, useInput } from 'app-hooks'
+import { useForm, useInput, useAccount } from 'app-hooks'
 
 const useCryptoPasswordValidation = () => {
   const { isValid, getForm } = useForm()
+  const { validateCryptoPassword } = useAccount()
 
   const cryptoPassword = useInput({
     name: 'cryptoPassword',
@@ -18,14 +19,14 @@ const useCryptoPasswordValidation = () => {
     cryptoPassword: cryptoPassword.value,
   })
 
-  // const sendToApi = async apiObject => {
-  //   return await validateCryptoPassword(apiObject.cryptoPassword)
-  // }
+  const sendToApi = async apiObject => {
+    return await validateCryptoPassword(apiObject.cryptoPassword)
+  }
 
   return {
     renderFields: () => getForm(fields),
     buildApiObject,
-    // sendToApi,
+    sendToApi,
     isValid: () => isValid({ fields })
   }
 }
