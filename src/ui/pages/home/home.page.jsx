@@ -1,10 +1,11 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import { Title, Text, Button } from 'app-components'
 import { useLoggedUser, useRoute, useModal } from 'app-hooks'
 import { MediasIcon, CredentialsIcon, HeirsManagementIcon, AlertIcon } from 'app-icons'
 import { ROLES, HEIR_STATUS } from 'app-constants'
 import { ServiceCard, DisinheritedCard } from './components'
 import { HelpIcon } from 'app-icons'
+import { CryptoPasswordValidationModalContent } from './components/crypto-password-validation-modal/crypto-password-validation-modal.component'
 
 import './home.style.scss'
 
@@ -14,6 +15,12 @@ const Home = () => {
   const { showModal, hideModal } = useModal()
 
   const currentAccount = loggedUser.currentAccount
+
+  useEffect(() => {
+    if (!localStorage.getItem('cryptoPassword')) {
+      renderCryptoPasswordModal()
+    }
+  }, [])
 
   const accountType = useMemo(() => currentAccount.type, [loggedUser.currentAccount])
 
@@ -121,6 +128,16 @@ const Home = () => {
         </Text>
       </>
     )
+  }
+
+  const renderCryptoPasswordModal = () => {
+    const renderContent = () => (
+      <CryptoPasswordValidationModalContent />
+    )
+
+    showModal({
+      content: renderContent()
+    })
   }
 
   const renderHelpModal = () => {
