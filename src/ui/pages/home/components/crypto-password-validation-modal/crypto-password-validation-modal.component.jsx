@@ -21,10 +21,18 @@ const CryptoPasswordValidationModalContent = () => {
     if (!result || result?.error) {
       setErrorMessage(result?.error?.message)
     } else {
-      localStorage.setItem('cryptoPassword', validationObject.cryptoPassword)
-      hideModal()
+      if (result.valid) {
+        localStorage.setItem('cryptoPassword', validationObject.cryptoPassword)
+        hideModal()
+      } else {
+        setErrorMessage('Senha de segurança inválida. Tente novamente')
+      }
     }
   }
+
+  const renderErrorMessage = () => (
+    errorMessage ? <Text className="crypto-password-validation-error-message">{errorMessage}</Text> : null
+  )
 
   const renderButtons = () => (
     <div className="crypto-password-validation-modal-content-buttons-container">
@@ -41,9 +49,13 @@ const CryptoPasswordValidationModalContent = () => {
         Insira sua senha de segurança para garantir a integridade de seus dados
       </Text>
 
-      <Form onSubmit={validateCryptoPassword} buttons={renderButtons} content={renderFields} isValid={isValid} />
-      {errorMessage ? <Text className="crypto-password-validation-error-message">{errorMessage}</Text> : null}
-
+      <Form 
+        onSubmit={validateCryptoPassword}
+        buttons={renderButtons}
+        content={renderFields}
+        isValid={isValid} 
+        errorMessage={renderErrorMessage}
+      />
     </div>
   )
 }

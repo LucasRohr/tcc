@@ -136,7 +136,8 @@ const Home = () => {
     )
 
     showModal({
-      content: renderContent()
+      content: renderContent(),
+      blockClose: true
     })
   }
 

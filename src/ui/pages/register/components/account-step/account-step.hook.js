@@ -4,8 +4,8 @@ import { minLengthValidator } from 'app-validators'
 const useAccountStep = () => {
   const { getForm, isValid } = useForm()
 
-  const account = useInput({
-    name: 'account ',
+  const accountName = useInput({
+    name: 'accountName',
     label: 'Nome da sua conta',
     variant: 'full',
     validators: [value => minLengthValidator({ value, minLength: 2 })],
@@ -19,10 +19,10 @@ const useAccountStep = () => {
     usePassword: true
   })
 
-  const fields = [account, cryptoPassword]
+  const fields = [accountName, cryptoPassword]
 
   const buildApiObject = () => ({
-    account: account.value,
+    accountName: accountName.value,
     cryptoPassword: cryptoPassword.value
   })
 

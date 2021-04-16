@@ -26,8 +26,7 @@ const useAccount = () => {
   }
 
   const validateCryptoPassword = async validationObject => {
-    const result = await put('crypto-password-validation', validationObject)
-    return result !== undefined
+    return await put('crypto-password-validation', validationObject)
   }
 
   return {

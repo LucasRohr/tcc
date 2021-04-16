@@ -1,9 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { noopFunction } from 'app-helpers'
+
 import './form.style.scss'
 
-const Form = ({ className, content, buttons, onSubmit, isValid }) => {
+const Form = ({ className, content, buttons, onSubmit, isValid, errorMessage }) => {
   const handleSubmit = async event => {
     event.preventDefault()
 
@@ -23,6 +25,7 @@ const Form = ({ className, content, buttons, onSubmit, isValid }) => {
   return (
     <form className={`form-common ${className}`} onSubmit={handleSubmit} noValidate>
       {formContent()}
+      {errorMessage()}
       {formButtons()}
     </form>
   )
@@ -37,6 +40,11 @@ Form.propTypes = {
   buttons: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   isValid: PropTypes.func.isRequired,
+  errorMessage: PropTypes.func
+}
+
+Form.defaultProps = {
+  errorMessage: noopFunction
 }
 
 export { Form }
