@@ -19,6 +19,7 @@ const AccountRow = ({ account, isUserAccountsList, loadAccounts }) => {
 
   const switchUserAccount = () => {
     setCurrentAccount(account)
+    localStorage.removeItem('cryptoPassword')
     goToHome()
   }
 

@@ -27,8 +27,8 @@ const AccountEditForm = ({ initialData, setCurrentCardContent }) => {
       const result = await sendToApi(updateObject)
 
       if (result) {
-        if (updateObject.cryptoPassword.length) {
-          localStorage.setItem('cryptoPassword', updateObject.cryptoPassword)
+        if (updateObject.newCryptoPassword.length) {
+          localStorage.setItem('cryptoPassword', updateObject.newCryptoPassword)
         }
         showDefaultContent()
         await fetchUserInfo()
