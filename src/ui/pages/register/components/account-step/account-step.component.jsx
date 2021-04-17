@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useModal } from 'app-hooks'
+import { HelpIcon } from 'app-icons'
+import { Button, Title, Text, Form, CryptoPasswordModalContent } from 'app-components'
 import { useAccountStep } from './account-step.hook'
-import { Button, Title, Text, Form } from 'app-components'
 
 import './account-step.style.scss'
 
@@ -12,6 +14,8 @@ const ACCOUNT_LABELS = {
 
 const AccountStep = ({ firstAccountType, setRegisterObject, onConfirm, decreaseStep }) => {
   const { isValid, renderAccountFormFields, buildApiObject } = useAccountStep()
+
+  const { showModal, hideModal } = useModal()
 
   const renderFormContent = () => renderAccountFormFields()
 
@@ -33,6 +37,16 @@ const AccountStep = ({ firstAccountType, setRegisterObject, onConfirm, decreaseS
     </div>
   )
 
+  const renderHelpModal = () => {
+    const renderContent = () => (
+      <CryptoPasswordModalContent onClick={hideModal} />
+    )
+
+    showModal({
+      content: renderContent(),
+    })
+  }
+
   return (
     <div className="register-account-form-container">
       <div className="register-account-form-title-container">
@@ -40,13 +54,18 @@ const AccountStep = ({ firstAccountType, setRegisterObject, onConfirm, decreaseS
         <Text>Defina um nome para a primeira conta do seu usuário</Text>
       </div>
 
-      <Form
-        className="register-account-form-body-container"
-        isValid={isValid}
-        onSubmit={updateFormAndContinue}
-        content={renderFormContent}
-        buttons={renderFormButtons}
-      />
+      <div className="register-account-form-body-wrapper">
+        <Button onClick={renderHelpModal}>
+          <HelpIcon />
+        </Button>
+        <Form
+          className="register-account-form-body-container"
+          isValid={isValid}
+          onSubmit={updateFormAndContinue}
+          content={renderFormContent}
+          buttons={renderFormButtons}
+        />
+      </div>
     </div>
   )
 }
