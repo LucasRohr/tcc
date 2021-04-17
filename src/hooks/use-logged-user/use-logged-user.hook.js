@@ -21,6 +21,7 @@ const useLoggedUser = () => {
   const removeLoggedUser = () => {
     removeToken()
     localStorage.removeItem('user_id')
+    localStorage.removeItem('cryptoPassword')
     setGlobalLoggedUser(null)
   }
 

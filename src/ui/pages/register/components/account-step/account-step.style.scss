@@ -1,3 +1,5 @@
+@import 'app-styles/variables.scss';
+
 @mixin flex-mixin {
   display: flex;
   flex-direction: column;
@@ -19,6 +21,25 @@
 
   & > span {
     font-size: 25px;
+  }
+}
+
+.register-account-form-body-wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+
+  & > button {
+    width: 60px;
+    height: 60px;
+    padding: 15px;
+    align-self: flex-end;
+    margin-bottom: 204px;
+    margin-right: 20px;
+
+    & svg {
+      fill: white;
+    }
   }
 }
 
@@ -75,6 +96,15 @@
     & > span {
       font-size: 22px;
       text-align: right;
+    }
+  }
+
+  .register-account-form-body-wrapper {
+    flex-direction: column;
+
+    & > button {
+      margin-bottom: 0px;
+      margin-top: 20px;
     }
   }
 }

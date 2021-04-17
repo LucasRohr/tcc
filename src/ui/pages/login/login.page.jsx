@@ -7,7 +7,7 @@ import { LoginConfirmation } from './components/index'
 import { tokenHelper, useLoggedUser, useRoute, useWindowSize } from 'app-hooks'
 
 const Login = () => {
-  const [hasToConfirmCode, setHasToConfirmCode] = useState('')
+  const [postCredentialsScreen, setPostCredentialsScreen] = useState(null)
   const [errorMessage, setErrorMessage] = useState('')
 
   const { renderFields, buildApiObject, sendToApi, isValid } = useLoginForm()
@@ -28,7 +28,7 @@ const Login = () => {
       const [userAuthToken, userEmail] = result?.header?.authorization?.split(', ')
 
       tokenHelper.save(userAuthToken)
-      setHasToConfirmCode(true)
+      setPostCredentialsScreen(1)
 
       await requestLoginToken(userEmail, userAuthToken)
     }
@@ -36,7 +36,7 @@ const Login = () => {
 
   const renderLeftContent = () => {
     const renderContentBody = () => {
-      if (hasToConfirmCode) {
+      if (postCredentialsScreen === 1) {
         return (
           <div className="login-confirmation-left-content-body-container">
             <Text variant="serif">
@@ -88,8 +88,8 @@ const Login = () => {
   )
 
   const checkFormRender = () => {
-    if (hasToConfirmCode) {
-      return <LoginConfirmation goBack={() => setHasToConfirmCode(false)} />
+    if (postCredentialsScreen) {
+      return <LoginConfirmation goBack={() => setPostCredentialsScreen(null)} />
     }
 
     return (
@@ -115,7 +115,7 @@ const Login = () => {
   }
 
   const renderMobileRegisterMessage = () => {
-    if (isMobileResolution && !hasToConfirmCode) {
+    if (isMobileResolution && !postCredentialsScreen) {
       return (
         <div className="login-modile-register">
           <Text variant="sans-serif">Ainda não utiliza nosso serviço?</Text>

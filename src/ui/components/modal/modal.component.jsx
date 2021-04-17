@@ -7,7 +7,7 @@ const CONTAINER_CLASS = 'modal-container'
 
 const Modal = () => {
   const [toggleClassAnimation, setToggleClassAnimation] = useState(CONTAINER_CLASS)
-  const { isActive, content, onClose, hideModal } = useModal()
+  const { isActive, content, onClose, hideModal, blockClose } = useModal()
   const { addTimeout } = useTimeout()
 
   const modalRef = useRef(null)
@@ -21,14 +21,14 @@ const Modal = () => {
   }
 
   useEffect(() => {
-    if (isActive) {
+    if (isActive && !blockClose) {
       document.addEventListener('click', handleClickOutside)
     }
 
     return () => {
       document.removeEventListener('click', handleClickOutside)
     }
-  }, [isActive])
+  }, [isActive, blockClose])
 
   useEffect(() => {
     if (isActive) {
@@ -50,7 +50,9 @@ const Modal = () => {
   return (
     <div className="modal-full-content">
       <div className={toggleClassAnimation} ref={modalRef}>
-        <button onClick={closeModal} className="modal-close-button" />
+        {!blockClose && (
+          <button onClick={closeModal} className="modal-close-button" />
+        )}
         <div className="modal-content">{content}</div>
       </div>
     </div>
