@@ -18,6 +18,7 @@ const CreateOwnerModalContent = () => {
 
     if (result) {
       setCurrentAccount(result.account)
+      localStorage.removeItem('cryptoPassword')
       goToHome()
     }
   }

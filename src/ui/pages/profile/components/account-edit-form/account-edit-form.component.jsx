@@ -24,6 +24,9 @@ const AccountEditForm = ({ initialData, setCurrentCardContent }) => {
       const result = await sendToApi(updateObject)
 
       if (result) {
+        if (updateObject.newCryptoPassword.length) {
+          localStorage.setItem('cryptoPassword', updateObject.newCryptoPassword)
+        }
         showDefaultContent()
         await fetchUserInfo()
       }
@@ -43,9 +46,7 @@ const AccountEditForm = ({ initialData, setCurrentCardContent }) => {
   )
 
   const renderHelpModal = () => {
-    const renderContent = () => (
-      <CryptoPasswordModalContent onClick={hideModal} />
-    )
+    const renderContent = () => <CryptoPasswordModalContent onClick={hideModal} />
 
     showModal({
       content: renderContent(),
@@ -58,9 +59,7 @@ const AccountEditForm = ({ initialData, setCurrentCardContent }) => {
 
       <div className="account-edit-form-content">
         <div className="account-edit-form-wrapper">
-          <div>
-            {renderEditForm()}
-          </div>
+          <div>{renderEditForm()}</div>
           <Button onClick={renderHelpModal}>
             <HelpIcon />
           </Button>
