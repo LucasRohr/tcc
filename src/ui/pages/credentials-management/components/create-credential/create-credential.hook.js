@@ -58,6 +58,8 @@ const useCreateCredential = () => {
       apiObject[field.name] = field.value
     })
 
+    apiObject.cryptoPassword = localStorage.getItem('cryptoPassword')
+
     return apiObject
   }
 

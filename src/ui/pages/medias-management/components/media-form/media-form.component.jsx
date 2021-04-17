@@ -65,7 +65,13 @@ const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType, loadMedias }) 
       const ownerId = loggedUser.currentAccount.id
       const heirsIds = getSelectedHeirsId(heirs)
 
-      const apiObject = { ...mediaObject, heirsIds, ownerId, type: mediaType }
+      const apiObject = {
+        ...mediaObject,
+        heirsIds,
+        ownerId,
+        type: mediaType,
+        cryptoPassword: localStorage.getItem('cryptoPassword'),
+      }
 
       if (selectedMedia) {
         apiObject.id = selectedMedia.id
