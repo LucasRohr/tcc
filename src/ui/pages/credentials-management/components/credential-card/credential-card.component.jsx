@@ -108,6 +108,7 @@ const CredentialCard = ({ credential, loadCredentials, isHeirAccount }) => {
       credentialId,
       heirsIds,
       ownerId: credentialOwnerId,
+      cryptoPassword: localStorage.getItem('cryptoPassword'),
     }
 
     const result = await updateCredentialHeirs(credentialObject)

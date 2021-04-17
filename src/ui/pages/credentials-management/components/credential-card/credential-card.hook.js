@@ -65,6 +65,7 @@ const useCredentialCard = ({ initialData }) => {
 
     apiObject.credentialId = initialData.credentialId
     apiObject.ownerId = initialData.credentialOwnerId
+    apiObject.cryptoPassword = localStorage.getItem('cryptoPassword')
 
     return apiObject
   }

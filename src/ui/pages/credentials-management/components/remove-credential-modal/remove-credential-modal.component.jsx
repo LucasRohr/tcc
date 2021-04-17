@@ -14,6 +14,7 @@ const RemoveCredentialModal = ({ credential, loadCredentials }) => {
     const removeObject = {
       ownerId: credential.credentialOwnerId,
       credentialId: credential.credentialId,
+      cryptoPassword: localStorage.getItem('cryptoPassword')
     }
 
     const result = await removeCredential(removeObject)
