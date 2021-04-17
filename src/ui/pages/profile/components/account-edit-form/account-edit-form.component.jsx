@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Title, Button, CryptoPasswordModalContent } from 'app-components'
 import { useLoggedUser, useModal } from 'app-hooks'
@@ -10,6 +10,8 @@ import './account-edit-form.style.scss'
 const DEFAULT_CONTENT = 'DEFAULT'
 
 const AccountEditForm = ({ initialData, setCurrentCardContent }) => {
+  const [errorMessage, setErrorMessage] = useState(null)
+
   const { renderEditForm, isValid, buildApiObject, sendToApi } = useAccountEditForm({ initialData })
   const { fetchUserInfo } = useLoggedUser()
   const { showModal, hideModal } = useModal()
@@ -19,14 +21,22 @@ const AccountEditForm = ({ initialData, setCurrentCardContent }) => {
   }
 
   const updateAccountInfo = async () => {
-    if (await isValid()) {
+    const isFormValid = await isValid()
+    if (isFormValid) {
       const updateObject = buildApiObject()
       const result = await sendToApi(updateObject)
 
       if (result) {
+        if (updateObject.cryptoPassword.length) {
+          localStorage.setItem('cryptoPassword', updateObject.cryptoPassword)
+        }
         showDefaultContent()
         await fetchUserInfo()
       }
+    }
+
+    if (isFormValid === 0) {
+      setErrorMessage('As senhas não conferem')
     }
   }
 
@@ -57,13 +67,16 @@ const AccountEditForm = ({ initialData, setCurrentCardContent }) => {
       <Title variant="sans-serif">Edição de conta</Title>
 
       <div className="account-edit-form-content">
-        <div className="account-edit-form-wrapper">
-          <div>
-            {renderEditForm()}
+        <div>
+          <div className="account-edit-form-wrapper">
+            <div>
+              {renderEditForm()}
+            </div>
+            <Button onClick={renderHelpModal}>
+              <HelpIcon />
+            </Button>
           </div>
-          <Button onClick={renderHelpModal}>
-            <HelpIcon />
-          </Button>
+          {errorMessage && <span className="account-edit-error-message">{errorMessage}</span>}
         </div>
         {renderButtons()}
       </div>
