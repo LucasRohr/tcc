@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Button, Text, HeirsModal } from 'app-components'
 import { HeirsManagementIcon } from 'app-icons'
-import { useModal, useCredential, useLoggedUser, useToastAlert, useTimeout } from 'app-hooks'
+import { useModal, useCredential, useLoggedUser, useToastAlert, useTimeout, useLoading } from 'app-hooks'
 import { noopFunction } from 'app-helpers'
 import { useCredentialCard } from './credential-card.hook'
 import { CredentialInfo } from '../credential-info/credential-info.component'
@@ -20,6 +20,7 @@ const CredentialCard = ({ credential, loadCredentials, isHeirAccount }) => {
   const { showModal } = useModal()
   const { loggedUser } = useLoggedUser()
   const { showSuccessToastAlert } = useToastAlert()
+  const { showLoading, hideLoading } = useLoading()
 
   const { getMainFormFields, getExtraFormFields, isValid, buildApiObject, sendToApi } = useCredentialCard({
     initialData: isEditing ? { ...credential, password: credentialPassword } : null,
@@ -35,9 +36,13 @@ const CredentialCard = ({ credential, loadCredentials, isHeirAccount }) => {
   }, [isEditing])
 
   const loadCredentialsWithDebounce = () => {
+    showLoading()
+
     debounce(() => {
+      hideLoading()
+
       loadCredentials()
-    }, 3000)
+    }, 5000)
   }
 
   const getCredentialPassword = async () => {
@@ -69,8 +74,10 @@ const CredentialCard = ({ credential, loadCredentials, isHeirAccount }) => {
       const result = await sendToApi(credentialObject)
 
       if (result) {
-        loadCredentialsWithDebounce()
-        setViewMode()
+        debounce(() => {
+          loadCredentialsWithDebounce()
+          setViewMode()
+        }, 2000)
       }
     }
   }
@@ -114,8 +121,10 @@ const CredentialCard = ({ credential, loadCredentials, isHeirAccount }) => {
     const result = await updateCredentialHeirs(credentialObject)
 
     if (result) {
-      loadCredentialsWithDebounce()
-      showSuccessToastAlert('Herdeiros atualizados com sucesso.')
+      debounce(() => {
+        loadCredentialsWithDebounce()
+        showSuccessToastAlert('Herdeiros atualizados com sucesso.')
+      }, 3000)
     }
   }
 

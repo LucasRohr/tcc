@@ -10,7 +10,7 @@ const MainFormStep = ({ mainFormObject, setRegisterObject, increaseStep, decreas
 
   const renderFormContent = () => renderMainFormFields()
 
-  const updateFormAndContinue = async () => {
+  const updateFormAndContinue = () => {
     const mainForm = buildApiObject()
     setRegisterObject(prevRegisterObject => ({ ...prevRegisterObject, mainForm }))
     increaseStep()

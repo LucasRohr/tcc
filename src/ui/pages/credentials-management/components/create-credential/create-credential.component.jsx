@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { HelpIcon } from 'app-icons'
 import { Form, Button, Text, Title } from 'app-components'
-import { useLoggedUser, useModal, useToastAlert, useWindowSize } from 'app-hooks'
+import { useLoading, useLoggedUser, useModal, useTimeout, useToastAlert, useWindowSize } from 'app-hooks'
 import { useCreateCredential } from './create-credential.hook'
 import { CreateCredentialHeirsList } from '../create-credential-heirs-list/create-credential-heirs-list.component'
 
@@ -16,6 +16,10 @@ const CreateCredential = () => {
   const { loggedUser } = useLoggedUser()
   const { showSuccessToastAlert } = useToastAlert()
   const { isMobileResolution } = useWindowSize()
+  const { showLoading, hideLoading } = useLoading()
+
+  const { getDebounce } = useTimeout()
+  const onCreateCredentialDebounce = useMemo(getDebounce, [])
 
   const getSelectedHeirsId = () => {
     const selectedHeirsFiltered = selectedHeirs.filter(heirItem => heirItem.itemCheck)
@@ -32,13 +36,19 @@ const CreateCredential = () => {
     const result = await sendToApi(credentialObject)
 
     if (result) {
-      setHasCreatedCredential(true)
-      setSelectedHeirs([])
-      cleanFields()
+      showLoading()
 
-      showSuccessToastAlert('Credencial criada com sucesso.')
+      onCreateCredentialDebounce(() => {
+        hideLoading()
 
-      setHasCreatedCredential(false)
+        setHasCreatedCredential(true)
+        setSelectedHeirs([])
+        cleanFields()
+  
+        showSuccessToastAlert('Credencial criada com sucesso.')
+  
+        setHasCreatedCredential(false)
+      }, 4000)
     }
   }
 
