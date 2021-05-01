@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+
 import { useForm, useInput } from 'app-hooks'
 import { emailValidator, CPFValidator, fullDateValidator, fullNameValidator } from 'app-validators'
 import { fullNameFormatter, CPFFormatter, fullDateFormatter } from 'app-formatters'
@@ -7,12 +8,6 @@ import { DateHelper } from 'app-helpers'
 
 const useMainFormStep = ({ currentFieldsData }) => {
   const { isValid, getForm, fillFields } = useForm()
-
-  useEffect(() => {
-    if (currentFieldsData) {
-      fillFields(fields, currentFieldsData)
-    }
-  }, [currentFieldsData])
 
   const name = useInput({
     name: 'name',
@@ -48,6 +43,15 @@ const useMainFormStep = ({ currentFieldsData }) => {
   })
 
   const fields = [name, email, cpf, birthday]
+
+  useEffect(() => {
+    if (currentFieldsData) {
+      currentFieldsData.cpf = currentFieldsData.cpf ? CPFFormatter(currentFieldsData.cpf) : ''
+
+      fillFields(fields, currentFieldsData)
+      
+    }
+  }, [currentFieldsData])
 
   const buildApiObject = () => {
     const rawCpf = cpf.value.split('.').join('').replace('-', '')

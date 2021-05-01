@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { Title, Text, Button } from 'app-components'
-import { useModal, useCredential, useToastAlert } from 'app-hooks'
+import { useModal, useCredential, useToastAlert, useTimeout, useLoading } from 'app-hooks'
 
 import './remove-credential-modal.style.scss'
 
@@ -9,6 +9,10 @@ const RemoveCredentialModal = ({ credential, loadCredentials }) => {
   const { hideModal } = useModal()
   const { removeCredential } = useCredential()
   const { showSuccessToastAlert } = useToastAlert()
+  const { showLoading } = useLoading()
+
+  const { getDebounce } = useTimeout()
+  const debounce = useMemo(getDebounce, [])
 
   const removeOwnerCredential = async () => {
     const removeObject = {
@@ -21,8 +25,12 @@ const RemoveCredentialModal = ({ credential, loadCredentials }) => {
     hideModal()
 
     if (result) {
-      await loadCredentials()
-      showSuccessToastAlert('Credencial removida com sucesso.')
+      showLoading()
+
+      debounce(() => {
+        loadCredentials()
+        showSuccessToastAlert('Credencial removida com sucesso.')
+      }, 5000)
     }
   }
 
@@ -41,8 +49,9 @@ const RemoveCredentialModal = ({ credential, loadCredentials }) => {
     <div className="remove-credential-modal">
       <Title variant="sans-serif">Remover credencial</Title>
       <Text variant="serif">
-        Tem certeza que deseja remover esta credencial? Seus dados permenecerão em segurança conosco, mas este item será
-        inativado em sua herança. Você deve adicioná-lo novamente caso preciso.
+        Tem certeza que deseja remover esta credencial? Este item será
+        apagado em sua herança. Você pode adicioná-lo novamente caso desejar,
+        basta criar a credencial novamente.
       </Text>
 
       {renderButtons()}

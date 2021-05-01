@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react'
 import { UserIcon } from 'app-icons'
 import { useLoggedUser, useRoute } from 'app-hooks'
+
 import { Text } from '../../../text/text.component'
 import { Dropbox } from '../../../dropbox/dropbox.component'
-import { noopFunction } from 'app-helpers'
 
 import './profile-tab.style.scss'
 
@@ -31,11 +31,6 @@ const ProfileTab = ({ clicked, selected, onClick }) => {
       {
         label: 'Perfil',
         onClick: goToProfile,
-      },
-
-      {
-        label: 'Termos de uso',
-        onClick: noopFunction,
       },
 
       {

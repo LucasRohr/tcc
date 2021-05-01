@@ -49,7 +49,8 @@ const CryptoPasswordValidationModalContent = () => {
         Insira sua senha de segurança para garantir a integridade de seus dados
       </Text>
 
-      <Form 
+      <Form
+        className="crypto-password-validation-modal-form"
         onSubmit={validateCryptoPassword}
         buttons={renderButtons}
         content={renderFields}
