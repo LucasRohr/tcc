@@ -9,7 +9,7 @@ const Header = () => {
     <div className="header-container">
       <div className="header-app-name-container">
         <LogoIcon className="header-logo-icon" />
-        <Text variant="serif">Herança Digital | Logs</Text>
+        <Text variant="serif">Memora | Logs</Text>
       </div>
     </div>
   )

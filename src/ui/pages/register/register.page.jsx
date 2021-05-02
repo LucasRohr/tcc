@@ -164,7 +164,7 @@ const Register = ({ location }) => {
         <div className="register-app-container">
           <div>
             <LogoIcon className="login-logo-icon" />
-            <Title variant="serif">Herança Digital Segura</Title>
+            <Title variant="serif">Memora</Title>
           </div>
 
           {renderContentBody()}
@@ -187,7 +187,7 @@ const Register = ({ location }) => {
       return (
         <div className="register-modile-header">
           <LogoIcon className="register-logo-icon" />
-          <Title variant="serif">Herança Digital</Title>
+          <Title variant="serif">Memora</Title>
         </div>
       )
     }
