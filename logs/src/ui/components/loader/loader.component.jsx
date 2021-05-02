@@ -1,7 +1,7 @@
 import React from 'react'
 import './loader.style.scss'
 import { useLoading } from 'app-hooks'
-import { LogoIcon } from 'app-icons'
+import { LogoReverseIcon } from 'app-icons'
 
 const Loader = () => {
   const { isLoading } = useLoading()
@@ -12,7 +12,7 @@ const Loader = () => {
 
   return (
     <div className="loader">
-      <LogoIcon className="app-loader-icon" />
+      <LogoReverseIcon className="app-loader-icon" />
     </div>
   )
 }

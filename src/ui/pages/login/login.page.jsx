@@ -72,7 +72,7 @@ const Login = () => {
         <div className="login-register-container">
           <div>
             <LogoIcon className="login-logo-icon" />
-            <Title variant="serif">Herança Digital</Title>
+            <Title variant="serif">Memora</Title>
           </div>
 
           {renderContentBody()}
@@ -106,7 +106,7 @@ const Login = () => {
       return (
         <div className="login-modile-header">
           <LogoIcon className="login-logo-icon" />
-          <Title variant="serif">Herança Digital</Title>
+          <Title variant="serif">Memora</Title>
         </div>
       )
     }
