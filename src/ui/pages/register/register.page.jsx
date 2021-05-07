@@ -3,6 +3,8 @@ import { Text, Button, Title, ProgressBar, Error } from 'app-components'
 import { LogoIcon } from 'app-icons'
 import { useRoute, useUser, useInvite, useWindowSize } from 'app-hooks'
 import { ROLES } from 'app-constants'
+import { DateHelper } from 'app-helpers'
+
 import { UserTypeStep, MainFormStep, PasswordStep, AccountStep, FinalStep } from './components'
 
 import './register.style.scss'
@@ -62,6 +64,10 @@ const Register = ({ location }) => {
   }, [])
 
   const registerUserWithAccount = async account => {
+    registerObject.mainForm.birthday = DateHelper.toISOString({
+      date: registerObject.mainForm.birthday,
+    })
+
     const apiObject = {
       ...registerObject.mainForm,
       password: registerObject.passwordForm.password,

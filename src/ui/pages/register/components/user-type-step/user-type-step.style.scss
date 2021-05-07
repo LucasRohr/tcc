@@ -41,6 +41,21 @@
   }
 }
 
+.register-user-type-footer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  & button:first-child {
+    padding: 12px 40px;
+  }
+
+  & svg {
+    fill: $white;
+  }
+}
+
 .register-user-type-icon {
   & svg {
     width: 130px;

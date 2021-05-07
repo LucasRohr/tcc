@@ -1,11 +1,18 @@
 import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
+
+import { useModal } from 'app-hooks'
+import { HelpIcon } from 'app-icons'
 import { RegisterUserIcon } from 'app-icons'
 import { Title, Text, Button } from 'app-components'
+
+import { AccountsModalContent } from '../accounts-modal-content/accounts-modal-content.component'
 
 import './user-type-step.style.scss'
 
 const UserTypeStep = ({ firstAccountType, increaseStep }) => {
+  const { showModal, hideModal } = useModal()
+
   const userTypeOptions = useMemo(
     () => ({
       OWNER: {
@@ -23,6 +30,16 @@ const UserTypeStep = ({ firstAccountType, increaseStep }) => {
     []
   )
 
+  const renderHelpModal = () => {
+    const renderContent = () => (
+      <AccountsModalContent onClick={hideModal} />
+    )
+
+    showModal({
+      content: renderContent(),
+    })
+  }
+
   return (
     <div className="register-user-type-container">
       <div className="register-user-type-title-container">
@@ -36,9 +53,15 @@ const UserTypeStep = ({ firstAccountType, increaseStep }) => {
         <Text variant="serif">{userTypeOptions[firstAccountType].message}</Text>
       </div>
 
-      <Button onClick={increaseStep} variant="primary">
-        Continuar
-      </Button>
+      <div className="register-user-type-footer">
+        <Button onClick={renderHelpModal}>
+          <HelpIcon />
+        </Button>
+
+        <Button onClick={increaseStep} variant="primary">
+          Continuar
+        </Button>
+      </div>
     </div>
   )
 }
