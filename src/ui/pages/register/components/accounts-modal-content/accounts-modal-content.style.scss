@@ -1,0 +1,25 @@
+.accounts-help-container {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+  
+    & > h1 {
+      font-size: 22px;
+      line-height: 26px;
+      margin-bottom: 22px;
+    }
+  
+    & > span {
+      font-size: 22px;
+      line-height: 26px;
+    }
+  }
+  
+  @media (max-width: 800px) {
+    .crypto-password-help-container {
+      width: 100%;
+    }
+  }
+  

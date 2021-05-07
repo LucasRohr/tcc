@@ -44,12 +44,25 @@ const useMainFormStep = ({ currentFieldsData }) => {
 
   const fields = [name, email, cpf, birthday]
 
+  const formatBirthday = () => {
+    const currentBirthday = currentFieldsData.birthday
+
+    if (currentBirthday) {
+      const date = currentBirthday.substr(0, 10)
+
+      return date.split('-').reverse().join('/')
+    }
+
+    return ''
+  }
+
   useEffect(() => {
     if (currentFieldsData) {
       currentFieldsData.cpf = currentFieldsData.cpf ? CPFFormatter(currentFieldsData.cpf) : ''
+      
+      currentFieldsData.birthday = formatBirthday()
 
       fillFields(fields, currentFieldsData)
-      
     }
   }, [currentFieldsData])
 
