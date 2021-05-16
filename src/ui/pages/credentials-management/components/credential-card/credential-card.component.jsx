@@ -35,14 +35,14 @@ const CredentialCard = ({ credential, loadCredentials, isHeirAccount }) => {
     }
   }, [isEditing])
 
-  const loadCredentialsWithDebounce = () => {
-    showLoading()
+  const loadCredentialsWithDebounce = ({ additionalTime = 0, onLoad }) => {
+    setTimeout(async () => {
+      await loadCredentials()
 
-    debounce(() => {
       hideLoading()
 
-      loadCredentials()
-    }, 5000)
+      onLoad()
+    }, 5000 + additionalTime)
   }
 
   const getCredentialPassword = async () => {
@@ -74,8 +74,15 @@ const CredentialCard = ({ credential, loadCredentials, isHeirAccount }) => {
       const result = await sendToApi(credentialObject)
 
       if (result) {
+        showLoading()
+
         debounce(() => {
-          loadCredentialsWithDebounce()
+          loadCredentialsWithDebounce({
+            onLoad: () => {
+              showSuccessToastAlert('Credencial editada com sucesso.')
+            }
+          })
+
           setViewMode()
         }, 2000)
       }
@@ -121,10 +128,13 @@ const CredentialCard = ({ credential, loadCredentials, isHeirAccount }) => {
     const result = await updateCredentialHeirs(credentialObject)
 
     if (result) {
-      debounce(() => {
-        loadCredentialsWithDebounce()
-        showSuccessToastAlert('Herdeiros atualizados com sucesso.')
-      }, 3000)
+      showLoading()
+
+      loadCredentialsWithDebounce({
+        onLoad: () => {
+          showSuccessToastAlert('Herdeiros atualizados com sucesso.')
+        }
+      })
     }
   }
 

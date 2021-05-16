@@ -53,7 +53,8 @@ const useRequest = path => {
 
   const handleErrorInfo = (error, useToast, useStateErrors) => {
     const message = error.message
-    const isInvalidMessage = message.includes('0') || message.includes('500') || message.includes('[')
+    const isInvalidMessage =
+      message.includes('0') || message.includes('500') || message.includes('[') || message.includes('GENERAL')
 
     const filteredMessage = isInvalidMessage ? DEFAULT_EXCEPTION : message
 

@@ -7,7 +7,6 @@ const useMedia = () => {
   const getAllHeirsForMedia = async ownerId =>
     await get(`file-owner-heirs?owner_id=${ownerId}`, {
       useToast: false,
-      useLoader: false,
       showDefaultErrorToast: false,
     })
 
