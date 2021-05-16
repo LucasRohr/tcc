@@ -30,7 +30,6 @@ const useCredential = () => {
   const getAllHeirsForCredential = async (ownerId, credentialId) => {
     return await get(`credentials/owner/available-heirs?owner_id=${ownerId}&credential_id=${credentialId}`, {
       useToast: false,
-      useLoader: false,
       showDefaultErrorToast: false,
     })
   }

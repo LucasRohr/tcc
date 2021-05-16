@@ -47,7 +47,7 @@ const CredentialInfo = ({ text, variant, getCredentialPassword }) => {
 
       AREA: <div className="credential-info-area">{text || NO_INFO_TEXT}</div>,
     }),
-    [inputType]
+    [inputType, text]
   )
 
   return INFO_OPTIONS[variant]
