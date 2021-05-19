@@ -16,7 +16,7 @@ const HEIR_STATUS = {
 
   DISINHERITED: {
     key: 'DISINHERITED',
-    label: 'Herança removida',
+    label: 'Legado removido',
   },
 }
 

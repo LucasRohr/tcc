@@ -14,8 +14,8 @@ const ACCOUNT_TYPE_LABELS = {
 }
 
 const HEIR_ACCOUNT_STATUS = {
-  ACCEPTED: 'Selecionada para herança',
-  ACTIVE: 'Herança recebida',
+  ACCEPTED: 'Selecionada para legado',
+  ACTIVE: 'Legado recebido',
 }
 
 const CARD_CONTENTS = {

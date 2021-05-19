@@ -76,10 +76,10 @@ const ProfileRemoveModal = ({ isRemovingUser }) => {
   const accountRemoveDescriptionOptions = useMemo(
     () => ({
       OWNER:
-        'Você está prestes a remover sua conta proprietária, tenha em mente que todos os dados, desde mídias até credenciais de sua herança digital e suas conexões com herdeiros, serão perdidas. Se realmente confirma sua ação, clique em "Remover".',
+        'Você está prestes a remover sua conta proprietária, tenha em mente que todos os dados, desde mídias até credenciais de seu legado digital e suas conexões com herdeiros, serão perdidas. Se realmente confirma sua ação, clique em "Remover".',
 
       HEIR:
-        'Você está prestes a remover uma conta herdeira, a sua conexão com o proprietário ligado à esta conta será perdida e você não receberá sua herança digital. Se realmente confirma sua ação, clique em "Remover".',
+        'Você está prestes a remover uma conta herdeira, a sua conexão com o proprietário ligado à esta conta será perdida e você não receberá seu legado digital. Se realmente confirma sua ação, clique em "Remover".',
     }),
     []
   )
@@ -102,7 +102,7 @@ const ProfileRemoveModal = ({ isRemovingUser }) => {
       return (
         <Text variant="serif">
           Você está removendo o seu usuário, todas as contas associadas a ele, sejam herdeiras ou proprietária, serão
-          removidas juntamente. Fique ciente que todos as suas informações de herança e conexões serão perdidas. Se
+          removidas juntamente. Fique ciente que todos as suas informações de legado e conexões serão perdidas. Se
           realmente confirma sua ação, clique em "Remover".
         </Text>
       )

@@ -45,7 +45,7 @@ const HeirsModal = ({ onConfirm, mapHeirs, defaultHeirs, getHeirs }) => {
       onConfirm={onConfirmHeirs}
       defaultIcon={UserIcon}
       modalTitle="Pesquise pelos itens"
-      emptyContentText="Este herdeiro ainda não possui heranças atribuídas."
+      emptyContentText="Este herdeiro ainda não possui bens atribuídos."
     />
   )
 }
