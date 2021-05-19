@@ -49,7 +49,7 @@ const RemoveCredentialModal = ({ credential, loadCredentials }) => {
       <Title variant="sans-serif">Remover credencial</Title>
       <Text variant="serif">
         Tem certeza que deseja remover esta credencial? Este item será
-        apagado em sua herança. Você pode adicioná-lo novamente caso desejar,
+        apagado em seu legado. Você pode adicioná-lo novamente caso desejar,
         basta criar a credencial novamente.
       </Text>
 

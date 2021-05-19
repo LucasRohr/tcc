@@ -10,10 +10,10 @@ const DisinheritedCard = ({ ownerName, hasOwnerAccount, hasOtherAccounts }) => {
   const { goToAccountsManagement } = useRoute()
   const { showModal } = useModal()
 
-  const title = useMemo(() => `Esta conta foi retirada da herança de ${ownerName}`, [ownerName])
+  const title = useMemo(() => `Esta conta foi retirada do legado de ${ownerName}`, [ownerName])
 
   const description = useMemo(
-    () => `Esta conta herdeira foi removida da herança do proprietário digital dela: ${ownerName}`,
+    () => `Esta conta herdeira foi removida do legado do proprietário digital dela: ${ownerName}`,
     [ownerName]
   )
 

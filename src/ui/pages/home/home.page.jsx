@@ -40,7 +40,7 @@ const Home = () => {
         title: 'Gerenciamento de Mídias',
         description:
           accountType === ROLES.OWNER
-            ? 'Gerencie e adicione mídias da sua herança digital, como imagens e documentos'
+            ? 'Gerencie e adicione mídias do seu legado digital, como imagens e documentos'
             : 'Gerencie as mídias passadas para você por esta conta',
         onClick: goToMediasManagement,
         icon: <MediasIcon />,
@@ -51,7 +51,7 @@ const Home = () => {
         title: 'Credenciais',
         description:
           accountType === ROLES.OWNER
-            ? 'Gerencie credenciais de serviços importantes em sua herança, como logins e senhas'
+            ? 'Gerencie credenciais de serviços importantes em seu legado, como logins e senhas'
             : 'Tenha acesso às credenciais herdadas por você e atribuídas nesta conta',
         onClick: goToCredentialsManagement,
         icon: <CredentialsIcon />,
@@ -67,7 +67,7 @@ const Home = () => {
 
       {
         title: 'Herdeiros',
-        description: 'Faça a escolha e gerenciamento de herdeiros que receberão a sua herança digital',
+        description: 'Faça a escolha e gerenciamento de herdeiros que receberão o seu legado digital',
         onClick: goToHeirsManagement,
         icon: <HeirsManagementIcon />,
       },
@@ -81,7 +81,7 @@ const Home = () => {
 
       {
         title: 'Aviso de Proprietário',
-        description: 'Entre em contato conosco para comunicar o falecimento do proprietário da herança',
+        description: 'Entre em contato conosco para comunicar o falecimento do proprietário do legado digital',
         onClick: goToOwnerWarning,
         icon: <AlertIcon />,
       },
@@ -124,7 +124,7 @@ const Home = () => {
       <>
         {renderBaseHeirText()}
         <Text className="home-account-message" variant="sans-serif">
-          Proprietário desta herança: <Text className="home-account-message--highlight">{ownerName}</Text>
+          Proprietário deste legado: <Text className="home-account-message--highlight">{ownerName}</Text>
         </Text>
       </>
     )
@@ -148,7 +148,7 @@ const Home = () => {
         <Text variant="serif">
           Esta é a tela inicial do sistema, por ela você pode acessar todos os nossos serviços.
           <br />
-          <br />A herança destinada para esta conta herdeira ainda não está disponível, portanto, no momento, você pode
+          <br />O legado destinado para esta conta herdeira ainda não está disponível, portanto, no momento, você pode
           apenas avisar sobre o falecimento do proprietário dela.
         </Text>
 
