@@ -51,7 +51,7 @@ const HeirRow = ({ id, userName, name, email, heritageItemsTotal, filterHeirs })
         onClick={showHeritagesManagementModal}
       >
         <span className="heir-row-heading">
-          Heranças
+          Bens digitais
         </span>
         {heritageItemsTotal || 0}
       </div>

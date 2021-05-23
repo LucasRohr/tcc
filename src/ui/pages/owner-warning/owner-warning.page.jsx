@@ -22,7 +22,7 @@ const OwnerWarning = () => {
       fetchUserInfo()
       goToHome()
       showSuccessToastAlert(
-        'Certidão validada com sucesso! A Herança Digital agora está disponível para você e demais herdeiros.'
+        'Certidão validada com sucesso! O legado digital agora está disponível para você e demais herdeiros.'
       )
     }
   }
@@ -37,7 +37,7 @@ const OwnerWarning = () => {
     <div className="owner-warning-explanation-container">
       <div className="owner-warning-explanation-text-container">
         <Text variant="serif">
-          Olá, este serviço é destinado à realização do processo de transferência da herança digital que o proprietário
+          Olá, este serviço é destinado à realização do processo de transferência do legado digital que o proprietário
           ligado à esta conta passou para você e demais herdeiros.
         </Text>
         <br />

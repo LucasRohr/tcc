@@ -40,7 +40,7 @@ const RemoveHeirModalContent = ({ heirId, onRemove }) => {
     <div className="remove-heir-modal-content">
       <Title variant="sans-serif">Remover herdeiro</Title>
       <Text variant="serif">
-        Tem certeza que deseja remover este herdeiro? Todos os vínculos de herança com ele serão inativados. Você pode
+        Tem certeza que deseja remover este herdeiro? Todos os vínculos de legado digital com ele serão inativados. Você pode
         adicionar esse herdeiro novamente depois.
       </Text>
 

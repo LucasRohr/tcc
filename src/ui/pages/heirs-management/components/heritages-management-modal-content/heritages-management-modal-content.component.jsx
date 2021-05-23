@@ -66,7 +66,7 @@ const HeritagesManagementModalContent = ({ heirId }) => {
       onConfirm={setHeirsItems}
       iconsEnum={HERITAGE_TYPES}
       modalTitle="Pesquise pelos itens"
-      emptyContentText="Este herdeiro ainda não possui heranças atribuídas."
+      emptyContentText="Este herdeiro ainda não possui bens digitais atribuídos."
       hideModalOnConfirm
     />
   )
