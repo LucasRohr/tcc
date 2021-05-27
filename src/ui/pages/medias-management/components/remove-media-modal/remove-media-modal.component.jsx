@@ -36,7 +36,7 @@ const RemoveMediaModal = ({ mediaId, mediaType, loadMedias }) => {
       <Title variant="sans-serif">Remover mídia</Title>
       <Text variant="serif">
         Tem certeza que deseja remover esta mídia? Este item será
-        apagado em sua herança. Você pode adicioná-lo novamente caso desejar,
+        apagado em seu legado. Você pode adicioná-lo novamente caso desejar,
         basta criar a mídia novamente.
       </Text>
 

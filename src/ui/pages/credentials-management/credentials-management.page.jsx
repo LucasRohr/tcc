@@ -33,16 +33,22 @@ const CredentialsManagement = () => {
   const currentAccountType = loggedUser.currentAccount.type
   const isOwnerAccount = currentAccountType === ROLES.OWNER
 
+  const getCredentialForAccountType = async accountId => {
+    if (isOwnerAccount) {
+      return await getOwnerHeritageCredentials(accountId)
+    }
+
+    return await getHeirHeritageCredentials(accountId)
+  }
+
   const getCredentials = async () => {
     const accountId = loggedUser.currentAccount.id
 
-    const result = isOwnerAccount
-      ? await getOwnerHeritageCredentials(accountId)
-      : await getHeirHeritageCredentials(accountId)
+    const result = await getCredentialForAccountType(accountId)
 
     setCanShowContent(true)
 
-    if (result && result.length) {
+    if (result) {
       setCredentials(result)
     }
   }
@@ -69,7 +75,7 @@ const CredentialsManagement = () => {
         props: {},
       },
     }),
-    [credentials]
+    [credentials, getCredentials]
   )
 
   const renderContent = () => {

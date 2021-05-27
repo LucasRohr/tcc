@@ -1,6 +1,6 @@
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useModal, useLoggedUser, useMedia, useToastAlert, useTimeout, useLoading } from 'app-hooks'
+import { useModal, useLoggedUser, useMedia, useToastAlert, useLoading } from 'app-hooks'
 import { HeirsManagementIcon } from 'app-icons'
 import { Button, Text, Switch, HeirsModal } from 'app-components'
 import { UPLOAD_OPTIONS } from 'app-constants'
@@ -23,8 +23,6 @@ const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType, loadMedias }) 
   const { getAllHeirsForMedia } = useMedia()
   const { showSuccessToastAlert } = useToastAlert()
   const { showLoading, hideLoading } = useLoading()
-  const { getDebounce } = useTimeout()
-  const onCreateMediaDebounce = useMemo(getDebounce, [])
 
   const mapHeirs = heirsList => heirsList.map(heirItem => ({ item: heirItem, itemCheck: heirItem.hasItem }))
 
@@ -82,12 +80,13 @@ const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType, loadMedias }) 
       if (result) {
         showLoading()
 
-        onCreateMediaDebounce(() => {
+        setTimeout(async () => {
           hideLoading()
           onFormButtonClick()
-          loadMedias()
+          await loadMedias()
 
           const toastMessage = selectedMedia ? 'Mídia atualizada com sucesso.' : 'Mídia criada com sucesso.'
+
           showSuccessToastAlert(toastMessage)
         }, 5000)
       }

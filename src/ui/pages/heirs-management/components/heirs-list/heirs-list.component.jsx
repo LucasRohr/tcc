@@ -5,7 +5,7 @@ import { HeirRow } from '../heir-row/heir-row.component'
 import './heirs-list.style.scss'
 
 const HeirsList = ({ heirs, filterHeirs }) => {
-  const rowElements = ['', 'nome', 'conta', 'e-mail', 'heranças', '']
+  const rowElements = ['', 'nome', 'conta', 'e-mail', 'bens digitais', '']
 
   const renderHeader = () => rowElements.map(element => <div className="heirs-list-header-element">{element}</div>)
 

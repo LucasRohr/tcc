@@ -54,7 +54,7 @@ const InviteRow = ({ invite, loadInvites }) => {
 
   return (
     <div className="invite-row-container">
-      <div className="invite-row-header-container">Convite para a herança de {invite.senderName}</div>
+      <div className="invite-row-header-container">Convite para o legado de {invite.senderName}</div>
 
       <Form
         className="invite-row-form"

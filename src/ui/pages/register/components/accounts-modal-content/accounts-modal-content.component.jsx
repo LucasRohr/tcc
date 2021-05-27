@@ -20,7 +20,7 @@ export const AccountsModalContent = ({ onClick }) => {
 
         Ao criar um usuário sem acessar a tela de registro por convite,
         você está criando uma conta Proprietária como sua primeira conta.<br/>
-        Nela, você poderá adicionar itens na sua herança digital e definir seus herdeiros.<br/><br/>
+        Nela, você poderá adicionar itens no seu legado digital e definir seus herdeiros.<br/><br/>
 
         Acessando esta tela de registro através de um convite de herdeiro,
         você estará criando sua primeira conta como sendo do tipo Herdeiro, que irá receber bens de um proprietário.<br/>
