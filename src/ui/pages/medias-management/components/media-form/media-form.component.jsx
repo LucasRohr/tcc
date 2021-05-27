@@ -127,12 +127,15 @@ const MediaForm = ({ selectedMedia, onFormButtonClick, mediaType, loadMedias }) 
     )
   }
 
+  const buttonClass =
+    uploadOption?.key === UPLOAD_OPTIONS.MULTIPLE.key ? "media-form-heirs-button-multiple" : "media-form-heirs-button"
+
   return (
     <div className="media-form-container">
       <div className="media-upper-container">
         <div className="media-upper-forms-container">
           {renderFormFields()}
-          <Button className="media-form-heirs-button" onClick={showMediaHeirsModal} variant="light">
+          <Button className={buttonClass} onClick={showMediaHeirsModal} variant="light">
             <Text>Selecionar herdeiros</Text>
             <HeirsManagementIcon className="media-form-heirs-icon" />
           </Button>

@@ -39,6 +39,18 @@
   }
 }
 
+.media-form-heirs-button-multiple {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & > span {
+    font-size: 20px;
+    font-weight: 500;
+  }
+}
+
 .media-form-heirs-icon {
   margin-left: 18px;
 
